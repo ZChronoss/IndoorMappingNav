@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		118412A82CAFCFF90062BDB2 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 118412A72CAFCFF90062BDB2 /* MallMap */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		11E915112CABE22F00BD1CB3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -29,9 +33,22 @@
 		11E9151A2CABE22F00BD1CB3 /* IndoorMappingNavUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndoorMappingNavUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		118412A42CAFCFB40062BDB2 /* Exceptions for "IndoorMappingNav" folder in "IndoorMappingNav" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Package/MallMap,
+			);
+			target = 11E914FF2CABE22D00BD1CB3 /* IndoorMappingNav */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		11E915022CABE22D00BD1CB3 /* IndoorMappingNav */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				118412A42CAFCFB40062BDB2 /* Exceptions for "IndoorMappingNav" folder in "IndoorMappingNav" target */,
+			);
 			path = IndoorMappingNav;
 			sourceTree = "<group>";
 		};
@@ -52,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				118412A82CAFCFF90062BDB2 /* MallMap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -72,12 +90,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		118412A62CAFCFF90062BDB2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		11E914F72CABE22D00BD1CB3 = {
 			isa = PBXGroup;
 			children = (
 				11E915022CABE22D00BD1CB3 /* IndoorMappingNav */,
 				11E915132CABE22F00BD1CB3 /* IndoorMappingNavTests */,
 				11E9151D2CABE22F00BD1CB3 /* IndoorMappingNavUITests */,
+				118412A62CAFCFF90062BDB2 /* Frameworks */,
 				11E915012CABE22D00BD1CB3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -112,6 +138,7 @@
 			);
 			name = IndoorMappingNav;
 			packageProductDependencies = (
+				118412A72CAFCFF90062BDB2 /* MallMap */,
 			);
 			productName = IndoorMappingNav;
 			productReference = 11E915002CABE22D00BD1CB3 /* IndoorMappingNav.app */;
@@ -195,6 +222,8 @@
 			);
 			mainGroup = 11E914F72CABE22D00BD1CB3;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11E915012CABE22D00BD1CB3 /* Products */;
 			projectDirPath = "";
@@ -558,6 +587,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		118412A72CAFCFF90062BDB2 /* MallMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MallMap;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 11E914F82CABE22D00BD1CB3 /* Project object */;
 }

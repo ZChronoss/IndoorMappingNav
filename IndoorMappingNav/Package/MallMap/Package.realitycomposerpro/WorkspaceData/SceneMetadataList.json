@@ -1,0 +1,101 @@
+{
+  "801BB739-7548-43D3-AD07-9343D9CB54CB" : {
+    "objectMetadataList" : [
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
+        "Tinesco"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
+        "Timeline"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
+        "Star"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
+        "Timeline",
+        "Track2"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
+        "Cylinder"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
+        "Timeline",
+        "Track"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
+        "Plane"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98" : {
+    "objectMetadataList" : [
+      [
+        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
+        "Root",
+        "SMS_Lt_2_3D_Mapping"
+      ],
+      {
+        "disallowsFraming" : false,
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  }
+}
