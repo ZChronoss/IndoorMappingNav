@@ -9,13 +9,17 @@ import Foundation
 import SwiftUI
 
 struct StoreDetailView: View {
+    @State private var viewModel = ViewModel()
+    var storeName: String
+    
+    
     var body: some View {
         VStack(alignment: .leading) {
-            Text("Ini Nama Toko")
+            Text(viewModel.store?.name ?? "Error: No Store Name")
                 .font(.system(.title3))
-            Text("Ini Kategori Toko")
+            Text(viewModel.store?.category ?? "Error: No Category")
                 .font(.system(.caption))
-            Text("Ini alamat toko")
+            Text(viewModel.store?.address ?? "Error: No Address")
                 .font(.system(.caption))
             
             ImageCarousel(images: ["Image1", "Image2", "Image3"])
@@ -35,9 +39,12 @@ struct StoreDetailView: View {
             .padding(.top, 20)
         }
         .safeAreaPadding(.horizontal, 16)
+        .onAppear() {
+            viewModel.getStoreDetail(storeName)
+        }
     }
 }
 
 #Preview {
-    StoreDetailView()
+    StoreDetailView(storeName: "Test")
 }

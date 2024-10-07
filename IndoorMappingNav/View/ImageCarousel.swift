@@ -30,7 +30,3 @@ struct ImageCarousel: View {
     }
     
 }
-
-#Preview {
-    StoreDetailView()
-}

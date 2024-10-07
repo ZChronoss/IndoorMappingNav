@@ -11,6 +11,7 @@ import MallMap
 
 struct ContentView: View {
     @State var isSheetOpen = false
+    @State var selectedStore: String?
     
     var body: some View {
         VStack {
@@ -20,8 +21,6 @@ struct ContentView: View {
                     scene.transform.scale = [scaleNum, scaleNum, scaleNum]
                     content.add(scene)
                 }
-            } update: { content in
-                
             }
             .gesture(
                 SpatialTapGesture()
@@ -44,14 +43,26 @@ struct ContentView: View {
                         
                         target.entity.move(to: moveToLocation, relativeTo: target.entity, duration: 0.5)
                         
-                        // toggle sheet
-                        isSheetOpen.toggle()
+                        //                        Task {
+                        //                            // get store name
+                        //                            selectedStore = target.entity.parent?.name
+                        //                        }
+                        //
+                        //                        // toggle sheet
+                        //                        isSheetOpen.toggle()
+                        
+                        DispatchQueue.main.async {
+                            selectedStore = target.entity.parent?.name
+                        }
                     })
             )
             .realityViewCameraControls(.orbit)
         }
+        .onChange(of: selectedStore, { oldValue, newValue in
+            isSheetOpen.toggle()
+        })
         .sheet(isPresented: $isSheetOpen) {
-            StoreDetailView()
+            StoreDetailView(storeName: selectedStore ?? "Error: No Store Selected")
                 .presentationDetents([.medium])
                 .presentationDragIndicator(.visible)
         }
