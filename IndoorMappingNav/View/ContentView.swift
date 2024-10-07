@@ -10,9 +10,10 @@ import RealityKit
 import MallMap
 
 struct ContentView: View {
+    @State var isSheetOpen = false
+    
     var body: some View {
         VStack {
-            Text("hai")
             RealityView { content in
                 if let scene = try? await Entity(named: "Scene", in: mallMapBundle) {
                     let scaleNum: Float = 0.05
@@ -42,9 +43,17 @@ struct ContentView: View {
                                                                  z: curTranslation.z + scaledMovement)
                         
                         target.entity.move(to: moveToLocation, relativeTo: target.entity, duration: 0.5)
+                        
+                        // toggle sheet
+                        isSheetOpen.toggle()
                     })
             )
             .realityViewCameraControls(.orbit)
+        }
+        .sheet(isPresented: $isSheetOpen) {
+            StoreDetailView()
+                .presentationDetents([.medium])
+                .presentationDragIndicator(.visible)
         }
     }
 }
