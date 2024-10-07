@@ -18,7 +18,7 @@ struct StoreDetailView: View {
             Text("Ini alamat toko")
                 .font(.system(.caption))
             
-            AutoScroller(images: ["Image1", "Image2", "Image3"])
+            ImageCarousel(images: ["Image1", "Image2", "Image3"])
                 .ignoresSafeArea()
             
             VStack(alignment: .center) {

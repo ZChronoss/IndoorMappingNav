@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct AutoScroller: View {
+struct ImageCarousel: View {
     var images: [String]
     @State private var selectedImageIdx: Int = 0
     
