@@ -63,7 +63,7 @@ struct ContentView: View {
         })
         .sheet(isPresented: $isSheetOpen) {
             StoreDetailView(storeName: selectedStore ?? "Error: No Store Selected")
-                .presentationDetents([.medium])
+                .presentationDetents([.fraction(0.5)])
                 .presentationDragIndicator(.visible)
         }
     }
