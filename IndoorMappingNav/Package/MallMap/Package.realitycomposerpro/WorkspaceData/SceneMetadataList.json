@@ -4,15 +4,8 @@
       [
         "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
-        "Tinesco"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root"
+        "Timeline",
+        "Track2"
       ],
       {
         "isExpanded" : true,
@@ -30,45 +23,8 @@
       [
         "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
-        "Star"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Timeline",
-        "Track2"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Cylinder"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
         "Timeline",
         "Track"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Plane"
       ],
       {
         "isExpanded" : true,
@@ -90,6 +46,94 @@
       },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
+        "SMS_Lt_2_3D_Mapping__3_"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
+        "Root",
+        "SMS_Lt_2_3D_Mapping",
+        "Plane"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "EFA93561-04AB-4694-BE18-5B95DFF15B9F" : {
+    "objectMetadataList" : [
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "SMS_Lt_2_3D_Mapping",
+        "Stroberi"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "Timeline",
+        "Track"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "Timeline"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "SMS_Lt_2_3D_Mapping",
+        "Star"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "SMS_Lt_2_3D_Mapping"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "SMS_Lt_2_3D_Mapping",
+        "Cube_012"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
         "Root"
       ],
       {

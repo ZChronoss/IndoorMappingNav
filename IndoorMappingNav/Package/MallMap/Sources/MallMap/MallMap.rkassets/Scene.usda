@@ -3,24 +3,116 @@
     customLayerData = {
         string creator = "Reality Composer Pro Version 2.0 (448.0.16.0.3)"
     }
-    defaultPrim = "Root"
+    defaultPrim = "SMS_Lt_2_3D_Mapping__3_"
     metersPerUnit = 1
     upAxis = "Y"
 )
 
-def Xform "Root"
+def "SMS_Lt_2_3D_Mapping__3_" (
+    active = true
+    prepend apiSchemas = ["MaterialBindingAPI"]
+    customData = {
+        float3 rotationEulerHint = (-1.5707964, 0, 0)
+    }
+    prepend references = @SMS Lt 2 3D Mapping (3).usdc@
+)
 {
-    def "SMS_Lt_2_3D_Mapping" (
+    rel material:binding = </SMS_Lt_2_3D_Mapping__3_/SmoothConcrete> (
+        bindMaterialAs = "weakerThanDescendants"
+    )
+    quatf xformOp:orient = (0.70710677, -0.70710677, 0, 0)
+    float3 xformOp:scale = (1, 1, 1)
+    float3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def "SmoothConcrete" (
         active = true
-        customData = {
-            float3 rotationEulerHint = (-1.5707963, 0, 0)
-        }
-        references = @SMS Lt 2 3D Mapping.usdc@
+        prepend references = @SmoothConcrete.usdz@
     )
     {
-        quatf xformOp:orient = (0.70710677, -0.7071067, 0, 0)
-        float3 xformOp:scale = (1, 1, 1)
-        uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+    }
+
+    def "MaplePlywood" (
+        active = true
+        prepend references = @MaplePlywood.usdz@
+    )
+    {
+    }
+
+    over "Jia_Jia_Singapore" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </SMS_Lt_2_3D_Mapping__3_/MaplePlywood> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+
+        def RealityKitComponent "RCP_BehaviorsContainer"
+        {
+            rel behaviors = </SMS_Lt_2_3D_Mapping__3_/Jia_Jia_Singapore/OnTap>
+            uniform token info:id = "RCP.BehaviorsContainer"
+        }
+
+        def Preliminary_Behavior "OnTap"
+        {
+            rel actions = </SMS_Lt_2_3D_Mapping__3_/Jia_Jia_Singapore/OnTap/Action>
+            uniform bool exclusive
+            rel triggers = </SMS_Lt_2_3D_Mapping__3_/Jia_Jia_Singapore/OnTap/Trigger>
+
+            def Preliminary_Trigger "Trigger"
+            {
+                rel affectedObjects = </SMS_Lt_2_3D_Mapping__3_/Jia_Jia_Singapore>
+                token info:id = "TapGesture"
+            }
+
+            def Preliminary_Action "Action"
+            {
+                rel affectedObjects = None
+                rel animationLibraryKeyOverrideKey = </SMS_Lt_2_3D_Mapping__3_/Jia_Jia_Singapore/OnTap/Trigger>
+                token info:id = "PlayTimeline"
+                int loops = 0
+                int performCount = 1
+                token type = "serial"
+            }
+        }
+    }
+
+    over "yayang" (
+        prepend apiSchemas = ["MaterialBindingAPI"]
+    )
+    {
+        rel material:binding = </SMS_Lt_2_3D_Mapping__3_/MaplePlywood> (
+            bindMaterialAs = "weakerThanDescendants"
+        )
+
+        def RealityKitComponent "RCP_BehaviorsContainer"
+        {
+            rel behaviors = </SMS_Lt_2_3D_Mapping__3_/yayang/OnTap>
+            uniform token info:id = "RCP.BehaviorsContainer"
+        }
+
+        def Preliminary_Behavior "OnTap"
+        {
+            rel actions = </SMS_Lt_2_3D_Mapping__3_/yayang/OnTap/Action>
+            uniform bool exclusive
+            rel triggers = </SMS_Lt_2_3D_Mapping__3_/yayang/OnTap/Trigger>
+
+            def Preliminary_Trigger "Trigger"
+            {
+                rel affectedObjects = </SMS_Lt_2_3D_Mapping__3_/yayang>
+                token info:id = "TapGesture"
+            }
+
+            def Preliminary_Action "Action"
+            {
+                rel affectedObjects = None
+                rel animationLibraryKeyOverrideKey = </SMS_Lt_2_3D_Mapping__3_/yayang/OnTap/Trigger>
+                token info:id = "PlayTimeline"
+                int loops = 0
+                int performCount = 1
+                token type = "serial"
+            }
+        }
     }
 }
 
