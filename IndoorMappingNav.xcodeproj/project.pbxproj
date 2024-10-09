@@ -95,7 +95,6 @@
 				Model/Mall.swift,
 				Model/Store.swift,
 				Model/SubCategory.swift,
-				"SearchPageView-ViewModel.swift",
 				"View/Component/Button Instruction/JumpToEndButton.swift",
 				"View/Component/Button Instruction/RestartButton.swift",
 				View/Component/CategoryButton.swift,
@@ -127,13 +126,9 @@
 				View/Component/SwipingFinger.swift,
 				View/Component/TapSearchBarButton.swift,
 				View/Component/ToiletIcon.swift,
-				View/HomeView.swift,
 				View/ImageCarousel.swift,
 				View/OverlayView.swift,
-				View/SearchPageView.swift,
 				View/StoreDetailView.swift,
-				"ViewModel/CategorySheet-ViewModel.swift",
-				"ViewModel/HomeView-ViewModel.swift",
 				"ViewModel/StoreDetailView-ViewModel.swift",
 			);
 			target = 11EBECF12CC54F880069EE18 /* FlooqiClip */;
