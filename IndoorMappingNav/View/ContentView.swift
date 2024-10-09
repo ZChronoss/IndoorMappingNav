@@ -12,6 +12,7 @@ import MallMap
 struct ContentView: View {
     @State var isSheetOpen = false
     @State var selectedStore: String?
+    @State var scale: Float = 1
     
     var body: some View {
         VStack {
@@ -20,6 +21,12 @@ struct ContentView: View {
                     let scaleNum: Float = 0.05
                     scene.transform.scale = [scaleNum, scaleNum, scaleNum]
                     content.add(scene)
+                }
+            }
+            update: { content in
+                if let glassCube = content.entities.first {
+                    glassCube.setScale([scale, scale, scale], relativeTo: nil)
+                    print(glassCube.name)
                 }
             }
             .gesture(
@@ -63,9 +70,12 @@ struct ContentView: View {
         })
         .sheet(isPresented: $isSheetOpen) {
             StoreDetailView(storeName: selectedStore ?? "Error: No Store Selected")
-                .presentationDetents([.medium])
-                .presentationDragIndicator(.visible)
+                .presentationDetents([.fraction(0.5)])
+                .presentationBackgroundInteraction(.enabled)
         }
+        
+        Slider(value: $scale, in: 0...2)
+            .padding()
     }
 }
 
