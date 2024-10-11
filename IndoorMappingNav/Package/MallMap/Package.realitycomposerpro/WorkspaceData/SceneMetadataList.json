@@ -3,7 +3,8 @@
     "objectMetadataList" : [
       [
         "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7",
-        "root"
+        "root",
+        "Star_001"
       ],
       {
         "isExpanded" : true,
@@ -331,8 +332,7 @@
       [
         "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
         "Root",
-        "Timeline",
-        "Track"
+        "SMS_1_LT_UG_3D_Mapping_"
       ],
       {
         "isExpanded" : true,

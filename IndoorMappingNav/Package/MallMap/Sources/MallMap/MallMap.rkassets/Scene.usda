@@ -25,6 +25,13 @@ def "SMS_1_LT_UG_3D_Mapping_Persimpangan" (
     float3 xformOp:translate = (0, 0, 0)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
+    def "MaplePlywood" (
+        active = true
+        prepend references = @MaplePlywood.usdz@
+    )
+    {
+    }
+
     over "Geom"
     {
         over "PSP"
