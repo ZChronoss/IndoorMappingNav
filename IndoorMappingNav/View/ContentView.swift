@@ -25,12 +25,31 @@ struct ContentView: View {
     @State private var startScale: Float? = nil
     @State private var selectedCategory: String = "Food & Beverage"
 
+    var pathfinder = PathfindingHelper3D()
+    var scaleNum: Float = 0.05
+    var positionScale: Float = 1.0 / 0.05
+    
+    @State private var scene: Entity? = nil
+    @State private var pathEntities: [Entity] = []
+    
+    //debug
+    //    @State private var markerEntities: [Entity] = []  // Track marker entities
+    
+    @State var isSheetOpen = false
+    @State var selectedStore: String?
+    @State var scale: Float = 0.5
+    
     var body: some View {
         ZStack {
             // Main RealityView content
             RealityView { content in
-                if let scene = try? await Entity(named: "Scene", in: mallMapBundle) {
-                    content.add(scene)
+                if let loadedScene = try? await Entity(named: "Scene", in: mallMapBundle) {
+                    //                    loadedScene.transform.scale = [scaleNum, scaleNum, scaleNum]
+                    scene = loadedScene
+                    content.add(scene!)
+                    setupPath()
+                    setupBaseGraph()
+                    startNavigation()
                 }
             }
             update: { content in
@@ -157,18 +176,20 @@ struct ContentView: View {
         .padding(.top, 56)
         .ignoresSafeArea()
     }
+    
     func startNavigation() {
-        let startPosition = (scene?.findEntities(named: "Tawan")?.position(relativeTo: scene))!
-        let endPosition = (scene?.findEntities(named: "Proma__022")?.position(relativeTo: scene))!
-        
-        drawPathBetweenNodes(from: startPosition, to: endPosition)
+        if let startPosition = (scene?.findEntities(named: "Royale_Jewellery")?.position(relativeTo: scene)),
+           let endPosition = (scene?.findEntities(named: "Myer_Jewellery")?.position(relativeTo: scene)) {
+            drawPathBetweenNodes(from: startPosition, to: endPosition)
+        }
     }
     
     func setupBaseGraph() {
+        print("Setting up the Graph")
         guard let scene = scene else { return }
         
         // Get the ground plane's size and position
-        let groundBounds = scene.visualBounds(relativeTo: scene)
+        let groundBounds = scene.visualBounds
         let groundSizeX = groundBounds.extents.x
         let groundSizeZ = groundBounds.extents.z
         
@@ -180,7 +201,7 @@ struct ContentView: View {
         
         print(groundPosition)
         
-        let gridSpacing: Float = 5.0
+        let gridSpacing: Float = 0.1
         
         var pathNodes: [GKGraphNode3D] = []
         
@@ -188,18 +209,18 @@ struct ContentView: View {
             for z in stride(from: -groundSizeZ / 2, through: groundSizeZ / 2, by: gridSpacing) {
                 let nodePosition = SCNVector3(
                     groundPosition.x + x,
-                    -9,  // Slightly above the ground plane
+                    groundPosition.y + 0.1,  // Slightly above the ground plane
                     groundPosition.z + z
                 )
                 
                 let markerPosition = SCNVector3(
                     groundPosition.x + x,
-                    0,  // Slightly above the ground plane
+                    0.5,  // Slightly above the ground plane
                     groundPosition.z + z
                 )
                 
                 // Check for collisions before adding a node
-                if !checkCollision(at: simd_float3(nodePosition)) && isPointInsideBoundingBox(simd_float3(nodePosition), boundingBox: scene.visualBounds(relativeTo: scene)) {
+                if checkCollision(at: simd_float3(nodePosition)) {
                     let pathNode = pathfinder.addNode(at: nodePosition, type: .intersection)
                     let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
                     scene.addChild(marker)
@@ -219,8 +240,8 @@ struct ContentView: View {
         pathEntities.forEach { $0.removeFromParent() }
         pathEntities.removeAll()
         
-        let startNode = pathfinder.addNode(at: SCNVector3(start.x, -10, start.z), type: .store)
-        let endNode = pathfinder.addNode(at: SCNVector3(end.x, -10, end.z), type: .store)
+        let startNode = pathfinder.addNode(at: SCNVector3(start.x, start.y, start.z), type: .store)
+        let endNode = pathfinder.addNode(at: SCNVector3(end.x, end.y, end.z), type: .store)
         
         if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z)),
            let nearestEndNode = pathfinder.findNearestNode(to: SCNVector3(end.x, end.y, end.z)) {
@@ -248,7 +269,7 @@ struct ContentView: View {
     // MARK: - RealityKit Entity Creation for Path Segments
     func createLineEntity(from start: simd_float3, to end: simd_float3) -> Entity {
         let lineLength = simd_distance(start, end)
-        let line = MeshResource.generateBox(size: [0.5, 0.5, lineLength])
+        let line = MeshResource.generateBox(size: [0.05, 0.05, lineLength])
         
         let material = SimpleMaterial(color: .blue, isMetallic: false)
         let lineEntity = ModelEntity(mesh: line, materials: [material])
@@ -262,55 +283,69 @@ struct ContentView: View {
     // MARK: - Collision Check Function
     func checkCollision(at position: simd_float3) -> Bool {
         guard let scene = scene else { return false }
-        for entity in scene.findAllEntities() {
-            if entity.name.contains("Mapping") || entity.name == "Root" {
-                continue
-            }
-            
-            let boundingBox = entity.visualBounds(relativeTo: scene)
-            
-            if isPointInsideBoundingBox(position, boundingBox: boundingBox) {
-                print("Collision detected at position \(position) with entity \(entity.name).")
-                return true
-            }
+        guard let path = scene.findEntity(named: "Nature_Republic") else {
+            print("No path found.")
+            return false
         }
+//        let collision = path.hasCollision(at: position)
+        if isPointInsideBoundingBox(position, boundingBox: path.visualBounds(relativeTo: scene)) {
+            print("Collision detected at position \(position).")
+            return true
+        }
+        //        for entity in scene.findAllEntities() {
+        //            if entity.name.contains("Mapping") || entity.name == "Root" {
+        //                continue
+        //            }
+        //
+        //            let boundingBox = entity.visualBounds
+        //
+        //            if isPointInsideBoundingBox(position, boundingBox: boundingBox) {
+        //                print("Collision detected at position \(position) with entity \(entity.name).")
+        //                return true
+        //            }
+        //        }
         return false
     }
     
-    func addCollisionComponent(to entity: Entity) {
-        let collisionShape = ShapeResource.generateBox(size: entity.visualBounds.extents)
-        entity.components.set(CollisionComponent(shapes: [collisionShape]))
-    }
-    
-    func setupScene() {
-        //        clearMarkers()
-        //        print("setupSCENE")
-        if let sceneEntities = scene?.findAllEntities() {
-            for entity in sceneEntities {
-                addCollisionComponent(to: entity)
-//                                entity.components.remove(CollisionComponent.self)
+    func addCustomCollisionComponent(to entity: Entity) {
+        guard let modelEntity = entity as? ModelEntity else {
+                print("Entity is not a ModelEntity, unable to add collision.")
+                return
             }
-        }
+            
+            // Generate convex collision shape based on the entity's mesh (assuming it has mesh data)
+            if let modelMesh = modelEntity.model?.mesh {
+                let collisionShape = try? ShapeResource.generateConvex(from: modelMesh)
+                if let collisionShape = collisionShape {
+                    entity.components.set(CollisionComponent(shapes: [collisionShape]))
+                    print("Added collision component to entity.")
+                } else {
+                    print("Failed to generate convex shape for entity.")
+                }
+            }
     }
     
     
-
+    
+    func setupPath() {
+        if let sceneEntities = scene?.findAllEntities() {
+               for entity in sceneEntities {
+                   entity.components.remove(CollisionComponent.self)
+               }
+           }
+           if let pathEntity = scene?.findEntity(named: "Nature_Republic") {
+               addCustomCollisionComponent(to: pathEntity)
+           }
+    }
+    
     func createMarkerEntity(at position: simd_float3, color: UIColor = .red) -> Entity {
-        let markerMesh = MeshResource.generateSphere(radius: 0.5)
+        let markerMesh = MeshResource.generateSphere(radius: 0.05)
         let markerMaterial = SimpleMaterial(color: color, isMetallic: false)
         let markerEntity = ModelEntity(mesh: markerMesh, materials: [markerMaterial])
         markerEntity.position = position
         
         return markerEntity
     }
-    
-    //    func clearMarkers() {
-    //        // Remove each marker entity from the scene
-    //        markerEntities.forEach { $0.removeFromParent() }
-    //
-    //        // Clear the list of markers
-    //        markerEntities.removeAll()
-    //    }
     
 }
 
@@ -341,15 +376,15 @@ extension Entity {
         }
         
         for child in children {
-                if let found = child.findEntity(named: name) {
-                    return found  // Return the first entity that matches the name
-                }
+            if let found = child.findEntity(named: name) {
+                return found  // Return the first entity that matches the name
             }
+        }
         
         return nil
     }
     
-    func findAllEntities(excluding entityName: String = "Plane") -> [Entity] {
+    func findAllEntities(excluding entityName: String = "Based") -> [Entity] {
         var allEntities: [Entity] = []
         
         if self.name != entityName{
