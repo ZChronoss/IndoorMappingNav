@@ -3,44 +3,41 @@
     customLayerData = {
         string creator = "Reality Composer Pro Version 2.0 (448.0.16.0.3)"
     }
-    defaultPrim = "SMS_1_LT_UG_3D_Mapping__GLB"
+    defaultPrim = "SMS_1_LT_UG_3D_Mapping_Final"
     metersPerUnit = 1
     upAxis = "Y"
 )
 
-def "SMS_1_LT_UG_3D_Mapping__GLB" (
+def "SMS_1_LT_UG_3D_Mapping_Final" (
     active = true
-    prepend references = @SMS 1 LT UG 3D Mapping  GLB.usdz@
+    prepend apiSchemas = ["MaterialBindingAPI"]
+    prepend references = @SMS 1 LT UG 3D Mapping Final.usdz@
 )
 {
+    rel material:binding = None (
+        bindMaterialAs = "weakerThanDescendants"
+    )
     float3 xformOp:scale = (1, 1, 1)
+    float3 xformOp:translate = (0, 0, 0)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
-
-    over "Geom"
-    {
-        reorder nameChildren = ["MaplePlywood", "Based", "Skechers", "Kettlers", "Cube_010", "Kosong_016", "Royale_Jewellery", "Kosong_015", "Kosong_014", "Kosong_013", "Kosong_012", "Watch_World", "Cube_025", "Footlocker", "Kosong_011", "Kosong_009", "Bridges_Eyewear", "Samsonite", "Garmin", "Kosong_010", "Kosong_008", "Kosong_007", "Kosong_006", "Myer_Jewellery", "Kosong_005", "Banila_Co", "G_factory", "Kosong_001", "Kosong_004", "Ranch_Market", "Beard_Papa", "Circle_004", "Lobby", "Lobby_001", "Teh_63", "Mako", "J_CO_", "The_Entertainer", "Kids_Station", "Land_of_ZOOMOV_", "Mothercare", "Nursery_Room_n_P3K", "Toilet", "Emergency_Exit", "Emergency_Exit_002", "Toilet_004", "Eskalator", "Toilet_003", "Toilet_002", "Emergency_Exit_001", "Lift", "Toilet_001", "Lift_001", "MI_Home", "Huawei", "Century_Healthcare", "Kosong", "Nature_Republic", "L_occitane", "Natural_Farm"]
-        over "L_occitane"
-        {
-        }
-
-        over "Based" (
-            prepend apiSchemas = ["MaterialBindingAPI"]
-        )
-        {
-            rel material:binding = </SMS_1_LT_UG_3D_Mapping__GLB/MaplePlywood> (
-                bindMaterialAs = "weakerThanDescendants"
-            )
-        }
-    }
 
     def "MaplePlywood" (
         active = true
         prepend references = @MaplePlywood.usdz@
     )
     {
-        token outputs:mtlx:surface.connect = </SMS_1_LT_UG_3D_Mapping__GLB/MaplePlywood/PreviewSurface.outputs:out>
-        float2 ui:nodegraph:node:pos = (32.36331, 471.47977)
-        int ui:nodegraph:node:stackingOrder = 1
+    }
+
+    over "Geom"
+    {
+        over "Based" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </SMS_1_LT_UG_3D_Mapping_Final/MaplePlywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+        }
     }
 }
 
