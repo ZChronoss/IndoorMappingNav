@@ -2,7 +2,7 @@
 //  FlooqiUITests.swift
 //  FlooqiUITests
 //
-//  Created by Michael Varian Kostaman on 14/10/24.
+//  Created by Renaldi Antonio on 14/10/24.
 //
 
 import XCTest
