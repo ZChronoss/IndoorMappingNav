@@ -31,6 +31,46 @@ def "SMS_1_LT_UG_3D_Mapping__GLB" (
                 bindMaterialAs = "weakerThanDescendants"
             )
         }
+
+        over "Ranch_Market"
+        {
+            def RealityKitComponent "RCP_BehaviorsContainer"
+            {
+                rel behaviors = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market/OnTap>
+                uniform token info:id = "RCP.BehaviorsContainer"
+            }
+
+            def Preliminary_Behavior "OnTap"
+            {
+                rel actions = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market/OnTap/Action>
+                uniform bool exclusive
+                rel triggers = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market/OnTap/Trigger>
+
+                def Preliminary_Trigger "Trigger"
+                {
+                    rel affectedObjects = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market>
+                    token info:id = "TapGesture"
+                }
+
+                def Preliminary_Action "Action"
+                {
+                    rel affectedObjects = </SMS_1_LT_UG_3D_Mapping__GLB>
+                    rel animationLibraryKey = </SMS_1_LT_UG_3D_Mapping__GLB/Timeline>
+                    rel animationLibraryKeyOverrideKey = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market/OnTap/Trigger>
+                    token info:id = "PlayTimeline"
+                    int loops = 0
+                    int performCount = 1
+                    token type = "serial"
+                }
+            }
+
+            def RealityKitComponent "InputTarget"
+            {
+                bool allowsDirectInput = 1
+                bool allowsIndirectInput = 1
+                uniform token info:id = "RealityKit.InputTarget"
+            }
+        }
     }
 
     def "MaplePlywood" (
@@ -41,6 +81,27 @@ def "SMS_1_LT_UG_3D_Mapping__GLB" (
         token outputs:mtlx:surface.connect = </SMS_1_LT_UG_3D_Mapping__GLB/MaplePlywood/PreviewSurface.outputs:out>
         float2 ui:nodegraph:node:pos = (32.36331, 471.47977)
         int ui:nodegraph:node:stackingOrder = 1
+    }
+
+    def RealityKitTimeline "Timeline"
+    {
+        def RealityKitTrack "Track"
+        {
+            def RealityKitAction "Transform_By"
+            {
+                string actionKind = "moveBy"
+                int blendLayer = 300
+                double duration = 1
+                uniform token info:id = "C6DD75B3-5160-44CC-882C-2183EB7F6429"
+                float3 position = (0, 10, 0)
+                double startTime = -0.020239496164574617
+                rel target = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market>
+
+                def RealityKitStruct "timingFunction"
+                {
+                }
+            }
+        }
     }
 }
 
