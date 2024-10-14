@@ -3,7 +3,8 @@
     "objectMetadataList" : [
       [
         "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7",
-        "root"
+        "root",
+        "Star_001"
       ],
       {
         "isExpanded" : true,
@@ -11,8 +12,7 @@
       },
       [
         "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7",
-        "root",
-        "Star_001"
+        "root"
       ],
       {
         "isExpanded" : true,
@@ -37,16 +37,6 @@
       [
         "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
-        "Timeline",
-        "Track"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
         "Star"
       ],
       {
@@ -66,7 +56,8 @@
       [
         "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
-        "Cylinder"
+        "Timeline",
+        "Track"
       ],
       {
         "isExpanded" : true,
@@ -84,16 +75,7 @@
       [
         "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
-        "Plane"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Tinesco"
+        "Cylinder"
       ],
       {
         "isExpanded" : true,
@@ -110,8 +92,26 @@
       [
         "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
+        "Tinesco"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
         "Timeline",
         "Track2"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
+        "Plane"
       ],
       {
         "isExpanded" : true,
@@ -121,6 +121,16 @@
   },
   "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98" : {
     "objectMetadataList" : [
+      [
+        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
+        "SMS_1_LT_UG_3D_Mapping__GLB",
+        "Timeline",
+        "Track"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
         "Root",
@@ -142,6 +152,15 @@
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
         "SMS_1_LT_UG_3D_Mapping__GLB",
+        "Geom"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
+        "SMS_1_LT_UG_3D_Mapping__GLB",
         "Materials"
       ],
       {
@@ -151,7 +170,7 @@
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
         "SMS_1_LT_UG_3D_Mapping__GLB",
-        "Geom"
+        "Timeline"
       ],
       {
         "isExpanded" : true,
