@@ -15,12 +15,12 @@ struct StoreDetailView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text(viewModel.store?.name ?? "Error: No Store Name")
-                .font(.system(.title3))
-            Text(viewModel.store?.category ?? "Error: No Category")
-                .font(.system(.caption))
-            Text(viewModel.store?.address ?? "Error: No Address")
-                .font(.system(.caption))
+//            Text(viewModel.store?.name ?? "Error: No Store Name")
+//                .font(.system(.title3))
+//            Text(viewModel.store?.category ?? "Error: No Category")
+//                .font(.system(.caption))
+//            Text(viewModel.store?.address ?? "Error: No Address")
+//                .font(.system(.caption))
             
             ImageCarousel(images: ["Image1", "Image2", "Image3"])
                 .ignoresSafeArea()

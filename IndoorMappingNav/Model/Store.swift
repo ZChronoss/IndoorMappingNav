@@ -6,18 +6,24 @@
 //
 
 import Foundation
+import CloudKit
 
-class Store: Identifiable {
-    var id: UUID { return UUID()}
-    var name: String
-    var category: String
-    var address: String
-    var images: [String]
+class Store: Identifiable, CloudKitRecordInitializable {
+    var id: CKRecord.ID
+    var name: String?
+    var category: Int64?
+    var address: String?
+    var images: [CKAsset?]?
+    var floor: String?
+    var mallId: CKRecord.Reference?
     
-    init(name: String, category: String, address: String, images: [String]) {
-        self.name = name
-        self.category = category
-        self.address = address
-        self.images = images
+    required init(record: CKRecord) {
+        self.id = record.recordID
+        self.name = record["Name"] as? String
+        self.category = record["Category"] as? Int64
+        self.address = record["Address"] as? String
+        self.images = record["Images"] as? [CKAsset?]
+        self.floor = record["Floor"] as? String
+        self.mallId = record["MallId"] as? CKRecord.Reference
     }
 }

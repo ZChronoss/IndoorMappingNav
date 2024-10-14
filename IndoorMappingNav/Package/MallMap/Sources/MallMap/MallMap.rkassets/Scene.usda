@@ -10,7 +10,7 @@
 
 def "SMS_1_LT_UG_3D_Mapping__GLB" (
     active = true
-    prepend references = @SMS 1 LT UG 3D Mapping  GLB.usdz@
+    references = @SMS 1 LT UG 3D Mapping  GLB.usdz@
 )
 {
     float3 xformOp:scale = (1, 1, 1)
@@ -27,20 +27,88 @@ def "SMS_1_LT_UG_3D_Mapping__GLB" (
             prepend apiSchemas = ["MaterialBindingAPI"]
         )
         {
-            rel material:binding = </SMS_1_LT_UG_3D_Mapping__GLB/MaplePlywood> (
+            rel material:binding = </SMS_1_LT_UG_3D_Mapping__GLB/Materials/MaplePlywood> (
                 bindMaterialAs = "weakerThanDescendants"
             )
         }
+
+        over "Ranch_Market" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+        )
+        {
+            rel material:binding = </SMS_1_LT_UG_3D_Mapping__GLB/Materials/RedPULeather> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+
+            def RealityKitComponent "RCP_BehaviorsContainer"
+            {
+                rel behaviors = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market/OnTap>
+                uniform token info:id = "RCP.BehaviorsContainer"
+            }
+
+            def Preliminary_Behavior "OnTap"
+            {
+                rel actions = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market/OnTap/Action>
+                uniform bool exclusive
+                rel triggers = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market/OnTap/Trigger>
+
+                def Preliminary_Trigger "Trigger"
+                {
+                    rel affectedObjects = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market>
+                    token info:id = "TapGesture"
+                }
+
+                def Preliminary_Action "Action"
+                {
+                    rel affectedObjects = </SMS_1_LT_UG_3D_Mapping__GLB>
+                    rel animationLibraryKey = </SMS_1_LT_UG_3D_Mapping__GLB/Timeline>
+                    rel animationLibraryKeyOverrideKey = </SMS_1_LT_UG_3D_Mapping__GLB/Geom/Ranch_Market/OnTap/Trigger>
+                    token info:id = "PlayTimeline"
+                    int loops = 0
+                    int performCount = 1
+                    token type = "serial"
+                }
+            }
+
+            def RealityKitComponent "InputTarget"
+            {
+                uniform token info:id = "RealityKit.InputTarget"
+            }
+        }
     }
 
-    def "MaplePlywood" (
-        active = true
-        prepend references = @MaplePlywood.usdz@
-    )
+    over "Materials"
     {
-        token outputs:mtlx:surface.connect = </SMS_1_LT_UG_3D_Mapping__GLB/MaplePlywood/PreviewSurface.outputs:out>
-        float2 ui:nodegraph:node:pos = (32.36331, 471.47977)
-        int ui:nodegraph:node:stackingOrder = 1
+        reorder nameChildren = ["RedPULeather", "defaultMaterial", "MaplePlywood"]
+        over "defaultMaterial"
+        {
+            token outputs:mtlx:surface
+            token outputs:realitykit:vertex
+        }
+
+        def "MaplePlywood" (
+            active = true
+            references = @MaplePlywood.usdz@
+        )
+        {
+            token outputs:mtlx:surface.connect = </SMS_1_LT_UG_3D_Mapping__GLB/Materials/MaplePlywood/PreviewSurface.outputs:out>
+            float2 ui:nodegraph:node:pos = (32.36331, 471.47977)
+            int ui:nodegraph:node:stackingOrder = 1
+        }
+
+        def "RedPULeather" (
+            active = true
+            prepend references = @RedPULeather.usdz@
+        )
+        {
+        }
+    }
+
+    def RealityKitTimeline "Timeline"
+    {
+        def RealityKitTrack "Track"
+        {
+        }
     }
 }
 

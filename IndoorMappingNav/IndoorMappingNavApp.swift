@@ -6,12 +6,13 @@
 //
 
 import SwiftUI
+import CloudKit
 
 @main
 struct IndoorMappingNavApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            CloudKitView()
         }
     }
 }
