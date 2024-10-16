@@ -47,7 +47,15 @@ struct CategorySheet: View {
                     }
                 }
             }
-            Spacer()
+            .padding(.bottom, 16)
+            
+            ScrollView {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], spacing: 10) {
+                    ForEach(subCategory) { item in
+                        SubCategoryCard(subCategory: item)
+                    }
+                }
+            }
             
             NavigationLink(
                 destination: SubCategoryDetailView(
