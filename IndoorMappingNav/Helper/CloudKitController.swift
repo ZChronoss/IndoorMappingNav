@@ -16,4 +16,6 @@ class CloudKitController: ObservableObject {
         self.container = CKContainer.default()
         self.databasePublic = container.publicCloudDatabase
     }
+    
+    // ini buat fix bug
 }
