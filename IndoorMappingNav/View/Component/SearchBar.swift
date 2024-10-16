@@ -18,6 +18,8 @@ struct SearchBar: View {
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding(8)
                 .cornerRadius(8)
+            Image(systemName: "mic.fill")
+                .foregroundStyle(.gray)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)

@@ -17,7 +17,11 @@ struct ContentView: View {
     @State var scale: Float = 1
     @State private var isMoving: Bool = false
     @State private var startScale: Float? = nil
+    
     @State private var selectedCategory: String = "Food & Beverage"
+    @State private var isCategorySheetOpen = false
+    @State var categoryDetent: PresentationDetent = .fraction(0.17)
+    
 
     var body: some View {
         ZStack {
@@ -125,12 +129,15 @@ struct ContentView: View {
                     HStack(spacing: 10) {
                         CategoryButton(categoryName: "Food & Beverage", categoryIcon: "fork.knife", categoryColor: .red, isSelected: selectedCategory == "Food & Beverage") {
                             selectedCategory = "Food & Beverage"
+                            isCategorySheetOpen = true
                         }
                         CategoryButton(categoryName: "Shopping", categoryIcon: "cart", categoryColor: .green, isSelected: selectedCategory == "Shopping") {
                             selectedCategory = "Shopping"
+                            isCategorySheetOpen = true
                         }
                         CategoryButton(categoryName: "Entertainment", categoryIcon: "gamecontroller", categoryColor: .purple, isSelected: selectedCategory == "Entertainment") {
                             selectedCategory = "Entertainment"
+                            isCategorySheetOpen = true
                         }
                     }
                     .padding(.horizontal)
@@ -147,6 +154,12 @@ struct ContentView: View {
             StoreDetailView(storeName: selectedStore ?? "Error: No Store Selected")
                 .presentationDetents([.fraction(0.5)])
                 .presentationBackgroundInteraction(.enabled)
+        }
+        .sheet(isPresented: $isCategorySheetOpen) {
+            NavigationStack {
+                CategorySheet(categoryName: selectedCategory, categoryDetent: $categoryDetent)
+            }
+            .presentationDetents([.fraction(0.17), .fraction(0.75)], selection: $categoryDetent)
         }
         .padding(.top, 56)
         .ignoresSafeArea()
