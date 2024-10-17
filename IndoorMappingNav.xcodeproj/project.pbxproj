@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		118412A82CAFCFF90062BDB2 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 118412A72CAFCFF90062BDB2 /* MallMap */; };
+		11985F012CBD0A68000869B1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 11985F002CBD0A68000869B1 /* CloudKit.framework */; };
+		11F9D93C2CBD0D8400F2BE1C /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 11F9D93B2CBD0D8400F2BE1C /* MallMap */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -28,6 +29,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		11985F002CBD0A68000869B1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		11E915002CABE22D00BD1CB3 /* IndoorMappingNav.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorMappingNav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E915102CABE22F00BD1CB3 /* IndoorMappingNavTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndoorMappingNavTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E9151A2CABE22F00BD1CB3 /* IndoorMappingNavUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndoorMappingNavUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -70,7 +72,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				118412A82CAFCFF90062BDB2 /* MallMap in Frameworks */,
+				11985F012CBD0A68000869B1 /* CloudKit.framework in Frameworks */,
+				11F9D93C2CBD0D8400F2BE1C /* MallMap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +97,7 @@
 		118412A62CAFCFF90062BDB2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				11985F002CBD0A68000869B1 /* CloudKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -139,7 +143,7 @@
 			);
 			name = IndoorMappingNav;
 			packageProductDependencies = (
-				118412A72CAFCFF90062BDB2 /* MallMap */,
+				11F9D93B2CBD0D8400F2BE1C /* MallMap */,
 			);
 			productName = IndoorMappingNav;
 			productReference = 11E915002CABE22D00BD1CB3 /* IndoorMappingNav.app */;
@@ -424,6 +428,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = IndoorMappingNav/IndoorMappingNav.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IndoorMappingNav/Preview Content\"";
@@ -443,6 +448,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -455,6 +461,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = IndoorMappingNav/IndoorMappingNav.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IndoorMappingNav/Preview Content\"";
@@ -474,6 +481,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -594,7 +602,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		118412A72CAFCFF90062BDB2 /* MallMap */ = {
+		11F9D93B2CBD0D8400F2BE1C /* MallMap */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = MallMap;
 		};
