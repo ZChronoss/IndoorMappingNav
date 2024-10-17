@@ -90,6 +90,42 @@ class PathfindingService {
         print("Base graph setup with \(pathNodes.count) nodes.")
     }
     
+    func interpolateCatmullRom(points: [simd_float3], segments: Int) -> [simd_float3] {
+        var result: [simd_float3] = []
+        
+        for i in 0..<points.count - 3 {
+            let p0 = points[i]
+            let p1 = points[i + 1]
+            let p2 = points[i + 2]
+            let p3 = points[i + 3]
+            
+            for t in 0...segments {
+                let tFloat = Float(t) / Float(segments)
+                let t2 = tFloat * tFloat
+                let t3 = t2 * tFloat
+                
+                // Catmull-Rom spline formula
+                let x = 0.5 * ((2.0 * p1.x) +
+                               (-p0.x + p2.x) * tFloat +
+                               (2.0 * p0.x - 5.0 * p1.x + 4.0 * p2.x - p3.x) * t2 +
+                               (-p0.x + 3.0 * p1.x - 3.0 * p2.x + p3.x) * t3)
+                
+                let y = 0.5 * ((2.0 * p1.y) +
+                               (-p0.y + p2.y) * tFloat +
+                               (2.0 * p0.y - 5.0 * p1.y + 4.0 * p2.y - p3.y) * t2 +
+                               (-p0.y + 3.0 * p1.y - 3.0 * p2.y + p3.y) * t3)
+                
+                let z = 0.5 * ((2.0 * p1.z) +
+                               (-p0.z + p2.z) * tFloat +
+                               (2.0 * p0.z - 5.0 * p1.z + 4.0 * p2.z - p3.z) * t2 +
+                               (-p0.z + 3.0 * p1.z - 3.0 * p2.z + p3.z) * t3)
+                
+                result.append(simd_float3(x, y, z))
+            }
+        }
+        
+        return result
+    }
     
     func drawPathBetweenNodes(from start: simd_float3, to end: simd_float3) {
         pathEntities.forEach { $0.removeFromParent() }
@@ -104,52 +140,35 @@ class PathfindingService {
             startNode.addConnections(to: [nearestStartNode], bidirectional: true)
             endNode.addConnections(to: [nearestEndNode], bidirectional: true)
         }
-        
+
         let debugSphere = createMarkerEntity(at: startNode.position)
-        scene?.addChild(debugSphere) // Add it to the scene
+        scene?.addChild(debugSphere)
 
         // Find the path using GameplayKit
         if let path = pathfinder.findPath(from: startNode, to: endNode) {
+            var pathPositions: [simd_float3] = path.map { simd_float3($0.position) }
+            
+            // Insert first and last positions as control points for smoothing
+            pathPositions.insert(pathPositions.first!, at: 0)
+            pathPositions.append(pathPositions.last!)
+            
+            // Get the smooth path using Catmull-Rom interpolation
+            let smoothPath = interpolateCatmullRom(points: pathPositions, segments: 20)
+            
             var index = 0
-            let stepDuration = 0.2
-
+            let stepDuration = 0.01
+            
             Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
-                if index >= path.count - 1 {
+                if index >= smoothPath.count - 1 {
                     timer.invalidate() // Stop the timer when all nodes are visited
                     return
                 }
 
-                let nodeA = path[index]
-                let nodeB = path[index + 1]
+                let startPos = smoothPath[index]
+                let endPos = smoothPath[index + 1]
                 index += 1
 
-                let startPos = simd_float3(nodeA.position)
-                let endPos = simd_float3(nodeB.position)
-
-                // Detect the direction of movement
-                let direction = normalize(endPos - startPos)
-                let referenceDirection = simd_float3(0, 1, 0)
-                let crossProduct = simd_cross(direction, referenceDirection)
-                
-                // Detect dominant axis of movement
-                let dominantAxis: String
-                if abs(direction.x) > abs(direction.z) {
-                    if crossProduct.x > 0 {
-                        print("Moving to the right")
-                    } else if crossProduct.x < 0 {
-                        print("Moving to the left")
-                    } else {
-                        print("Moving straight")
-                    }
-                } else {
-                    if crossProduct.z < 0 {
-                        print("Moving to the right")
-                    } else if crossProduct.z > 0 {
-                        print("Moving to the left")
-                    } else {
-                        print("Moving straight")
-                    }
-                }
+                self.showDirection(from: startPos, to: endPos)
 
                 // Create the line entity and add it to the scene
                 let lineEntity = self.createLineEntity(from: startPos, to: endPos)
@@ -160,11 +179,38 @@ class PathfindingService {
                 debugSphere.position = endPos
 
                 // Print the position of the sphere for debugging
-                print("Sphere position: \(debugSphere.position)")
+//                print("Sphere position: \(debugSphere.position)")
             }
         }
     }
-    
+
+    func showDirection(from startPos: simd_float3, to endPos: simd_float3) {
+        var directionOutput: String
+        let direction = normalize(endPos - startPos)
+        let referenceDirection = simd_float3(0, 1, 0)
+        let crossProduct = simd_cross(direction, referenceDirection)
+        
+        // Detect dominant axis of movement
+        if abs(direction.x) > abs(direction.z) {
+            if crossProduct.x > 0 {
+                directionOutput = "Right"
+            } else if crossProduct.x < 0 {
+                directionOutput = "Left"
+            } else {
+                directionOutput = "Straight"
+            }
+        } else {
+            if crossProduct.z < 0 {
+                directionOutput = "Right"
+            } else if crossProduct.z > 0 {
+                directionOutput = "Left"
+            } else {
+                directionOutput = "Straight"
+            }
+        }
+        print(directionOutput)
+    }
+
     // MARK: - RealityKit Entity Creation for Path Segments
     func createLineEntity(from start: simd_float3, to end: simd_float3) -> Entity {
         let lineLength = simd_distance(start, end)
