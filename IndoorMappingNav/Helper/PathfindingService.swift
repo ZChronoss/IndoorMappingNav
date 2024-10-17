@@ -42,6 +42,9 @@ class PathfindingService: ObservableObject {
             else {
                 print("Could not find start or end node: \(start) or \(end).")
             }
+            else {
+                print("Could not find start or end node: \(start) or \(end).")
+            }
         }
     }
     
@@ -75,16 +78,16 @@ class PathfindingService: ObservableObject {
                     groundPosition.z + z
                 )
                 
-//                                                let markerPosition = SCNVector3(
-//                                                    groundPosition.x + x,
-//                                                    0.5,  // Slightly above the ground plane
-//                                                    groundPosition.z + z
-//                                                )
+//                                let markerPosition = SCNVector3(
+//                                    groundPosition.x + x,
+//                                    0.5,  // Slightly above the ground plane
+//                                    groundPosition.z + z
+//                                )
                 
-                if checkForPath(at: simd_float3(nodePosition), type: .path) {
-                    let pathNode = pathfinder.addNode(at: nodePosition, type: .path)
-//                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
-//                                                            loadedScene.addChild(marker)
+                if checkForPath(at: simd_float3(nodePosition)) {
+                    let pathNode = pathfinder.addNode(at: nodePosition, type: .intersection)
+//                                        let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
+//                                        loadedScene.addChild(marker)
                     pathNodes.append(pathNode)
                 }
                 
@@ -166,127 +169,75 @@ class PathfindingService: ObservableObject {
     func drawPathBetweenNodes(from start: simd_float3, to end: simd_float3) {
         pathEntities.forEach { $0.removeFromParent() }
         pathEntities.removeAll()
-        interEntities.forEach { $0.removeFromParent() }
-        interEntities.removeAll()
-        
-        var pathPositions: [simd_float3] = []
-        
+
         let startNode = pathfinder.addNode(at: SCNVector3(start.x, start.y, start.z), type: .store)
         let endNode = pathfinder.addNode(at: SCNVector3(end.x, end.y, end.z), type: .store)
-        
-        let pathSphere = createMarkerEntity(at: startNode.position)
-        scene?.addChild(pathSphere)
-        
-        if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .path),
-           let nearestEndNode = pathfinder.findNearestNode(to: SCNVector3(end.x, end.y, end.z), type: .path) {
-            print("near2:",nearestStartNode)
+
+        if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z)),
+           let nearestEndNode = pathfinder.findNearestNode(to: SCNVector3(end.x, end.y, end.z)) {
+
             startNode.addConnections(to: [nearestStartNode], bidirectional: true)
             endNode.addConnections(to: [nearestEndNode], bidirectional: true)
-            
-            // Find the path using GameplayKit
-            if let path = pathfinder.findPath(from: startNode, to: endNode, type: .path) {
-                pathPositions = path.map { simd_float3($0.position) }
-                print("PATH===",pathPositions.count)
-                
-//                for i in 0..<pathPositions.count {
-//                    let debug = createMarkerEntity(at: pathPositions[i], color: .black)
-//                    scene?.addChild(debug)
-//                }
-                
-                // Insert first and last positions as control points for smoothing
-                guard let firstPosition = pathPositions.first,
-                      let lastPosition = pathPositions.last else {
+        }
+        
+        let debugSphere = createMarkerEntity(at: startNode.position)
+        scene?.addChild(debugSphere) // Add it to the scene
+
+        // Find the path using GameplayKit
+        if let path = pathfinder.findPath(from: startNode, to: endNode) {
+            var index = 0
+            let stepDuration = 0.2
+
+            Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
+                if index >= path.count - 1 {
+                    timer.invalidate() // Stop the timer when all nodes are visited
                     return
                 }
 
-                pathPositions.insert(firstPosition, at: 0)
-                pathPositions.append(lastPosition)
+                let nodeA = path[index]
+                let nodeB = path[index + 1]
+                index += 1
+
+                let startPos = simd_float3(nodeA.position)
+                let endPos = simd_float3(nodeB.position)
+
+                // Detect the direction of movement
+                let direction = normalize(endPos - startPos)
+                let referenceDirection = simd_float3(0, 1, 0)
+                let crossProduct = simd_cross(direction, referenceDirection)
                 
-                let smoothPath = interpolateCatmullRom(points: pathPositions, segments: 20)
-                
-                for i in 0..<smoothPath.count - 1 {
-                    let startPos = smoothPath[i]
-                    let endPos = smoothPath[i + 1]
-                    let fullPathLineEntity = createLineEntity(from: startPos, to: endPos, opacity: 0.3)
-                    
-                    pathEntities.append(fullPathLineEntity)
-                    scene?.addChild(fullPathLineEntity)
-                }
-                
-                var animatedIndex = 0
-                let stepDuration = 0.000001
-                
-                Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
-                    if animatedIndex >= smoothPath.count - 1 {
-                        timer.invalidate()
-                        return
+                // Detect dominant axis of movement
+                let dominantAxis: String
+                if abs(direction.x) > abs(direction.z) {
+                    if crossProduct.x > 0 {
+                        print("Moving to the right")
+                    } else if crossProduct.x < 0 {
+                        print("Moving to the left")
+                    } else {
+                        print("Moving straight")
                     }
-                    
-                    let animatedStartPos = smoothPath[animatedIndex]
-                    let animatedEndPos = smoothPath[animatedIndex + 1]
-                    animatedIndex += 1
-                    
-                    self.showDirection(from: animatedStartPos, to: animatedEndPos)
-                    
-                    let animatedLineEntity = self.createLineEntity(from: animatedStartPos, to: animatedEndPos, opacity: 1.0)
-                    self.scene?.addChild(animatedLineEntity)
-                    
-                    pathSphere.position = animatedEndPos
-                }
-            }
-        }
-        
-        if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .intersection) {
-            for i in 0..<interNodes.count - 1 {
-                
-                
-                let startPos = interNodes[i]
-                
-                for j in 0..<pathPositions.count {
-                    if startPos.position == pathPositions[j] {
-                        print("GOT INTERPOSITION", pathPositions[j])
-                        let intersectionEntity = createMarkerEntity(at: startPos.position)
-                        
-                        interEntities.append(intersectionEntity)
-                        scene?.addChild(intersectionEntity)
+                } else {
+                    if crossProduct.z < 0 {
+                        print("Moving to the right")
+                    } else if crossProduct.z > 0 {
+                        print("Moving to the left")
+                    } else {
+                        print("Moving straight")
                     }
                 }
-            }
-            interEntities.sort { (entity1, entity2) -> Bool in
-                let pos1 = entity1.position
-                let pos2 = entity2.position
-                let dist1 = distance(simd_float3(nearestStartNode.position), simd_float3(pos1))
-                let dist2 = distance(simd_float3(nearestStartNode.position), simd_float3(pos2))
-                return dist1 < dist2
-            }
-        }
-    }
-    
-    func showDirection(from startPos: simd_float3, to endPos: simd_float3) {
-        var directionOutput: String
-        let direction = normalize(endPos - startPos)
-        let referenceDirection = simd_float3(0, 1, 0)
-        let crossProduct = simd_cross(direction, referenceDirection)
-        
-        // Detect dominant axis of movement
-        if abs(direction.x) > abs(direction.z) {
-            if crossProduct.x > 0 {
-                directionOutput = "Right"
-            } else if crossProduct.x < 0 {
-                directionOutput = "Left"
-            } else {
-                directionOutput = "Straight"
-            }
-        } else {
-            if crossProduct.z < 0 {
-                directionOutput = "Right"
-            } else if crossProduct.z > 0 {
-                directionOutput = "Left"
-            } else {
-                directionOutput = "Straight"
+
+                // Create the line entity and add it to the scene
+                let lineEntity = self.createLineEntity(from: startPos, to: endPos)
+                self.pathEntities.append(lineEntity)
+                self.scene?.addChild(lineEntity)
+
+                // Move the debug sphere to follow the path
+                debugSphere.position = endPos
+
+                // Print the position of the sphere for debugging
+                print("Sphere position: \(debugSphere.position)")
             }
         }
-        //        print(directionOutput)
     }
     
     // MARK: - RealityKit Entity Creation for Path Segments
