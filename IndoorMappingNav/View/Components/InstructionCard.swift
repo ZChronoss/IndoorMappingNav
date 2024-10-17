@@ -1,5 +1,5 @@
 //
-//  Instruction Card.swift
+//  InstructionCard.swift
 //  IndoorMappingNav
 //
 //  Created by Renaldi Antonio on 17/10/24.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Instruction_Card: View {
+struct InstructionCard: View {
     @State var direction: Directions = .straight
     
     
@@ -37,5 +37,5 @@ enum Directions: String {
 }
 
 #Preview {
-    Instruction_Card()
+    InstructionCard()
 }

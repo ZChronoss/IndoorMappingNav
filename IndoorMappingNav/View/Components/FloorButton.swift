@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct FloorButton: View {
-    @State var btnLbl: String?
+    @State var btnLbl: String = "GF"
     @State private var didTap = false
     
     // TODO: bikin buat yang jumlah konten itu
+    @State var contentNum: Int = 0
+    
     
     var body: some View {
         Button {
@@ -19,13 +21,14 @@ struct FloorButton: View {
             didTap.toggle()
         } label: {
             // callout has the same property as floor button except its weight
-            Text("GF")
+            Text(btnLbl)
                 .font(.system(.callout, weight: .semibold))
-                .padding(10)
-                .foregroundStyle(didTap ? .white : .secondaryAlt)
-                .background(didTap ? .blue600 : .backgroundSecondary)
-                .clipShape(.circle)
         }
+        .padding(12)
+        .foregroundStyle(didTap ? .white : .secondaryAlt)
+        .background(didTap ? .blue600 : .backgroundSecondary)
+        .clipShape(.circle)
+        .customBadge(5, color: .toilet)
     }
 }
 
