@@ -44,7 +44,7 @@ struct ContentView: View {
                     scene = loadedScene
                     content.add(scene!)
                     pathfinder.setupPath(loadedScene: scene!)
-                    pathfinder.startNavigation(start: "Huawei", end: "Toilet")
+                    pathfinder.startNavigation(start: "Huawei", end: "G_factory")
 
                     let cameraAnchor = AnchorEntity(world: cameraPosition)
                     

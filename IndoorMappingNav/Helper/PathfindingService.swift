@@ -34,6 +34,9 @@ class PathfindingService {
                 print("Navigation from \(start) to \(end)")
                 drawPathBetweenNodes(from: startPosition, to: endPosition)
             }
+            else {
+                print("Could not find start or end node: \(start) or \(end).")
+            }
         }
     }
     
@@ -67,16 +70,16 @@ class PathfindingService {
                     groundPosition.z + z
                 )
                 
-                                let markerPosition = SCNVector3(
-                                    groundPosition.x + x,
-                                    0.5,  // Slightly above the ground plane
-                                    groundPosition.z + z
-                                )
+//                                let markerPosition = SCNVector3(
+//                                    groundPosition.x + x,
+//                                    0.5,  // Slightly above the ground plane
+//                                    groundPosition.z + z
+//                                )
                 
                 if checkForPath(at: simd_float3(nodePosition)) {
                     let pathNode = pathfinder.addNode(at: nodePosition, type: .intersection)
-                                        let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
-                                        loadedScene.addChild(marker)
+//                                        let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
+//                                        loadedScene.addChild(marker)
                     pathNodes.append(pathNode)
                 }
             }
@@ -91,29 +94,73 @@ class PathfindingService {
     func drawPathBetweenNodes(from start: simd_float3, to end: simd_float3) {
         pathEntities.forEach { $0.removeFromParent() }
         pathEntities.removeAll()
-        
+
         let startNode = pathfinder.addNode(at: SCNVector3(start.x, start.y, start.z), type: .store)
         let endNode = pathfinder.addNode(at: SCNVector3(end.x, end.y, end.z), type: .store)
-        
+
         if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z)),
            let nearestEndNode = pathfinder.findNearestNode(to: SCNVector3(end.x, end.y, end.z)) {
-            
+
             startNode.addConnections(to: [nearestStartNode], bidirectional: true)
             endNode.addConnections(to: [nearestEndNode], bidirectional: true)
         }
         
+        let debugSphere = createMarkerEntity(at: startNode.position)
+        scene?.addChild(debugSphere) // Add it to the scene
+
         // Find the path using GameplayKit
         if let path = pathfinder.findPath(from: startNode, to: endNode) {
-            for i in 0..<path.count - 1 {
-                let nodeA = path[i]
-                let nodeB = path[i+1]
-                
+            var index = 0
+            let stepDuration = 0.2
+
+            Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
+                if index >= path.count - 1 {
+                    timer.invalidate() // Stop the timer when all nodes are visited
+                    return
+                }
+
+                let nodeA = path[index]
+                let nodeB = path[index + 1]
+                index += 1
+
                 let startPos = simd_float3(nodeA.position)
                 let endPos = simd_float3(nodeB.position)
+
+                // Detect the direction of movement
+                let direction = normalize(endPos - startPos)
+                let referenceDirection = simd_float3(0, 1, 0)
+                let crossProduct = simd_cross(direction, referenceDirection)
                 
-                let lineEntity = createLineEntity(from: startPos, to: endPos)
-                pathEntities.append(lineEntity)
-                scene?.addChild(lineEntity)
+                // Detect dominant axis of movement
+                let dominantAxis: String
+                if abs(direction.x) > abs(direction.z) {
+                    if crossProduct.x > 0 {
+                        print("Moving to the right")
+                    } else if crossProduct.x < 0 {
+                        print("Moving to the left")
+                    } else {
+                        print("Moving straight")
+                    }
+                } else {
+                    if crossProduct.z < 0 {
+                        print("Moving to the right")
+                    } else if crossProduct.z > 0 {
+                        print("Moving to the left")
+                    } else {
+                        print("Moving straight")
+                    }
+                }
+
+                // Create the line entity and add it to the scene
+                let lineEntity = self.createLineEntity(from: startPos, to: endPos)
+                self.pathEntities.append(lineEntity)
+                self.scene?.addChild(lineEntity)
+
+                // Move the debug sphere to follow the path
+                debugSphere.position = endPos
+
+                // Print the position of the sphere for debugging
+                print("Sphere position: \(debugSphere.position)")
             }
         }
     }
