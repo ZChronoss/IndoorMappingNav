@@ -10,7 +10,7 @@ import RealityKit
 import MallMap
 
 struct ContentView: View {
-    @State private var entityPositions: [Entity: simd_float3] = [:]
+    @State private var entityPositions: [Entity: simd_float3] = [:] // Store only the original position
     @State private var entityState: [Entity: Bool] = [:]
     @State var isSheetOpen = false
     @State var selectedStore: String?
@@ -90,7 +90,10 @@ struct ContentView: View {
                     })
             )
             .realityViewCameraControls(.orbit)
- 
+
+            // Overlay: Location title, search bar, and category buttons
+            
+
             VStack {
                 ZStack(alignment: .top) {
                     // White background rectangle
