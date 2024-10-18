@@ -8,34 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		118412A82CAFCFF90062BDB2 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 118412A72CAFCFF90062BDB2 /* MallMap */; };
-		11985E832CBD023D000869B1 /* Flooqi.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 11985E5E2CBD023B000869B1 /* Flooqi.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		11985E9D2CBD0291000869B1 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 11985E9C2CBD0291000869B1 /* MallMap */; };
-		C20897622CC2503E00CEE914 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20897612CC2503E00CEE914 /* LocationManager.swift */; };
 		C20897632CC2503E00CEE914 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20897612CC2503E00CEE914 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		11985E702CBD023D000869B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 11E914F82CABE22D00BD1CB3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 11985E5D2CBD023B000869B1;
-			remoteInfo = Flooqi;
-		};
-		11985E7A2CBD023D000869B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 11E914F82CABE22D00BD1CB3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 11985E5D2CBD023B000869B1;
-			remoteInfo = Flooqi;
-		};
-		11985E812CBD023D000869B1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 11E914F82CABE22D00BD1CB3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 11985E5D2CBD023B000869B1;
-			remoteInfo = Flooqi;
-		};
 		11E915112CABE22F00BD1CB3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 11E914F82CABE22D00BD1CB3 /* Project object */;
@@ -50,42 +26,7 @@
 			remoteGlobalIDString = 11E914FF2CABE22D00BD1CB3;
 			remoteInfo = IndoorMappingNav;
 		};
-		C2A48BF72CBCE0CC006B3DF4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 11E914F82CABE22D00BD1CB3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C2A48BE42CBCE0CA006B3DF4;
-			remoteInfo = Flooqi;
-		};
-		C2A48C012CBCE0CC006B3DF4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 11E914F82CABE22D00BD1CB3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C2A48BE42CBCE0CA006B3DF4;
-			remoteInfo = Flooqi;
-		};
-		C2A48C082CBCE0CC006B3DF4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 11E914F82CABE22D00BD1CB3 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = C2A48BE42CBCE0CA006B3DF4;
-			remoteInfo = Flooqi;
-		};
 /* End PBXContainerItemProxy section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		11985E882CBD023D000869B1 /* Embed App Clips */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "$(CONTENTS_FOLDER_PATH)/AppClips";
-			dstSubfolderSpec = 16;
-			files = (
-				11985E832CBD023D000869B1 /* Flooqi.app in Embed App Clips */,
-			);
-			name = "Embed App Clips";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		11985E5E2CBD023B000869B1 /* Flooqi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flooqi.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -106,48 +47,11 @@
 			);
 			target = 11E914FF2CABE22D00BD1CB3 /* IndoorMappingNav */;
 		};
-		11985E872CBD023D000869B1 /* Exceptions for "Flooqi" folder in "Flooqi" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = 11985E5D2CBD023B000869B1 /* Flooqi */;
-		};
-		11985E912CBD024D000869B1 /* Exceptions for "IndoorMappingNav" folder in "Flooqi" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Helper/CloudKitController.swift,
-				"Helper/Font+Extension.swift",
-				Model/Store.swift,
-				Model/UserModel.swift,
-				View/Component/ButtonInstruction/JumpToEndButton.swift,
-				View/Component/ButtonInstruction/RestartButton.swift,
-				View/Component/CategoryButton.swift,
-				View/Component/IconWithBorder.swift,
-				View/Component/NavigationSheet.swift,
-				View/Component/SearchBar.swift,
-				View/Component/SearchBarWithBack.swift,
-				View/Component/SpecificCategory.swift,
-				View/Component/StepCard.swift,
-				View/Component/StoreCard.swift,
-				View/Component/SubCategoryCard.swift,
-				View/Component/ToiletIcon.swift,
-				View/ImageCarousel.swift,
-				View/StoreDetailView.swift,
-				View/SwiftUIView2.swift,
-				ViewModel/MallViewModel.swift,
-				"ViewModel/StoreDetailView-ViewModel.swift",
-			);
-			target = 11985E5D2CBD023B000869B1 /* Flooqi */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		11985E5F2CBD023C000869B1 /* Flooqi */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				11985E872CBD023D000869B1 /* Exceptions for "Flooqi" folder in "Flooqi" target */,
-			);
 			path = Flooqi;
 			sourceTree = "<group>";
 		};
@@ -165,7 +69,6 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				118412A42CAFCFB40062BDB2 /* Exceptions for "IndoorMappingNav" folder in "IndoorMappingNav" target */,
-				11985E912CBD024D000869B1 /* Exceptions for "IndoorMappingNav" folder in "Flooqi" target */,
 			);
 			path = IndoorMappingNav;
 			sourceTree = "<group>";
@@ -180,49 +83,9 @@
 			path = IndoorMappingNavUITests;
 			sourceTree = "<group>";
 		};
-		C2A48BE62CBCE0CA006B3DF4 /* Flooqi */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				C2A48C132CBCE0CC006B3DF4 /* Exceptions for "Flooqi" folder in "Flooqi" target */,
-			);
-			path = Flooqi;
-			sourceTree = "<group>";
-		};
-		C2A48BF92CBCE0CC006B3DF4 /* FlooqiTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = FlooqiTests;
-			sourceTree = "<group>";
-		};
-		C2A48C032CBCE0CC006B3DF4 /* FlooqiUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = FlooqiUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		11985E5B2CBD023B000869B1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				11985E9D2CBD0291000869B1 /* MallMap in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		11985E6C2CBD023D000869B1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		11985E762CBD023D000869B1 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		11E914FD2CABE22D00BD1CB3 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -239,28 +102,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		11E915172CABE22F00BD1CB3 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C2A48BE22CBCE0CA006B3DF4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C2A48C292CBCE634006B3DF4 /* MallMap in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C2A48BF32CBCE0CC006B3DF4 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C2A48BFD2CBCE0CC006B3DF4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -308,75 +149,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		11985E5D2CBD023B000869B1 /* Flooqi */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 11985E842CBD023D000869B1 /* Build configuration list for PBXNativeTarget "Flooqi" */;
-			buildPhases = (
-				11985E5A2CBD023B000869B1 /* Sources */,
-				11985E5B2CBD023B000869B1 /* Frameworks */,
-				11985E5C2CBD023B000869B1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				11985E5F2CBD023C000869B1 /* Flooqi */,
-			);
-			name = Flooqi;
-			packageProductDependencies = (
-				11985E9C2CBD0291000869B1 /* MallMap */,
-			);
-			productName = Flooqi;
-			productReference = 11985E5E2CBD023B000869B1 /* Flooqi.app */;
-			productType = "com.apple.product-type.application.on-demand-install-capable";
-		};
-		11985E6E2CBD023D000869B1 /* FlooqiTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 11985E892CBD023D000869B1 /* Build configuration list for PBXNativeTarget "FlooqiTests" */;
-			buildPhases = (
-				11985E6B2CBD023D000869B1 /* Sources */,
-				11985E6C2CBD023D000869B1 /* Frameworks */,
-				11985E6D2CBD023D000869B1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				11985E712CBD023D000869B1 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				11985E722CBD023D000869B1 /* FlooqiTests */,
-			);
-			name = FlooqiTests;
-			packageProductDependencies = (
-			);
-			productName = FlooqiTests;
-			productReference = 11985E6F2CBD023D000869B1 /* FlooqiTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		11985E782CBD023D000869B1 /* FlooqiUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 11985E8C2CBD023D000869B1 /* Build configuration list for PBXNativeTarget "FlooqiUITests" */;
-			buildPhases = (
-				11985E752CBD023D000869B1 /* Sources */,
-				11985E762CBD023D000869B1 /* Frameworks */,
-				11985E772CBD023D000869B1 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				11985E7B2CBD023D000869B1 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				11985E7C2CBD023D000869B1 /* FlooqiUITests */,
-			);
-			name = FlooqiUITests;
-			packageProductDependencies = (
-			);
-			productName = FlooqiUITests;
-			productReference = 11985E792CBD023D000869B1 /* FlooqiUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		11E914FF2CABE22D00BD1CB3 /* IndoorMappingNav */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 11E915242CABE22F00BD1CB3 /* Build configuration list for PBXNativeTarget "IndoorMappingNav" */;
@@ -446,75 +218,6 @@
 			productReference = 11E9151A2CABE22F00BD1CB3 /* IndoorMappingNavUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		C2A48BE42CBCE0CA006B3DF4 /* Flooqi */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C2A48C122CBCE0CC006B3DF4 /* Build configuration list for PBXNativeTarget "Flooqi" */;
-			buildPhases = (
-				C2A48BE12CBCE0CA006B3DF4 /* Sources */,
-				C2A48BE22CBCE0CA006B3DF4 /* Frameworks */,
-				C2A48BE32CBCE0CA006B3DF4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			fileSystemSynchronizedGroups = (
-				C2A48BE62CBCE0CA006B3DF4 /* Flooqi */,
-			);
-			name = Flooqi;
-			packageProductDependencies = (
-				C2A48C282CBCE634006B3DF4 /* MallMap */,
-			);
-			productName = Flooqi;
-			productReference = C2A48BE52CBCE0CA006B3DF4 /* Flooqi.app */;
-			productType = "com.apple.product-type.application.on-demand-install-capable";
-		};
-		C2A48BF52CBCE0CC006B3DF4 /* FlooqiTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C2A48C142CBCE0CC006B3DF4 /* Build configuration list for PBXNativeTarget "FlooqiTests" */;
-			buildPhases = (
-				C2A48BF22CBCE0CC006B3DF4 /* Sources */,
-				C2A48BF32CBCE0CC006B3DF4 /* Frameworks */,
-				C2A48BF42CBCE0CC006B3DF4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C2A48BF82CBCE0CC006B3DF4 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				C2A48BF92CBCE0CC006B3DF4 /* FlooqiTests */,
-			);
-			name = FlooqiTests;
-			packageProductDependencies = (
-			);
-			productName = FlooqiTests;
-			productReference = C2A48BF62CBCE0CC006B3DF4 /* FlooqiTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		C2A48BFF2CBCE0CC006B3DF4 /* FlooqiUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = C2A48C152CBCE0CC006B3DF4 /* Build configuration list for PBXNativeTarget "FlooqiUITests" */;
-			buildPhases = (
-				C2A48BFC2CBCE0CC006B3DF4 /* Sources */,
-				C2A48BFD2CBCE0CC006B3DF4 /* Frameworks */,
-				C2A48BFE2CBCE0CC006B3DF4 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				C2A48C022CBCE0CC006B3DF4 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				C2A48C032CBCE0CC006B3DF4 /* FlooqiUITests */,
-			);
-			name = FlooqiUITests;
-			packageProductDependencies = (
-			);
-			productName = FlooqiUITests;
-			productReference = C2A48C002CBCE0CC006B3DF4 /* FlooqiUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -525,17 +228,6 @@
 				LastSwiftUpdateCheck = 1600;
 				LastUpgradeCheck = 1600;
 				TargetAttributes = {
-					11985E5D2CBD023B000869B1 = {
-						CreatedOnToolsVersion = 16.0;
-					};
-					11985E6E2CBD023D000869B1 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 11985E5D2CBD023B000869B1;
-					};
-					11985E782CBD023D000869B1 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = 11985E5D2CBD023B000869B1;
-					};
 					11E914FF2CABE22D00BD1CB3 = {
 						CreatedOnToolsVersion = 16.0;
 					};
@@ -546,17 +238,6 @@
 					11E915192CABE22F00BD1CB3 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 11E914FF2CABE22D00BD1CB3;
-					};
-					C2A48BE42CBCE0CA006B3DF4 = {
-						CreatedOnToolsVersion = 16.0;
-					};
-					C2A48BF52CBCE0CC006B3DF4 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = C2A48BE42CBCE0CA006B3DF4;
-					};
-					C2A48BFF2CBCE0CC006B3DF4 = {
-						CreatedOnToolsVersion = 16.0;
-						TestTargetID = C2A48BE42CBCE0CA006B3DF4;
 					};
 				};
 			};
@@ -584,27 +265,6 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		11985E5C2CBD023B000869B1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		11985E6D2CBD023D000869B1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		11985E772CBD023D000869B1 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		11E914FE2CABE22D00BD1CB3 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -626,52 +286,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C2A48BE32CBCE0CA006B3DF4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C2A48BF42CBCE0CC006B3DF4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C2A48BFE2CBCE0CC006B3DF4 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		11985E5A2CBD023B000869B1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				C20897622CC2503E00CEE914 /* LocationManager.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		11985E6B2CBD023D000869B1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		11985E752CBD023D000869B1 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		11E914FC2CABE22D00BD1CB3 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -694,45 +311,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		C2A48BE12CBCE0CA006B3DF4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C2A48BF22CBCE0CC006B3DF4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		C2A48BFC2CBCE0CC006B3DF4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		11985E712CBD023D000869B1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 11985E5D2CBD023B000869B1 /* Flooqi */;
-			targetProxy = 11985E702CBD023D000869B1 /* PBXContainerItemProxy */;
-		};
-		11985E7B2CBD023D000869B1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 11985E5D2CBD023B000869B1 /* Flooqi */;
-			targetProxy = 11985E7A2CBD023D000869B1 /* PBXContainerItemProxy */;
-		};
-		11985E822CBD023D000869B1 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 11985E5D2CBD023B000869B1 /* Flooqi */;
-			targetProxy = 11985E812CBD023D000869B1 /* PBXContainerItemProxy */;
-		};
 		11E915122CABE22F00BD1CB3 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 11E914FF2CABE22D00BD1CB3 /* IndoorMappingNav */;
@@ -743,160 +324,9 @@
 			target = 11E914FF2CABE22D00BD1CB3 /* IndoorMappingNav */;
 			targetProxy = 11E9151B2CABE22F00BD1CB3 /* PBXContainerItemProxy */;
 		};
-		C2A48BF82CBCE0CC006B3DF4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C2A48BE42CBCE0CA006B3DF4 /* Flooqi */;
-			targetProxy = C2A48BF72CBCE0CC006B3DF4 /* PBXContainerItemProxy */;
-		};
-		C2A48C022CBCE0CC006B3DF4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C2A48BE42CBCE0CA006B3DF4 /* Flooqi */;
-			targetProxy = C2A48C012CBCE0CC006B3DF4 /* PBXContainerItemProxy */;
-		};
-		C2A48C092CBCE0CC006B3DF4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = C2A48BE42CBCE0CA006B3DF4 /* Flooqi */;
-			targetProxy = C2A48C082CBCE0CC006B3DF4 /* PBXContainerItemProxy */;
-		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		11985E852CBD023D000869B1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Flooqi/Flooqi.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Flooqi/Preview Content\"";
-				DEVELOPMENT_TEAM = 53V73K3799;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Flooqi/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = IndoorMappingNav;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.Clip;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		11985E862CBD023D000869B1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Flooqi/Flooqi.entitlements;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Flooqi/Preview Content\"";
-				DEVELOPMENT_TEAM = 53V73K3799;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Flooqi/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = IndoorMappingNav;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.Clip;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		11985E8A2CBD023D000869B1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53V73K3799;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.FlooqiTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flooqi.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flooqi";
-			};
-			name = Debug;
-		};
-		11985E8B2CBD023D000869B1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53V73K3799;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.FlooqiTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flooqi.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flooqi";
-			};
-			name = Release;
-		};
-		11985E8D2CBD023D000869B1 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53V73K3799;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.FlooqiUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Flooqi;
-			};
-			name = Debug;
-		};
-		11985E8E2CBD023D000869B1 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53V73K3799;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.FlooqiUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Flooqi;
-			};
-			name = Release;
-		};
 		11E915222CABE22F00BD1CB3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1154,178 +584,9 @@
 			};
 			name = Release;
 		};
-		C2A48C0C2CBCE0CC006B3DF4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Flooqi/Flooqi.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Flooqi/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Flooqi/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = IndoorMappingNav;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMapNavigation2.clip;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		C2A48C0D2CBCE0CC006B3DF4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Flooqi/Flooqi.entitlements;
-				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Flooqi/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Flooqi/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = IndoorMappingNav;
-				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
-				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
-				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 16.6;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMapNavigation2.clip;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
-		};
-		C2A48C0E2CBCE0CC006B3DF4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6U87HWWFMX;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.FlooqiTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flooqi.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flooqi";
-			};
-			name = Debug;
-		};
-		C2A48C0F2CBCE0CC006B3DF4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6U87HWWFMX;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.FlooqiTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Flooqi.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Flooqi";
-			};
-			name = Release;
-		};
-		C2A48C102CBCE0CC006B3DF4 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6U87HWWFMX;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.FlooqiUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Flooqi;
-			};
-			name = Debug;
-		};
-		C2A48C112CBCE0CC006B3DF4 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 6U87HWWFMX;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.FlooqiUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = Flooqi;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		11985E842CBD023D000869B1 /* Build configuration list for PBXNativeTarget "Flooqi" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				11985E852CBD023D000869B1 /* Debug */,
-				11985E862CBD023D000869B1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		11985E892CBD023D000869B1 /* Build configuration list for PBXNativeTarget "FlooqiTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				11985E8A2CBD023D000869B1 /* Debug */,
-				11985E8B2CBD023D000869B1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		11985E8C2CBD023D000869B1 /* Build configuration list for PBXNativeTarget "FlooqiUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				11985E8D2CBD023D000869B1 /* Debug */,
-				11985E8E2CBD023D000869B1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 		11E914FB2CABE22D00BD1CB3 /* Build configuration list for PBXProject "IndoorMappingNav" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -1358,33 +619,6 @@
 			buildConfigurations = (
 				11E9152B2CABE22F00BD1CB3 /* Debug */,
 				11E9152C2CABE22F00BD1CB3 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C2A48C122CBCE0CC006B3DF4 /* Build configuration list for PBXNativeTarget "Flooqi" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C2A48C0C2CBCE0CC006B3DF4 /* Debug */,
-				C2A48C0D2CBCE0CC006B3DF4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C2A48C142CBCE0CC006B3DF4 /* Build configuration list for PBXNativeTarget "FlooqiTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C2A48C0E2CBCE0CC006B3DF4 /* Debug */,
-				C2A48C0F2CBCE0CC006B3DF4 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		C2A48C152CBCE0CC006B3DF4 /* Build configuration list for PBXNativeTarget "FlooqiUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				C2A48C102CBCE0CC006B3DF4 /* Debug */,
-				C2A48C112CBCE0CC006B3DF4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

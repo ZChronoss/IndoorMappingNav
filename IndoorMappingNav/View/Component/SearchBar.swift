@@ -9,23 +9,20 @@ import SwiftUI
 
 struct SearchBar: View {
     @State private var searchText: String = ""
-
+    
     var body: some View {
-        HStack {
+        HStack() {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
             TextField("Search for a store...", text: $searchText)
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding(8)
-                .cornerRadius(8)
-            
-            Image(systemName: "microphone.fill")
-                .foregroundStyle(.gray)
+                .cornerRadius(16)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
         .background(Color.white)
-        .cornerRadius(8)
+        .cornerRadius(16)
         .shadow(radius: 4)
     }
 }
