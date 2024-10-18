@@ -10,15 +10,14 @@ import SwiftUI
 struct InstructionCard: View {
     @State var direction: Directions = .straight
     
-    
     // TODO: Sesuain text dengan direction
     var body: some View {
         VStack {
             HStack(spacing: 16) {
                 Image(systemName: direction.rawValue)
                     .font(.system(.title, weight: .bold))
-                Text("Keep going straight and you will see Starbucks")
-                    .font(.system(.subheadline, weight: .bold))
+                Text("Keep going **straight** and you will see **Starbucks**")
+                    .font(.system(.subheadline))
             }
             .padding(24)
         }

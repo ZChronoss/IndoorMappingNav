@@ -28,6 +28,7 @@ struct FloorButton: View {
         .foregroundStyle(didTap ? .white : .secondaryAlt)
         .background(didTap ? .blue600 : .backgroundSecondary)
         .clipShape(.circle)
+        .frame(width: 50, height: 50)
         .customBadge(5, color: .toilet)
     }
 }

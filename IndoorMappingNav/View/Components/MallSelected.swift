@@ -17,6 +17,9 @@ struct MallSelected: View {
     ]
     
     var body: some View {
+        ZStack {
+            
+        }
         DisclosureGroup(selectedMall, isExpanded: $isExpanded) {
             VStack {
                 ForEach(malls, id: \.self) { mall in
@@ -30,7 +33,8 @@ struct MallSelected: View {
             }
         }
         .padding()
-        .foregroundStyle(.black)
+//        .foregroundStyle(.black)
+        .tint(.black)
         
         
         Menu {
