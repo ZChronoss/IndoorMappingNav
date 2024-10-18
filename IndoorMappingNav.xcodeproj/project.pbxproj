@@ -10,6 +10,8 @@
 		118412A82CAFCFF90062BDB2 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 118412A72CAFCFF90062BDB2 /* MallMap */; };
 		11985E832CBD023D000869B1 /* Flooqi.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 11985E5E2CBD023B000869B1 /* Flooqi.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		11985E9D2CBD0291000869B1 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 11985E9C2CBD0291000869B1 /* MallMap */; };
+		C20897622CC2503E00CEE914 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20897612CC2503E00CEE914 /* LocationManager.swift */; };
+		C20897632CC2503E00CEE914 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20897612CC2503E00CEE914 /* LocationManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +73,7 @@
 		11E915002CABE22D00BD1CB3 /* IndoorMappingNav.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorMappingNav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E915102CABE22F00BD1CB3 /* IndoorMappingNavTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndoorMappingNavTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E9151A2CABE22F00BD1CB3 /* IndoorMappingNavUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndoorMappingNavUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		C20897612CC2503E00CEE914 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -99,9 +102,12 @@
 				View/Component/ButtonInstruction/JumpToEndButton.swift,
 				View/Component/ButtonInstruction/RestartButton.swift,
 				View/Component/CategoryButton.swift,
+				View/Component/IconWithBorder.swift,
+				View/Component/NavigationSheet.swift,
 				View/Component/SearchBar.swift,
 				View/Component/SearchBarWithBack.swift,
 				View/Component/SpecificCategory.swift,
+				View/Component/StepCard.swift,
 				View/Component/StoreCard.swift,
 				View/Component/SubCategoryCard.swift,
 				View/Component/ToiletIcon.swift,
@@ -213,6 +219,7 @@
 		11E914F72CABE22D00BD1CB3 = {
 			isa = PBXGroup;
 			children = (
+				C20897612CC2503E00CEE914 /* LocationManager.swift */,
 				11E915022CABE22D00BD1CB3 /* IndoorMappingNav */,
 				11E915132CABE22F00BD1CB3 /* IndoorMappingNavTests */,
 				11E9151D2CABE22F00BD1CB3 /* IndoorMappingNavUITests */,
@@ -490,6 +497,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C20897622CC2503E00CEE914 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -511,6 +519,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C20897632CC2503E00CEE914 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -827,6 +836,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IndoorMappingNav/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Flooqi uses GPS to automatically detect your current mall.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -858,6 +868,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IndoorMappingNav/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Flooqi uses GPS to automatically detect your current mall.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
