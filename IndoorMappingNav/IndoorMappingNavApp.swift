@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CloudKit
 
 @main
 struct IndoorMappingNavApp: App {

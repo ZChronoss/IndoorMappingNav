@@ -10,7 +10,7 @@
 
 def "SMS_1_LT_UG_3D_Mapping__GLB" (
     active = true
-    prepend references = @SMS 1 LT UG 3D Mapping  GLB.usdz@
+    references = @SMS 1 LT UG 3D Mapping  GLB.usdz@
 )
 {
     float3 xformOp:scale = (1, 1, 1)
@@ -27,7 +27,7 @@ def "SMS_1_LT_UG_3D_Mapping__GLB" (
             prepend apiSchemas = ["MaterialBindingAPI"]
         )
         {
-            rel material:binding = </SMS_1_LT_UG_3D_Mapping__GLB/MaplePlywood> (
+            rel material:binding = </SMS_1_LT_UG_3D_Mapping__GLB/Materials/MaplePlywood> (
                 bindMaterialAs = "weakerThanDescendants"
             )
         }
