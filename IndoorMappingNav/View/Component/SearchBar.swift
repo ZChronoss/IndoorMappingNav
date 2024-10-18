@@ -18,6 +18,9 @@ struct SearchBar: View {
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding(8)
                 .cornerRadius(8)
+            
+            Image(systemName: "microphone.fill")
+                .foregroundStyle(.gray)
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
