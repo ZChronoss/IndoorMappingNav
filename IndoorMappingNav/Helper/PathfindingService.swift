@@ -22,6 +22,7 @@ class PathfindingService: ObservableObject {
     var interNodes: [GKGraphNode3D] = []
     var scene: Entity? = nil
     var cameraEntity: Entity?
+    var cameraEntity: Entity?
     
     func startNavigation(start: String, end: String) {
         print("Scene when starting navigation: \(scene?.name ?? "nil")")
@@ -101,10 +102,21 @@ class PathfindingService: ObservableObject {
             
         }
         pathfinder.connectNodes(pathNodes)
-        pathfinder.connectNodes(interNodes)
-        print("Base graph setup with \(pathNodes.count) path nodes & \(interNodes.count) inter nodes.")
+        print("Base graph setup with \(pathNodes.count) nodes.")
         setupCamera()
     }
+    
+    func setupCamera() {
+        if let existingCamera = cameraEntity {
+                existingCamera.removeFromParent()
+            }
+        
+        let cameraPosition = simd_float3(1, 1, 1)
+        let cameraLookAt = simd_float3(0, 0, 0)
+        
+        _ = CameraHelper.setupCamera(in: scene, cameraPosition: cameraPosition, lookAtPosition: cameraLookAt, fov: 50.0)
+    }
+
     
     func interpolateCatmullRom(points: [simd_float3], segments: Int) -> [simd_float3] {
         var result: [simd_float3] = []
@@ -157,8 +169,8 @@ class PathfindingService: ObservableObject {
             endNode.addConnections(to: [nearestEndNode], bidirectional: true)
         }
 
-        let debugSphere = createMarkerEntity(at: startNode.position)
-        scene?.addChild(debugSphere)
+        let pathSphere = createMarkerEntity(at: startNode.position)
+        scene?.addChild(pathSphere)
 
         // Find the path using GameplayKit
         if let path = pathfinder.findPath(from: startNode, to: endNode) {
@@ -168,7 +180,6 @@ class PathfindingService: ObservableObject {
             pathPositions.insert(pathPositions.first!, at: 0)
             pathPositions.append(pathPositions.last!)
             
-            // Get the smooth path using Catmull-Rom interpolation
             let smoothPath = interpolateCatmullRom(points: pathPositions, segments: 20)
             
             var index = 0
@@ -176,7 +187,7 @@ class PathfindingService: ObservableObject {
             
             Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
                 if index >= smoothPath.count - 1 {
-                    timer.invalidate() // Stop the timer when all nodes are visited
+                    timer.invalidate()
                     return
                 }
 
@@ -186,16 +197,11 @@ class PathfindingService: ObservableObject {
 
                 self.showDirection(from: startPos, to: endPos)
 
-                // Create the line entity and add it to the scene
                 let lineEntity = self.createLineEntity(from: startPos, to: endPos)
                 self.pathEntities.append(lineEntity)
                 self.scene?.addChild(lineEntity)
 
-                // Move the debug sphere to follow the path
-                debugSphere.position = endPos
-
-                // Print the position of the sphere for debugging
-//                print("Sphere position: \(debugSphere.position)")
+                pathSphere.position = endPos
             }
         }
     }
@@ -224,7 +230,7 @@ class PathfindingService: ObservableObject {
                 directionOutput = "Straight"
             }
         }
-        print(directionOutput)
+//        print(directionOutput)
     }
 
     // MARK: - RealityKit Entity Creation for Path Segments
