@@ -7,7 +7,7 @@
 		<key>Flooqi.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>2</integer>
+			<integer>1</integer>
 		</dict>
 		<key>IndoorMappingNav.xcscheme_^#shared#^_</key>
 		<dict>
@@ -17,21 +17,6 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>11985E5D2CBD023B000869B1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>11985E6E2CBD023D000869B1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>11985E782CBD023D000869B1</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>11985E5D2CBD023B000869B1</key>
 		<dict>
 			<key>primary</key>
