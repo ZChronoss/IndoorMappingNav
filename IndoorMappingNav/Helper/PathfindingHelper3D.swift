@@ -25,7 +25,7 @@ class PathfindingHelper3D {
     }
 
     // Connects nodes bidirectionally in sequence
-    func connectNodes(_ nodes: [GKGraphNode3D], maxConnections: Int = 5) {
+    func connectNodes(_ nodes: [GKGraphNode3D], maxConnections: Int = 4) {
         for currentNode in nodes {
             var nearestNodes: [(GKGraphNode3D, Float)] = []
 

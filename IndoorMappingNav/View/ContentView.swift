@@ -5,6 +5,7 @@ import MallMap
 
 struct ContentView: View {
     var pathfinder = PathfindingService()
+    var pathfinder2D = PathfindingService2D()
     
     @State private var scene: Entity? = nil
     @State private var pathEntities: [Entity] = []
@@ -12,9 +13,6 @@ struct ContentView: View {
     @State var isSheetOpen = false
     @State var selectedStore: String?
     @State var scale: Float = 0.2
-    
-    @State private var cameraPosition = simd_float3(1, 1, 1)
-    @State private var cameraLookAt = simd_float3(0, 0, 0)
     
     var body: some View {
         VStack {
@@ -24,19 +22,12 @@ struct ContentView: View {
                     scene = loadedScene
                     content.add(scene!)
                     pathfinder.setupPath(loadedScene: scene!)
-                    pathfinder.startNavigation(start: "Huawei", end: "G_factory")
-
-                    let cameraAnchor = AnchorEntity(world: cameraPosition)
                     
-                    // Create and add a camera to the anchor
-                    let camera = PerspectiveCamera()
-                    camera.look(at: cameraLookAt, from: cameraPosition, relativeTo: nil)
-                    
-                    cameraAnchor.addChild(camera)
-                    content.add(cameraAnchor)
+                    pathfinder.startNavigation(start: "G_factory", end: "Huawei")
                 }
             }
             update: { content in
+                print(scale)
                 if let glassCube = content.entities.first {
                     glassCube.setScale([scale, scale, scale], relativeTo: nil)
                     //                    print(glassCube.name)
@@ -86,8 +77,23 @@ struct ContentView: View {
                 .presentationDetents([.fraction(0.5)])
                 .presentationBackgroundInteraction(.enabled)
         }
-        
-        Slider(value: $scale, in: 0...2)
+        Button("2D Mode") {
+            // 3D to 2D path conversion (flatten Y-axis)
+            guard let scene = scene else { return }
+            scene.setScale([2,2,2], relativeTo: nil)
+            let path = pathfinder.pathEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
+            pathfinder2D.setup2DNavigation(path: path, scene: scene)
+        }
+        // Navigation buttons
+                    HStack {
+                        Button("Previous") {
+                            pathfinder2D.moveToPreviousNode()
+                        }
+                        Button("Next") {
+                            pathfinder2D.moveToNextNode()
+                        }
+                    }
+        Slider(value: $scale, in: 0...3)
             .padding()
     }
 }
