@@ -1,14 +1,14 @@
 //
-//  FlooqiApp.swift
-//  Flooqi
+//  FlooqiClipApp.swift
+//  FlooqiClip
 //
-//  Created by Renaldi Antonio on 14/10/24.
+//  Created by Renaldi Antonio on 20/10/24.
 //
 
 import SwiftUI
 
 @main
-struct FlooqiApp: App {
+struct FlooqiClipApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

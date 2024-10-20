@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>FlooqiClip.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
 		<key>IndoorMappingNav.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
@@ -43,6 +48,11 @@
 			<true/>
 		</dict>
 		<key>11E915192CABE22F00BD1CB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>11EBECF12CC54F880069EE18</key>
 		<dict>
 			<key>primary</key>
 			<true/>
