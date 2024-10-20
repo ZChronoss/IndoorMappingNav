@@ -164,7 +164,6 @@ class PathfindingService: ObservableObject {
 
         if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z)),
            let nearestEndNode = pathfinder.findNearestNode(to: SCNVector3(end.x, end.y, end.z)) {
-
             startNode.addConnections(to: [nearestStartNode], bidirectional: true)
             endNode.addConnections(to: [nearestEndNode], bidirectional: true)
         }
@@ -182,26 +181,36 @@ class PathfindingService: ObservableObject {
             
             let smoothPath = interpolateCatmullRom(points: pathPositions, segments: 20)
             
-            var index = 0
-            let stepDuration = 0.01
+            for i in 0..<smoothPath.count - 1 {
+                let startPos = smoothPath[i]
+                let endPos = smoothPath[i + 1]
+                let fullPathLineEntity = createLineEntity(from: startPos, to: endPos, opacity: 0.3)
+                
+                pathEntities.append(fullPathLineEntity)
+                scene?.addChild(fullPathLineEntity)
+            }
             
+            var animatedIndex = 0
+            let stepDuration = 0.001
+
             Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
-                if index >= smoothPath.count - 1 {
+                if animatedIndex >= smoothPath.count - 1 {
                     timer.invalidate()
                     return
                 }
 
-                let startPos = smoothPath[index]
-                let endPos = smoothPath[index + 1]
-                index += 1
+                let animatedStartPos = smoothPath[animatedIndex]
+                let animatedEndPos = smoothPath[animatedIndex + 1]
+                animatedIndex += 1
 
-                self.showDirection(from: startPos, to: endPos)
+                self.showDirection(from: animatedStartPos, to: animatedEndPos)
 
-                let lineEntity = self.createLineEntity(from: startPos, to: endPos)
-                self.pathEntities.append(lineEntity)
-                self.scene?.addChild(lineEntity)
+                // Create and animate the second line
+                let animatedLineEntity = self.createLineEntity(from: animatedStartPos, to: animatedEndPos, opacity: 1.0)
+                self.scene?.addChild(animatedLineEntity)
 
-                pathSphere.position = endPos
+                // Move the pathSphere along the animated line
+                pathSphere.position = animatedEndPos
             }
         }
     }
