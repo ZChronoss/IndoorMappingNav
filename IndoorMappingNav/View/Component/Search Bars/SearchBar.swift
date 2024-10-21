@@ -9,11 +9,14 @@ import SwiftUI
 
 struct SearchBar: View {
     @State private var searchText: String = ""
+    var image: Image
+    var iconColor: Color
     
     var body: some View {
         HStack() {
-            Image(systemName: "magnifyingglass")
-                .foregroundColor(.gray)
+            image
+                .foregroundStyle(iconColor)
+                .bold()
             TextField("Search for a store...", text: $searchText)
                 .textFieldStyle(PlainTextFieldStyle())
                 .padding(8)
@@ -28,5 +31,5 @@ struct SearchBar: View {
 }
 
 #Preview {
-    SearchBar()
+    SearchBar(image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
 }

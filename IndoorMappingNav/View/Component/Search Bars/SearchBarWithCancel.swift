@@ -12,7 +12,7 @@ struct SearchBarWithCancel: View {
     
     var body: some View {
         HStack(spacing: 20) {
-            SearchBar()
+            SearchBar(image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
                 .focused($isActive)
                 .animation(.easeOut, value: isActive)
                 .transition(.slide)

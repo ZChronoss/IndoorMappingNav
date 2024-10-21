@@ -115,7 +115,7 @@ struct ContentView: View {
                         .padding(.horizontal, 20)
                         .padding(.bottom, 16)
 
-                        SearchBar()
+                        SearchBar(image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
                             .padding(.horizontal, 20)
                     }
                 }

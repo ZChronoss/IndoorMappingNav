@@ -20,7 +20,7 @@ struct SearchBarWithChevron: View {
                         .foregroundStyle(.black)
                 })
             }
-            SearchBar()
+            SearchBar(image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
                 .focused(
                     withAnimation(.easeOut, {
                         $isActive
