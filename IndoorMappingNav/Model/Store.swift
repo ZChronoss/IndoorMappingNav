@@ -8,6 +8,14 @@
 import Foundation
 import CloudKit
 
+enum StoreCategory {
+    case fnb
+}
+
+enum FoodCategory {
+    case fastFood
+}
+
 class Store: Identifiable, CloudKitRecordInitializable {
     var id: CKRecord.ID
     var name: String?
