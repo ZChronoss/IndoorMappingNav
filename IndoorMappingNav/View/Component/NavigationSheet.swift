@@ -25,7 +25,6 @@ struct NavigationSheet: View {
             
             NavigateButton()
         }
-        .padding(.horizontal, 24)
     }
 }
 

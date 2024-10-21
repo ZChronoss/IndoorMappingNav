@@ -35,7 +35,6 @@ struct SubCategoryTab: View {
                 }
             }
         }
-        .padding(.bottom, 16)
     }
 }
 
