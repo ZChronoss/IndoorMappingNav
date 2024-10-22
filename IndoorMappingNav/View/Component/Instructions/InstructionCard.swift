@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct InstructionCard: View {
-    @State var direction: Directions = .straight
+    var icon: String
+    var direction: AttributedString
     
     // TODO: Sesuain text dengan direction
     var body: some View {
         VStack {
             HStack(spacing: 16) {
-                Image(systemName: direction.rawValue)
-                    .font(.system(.title, weight: .bold))
-                Text("Keep going **straight** and you will see **Starbucks**")
+                Image(systemName: icon)
+                    .font(.system(.title))
+                    .bold()
+                Text("\(direction) and you will see **Starbucks**")
                     .font(.system(.subheadline))
             }
             .padding(24)
@@ -27,14 +29,6 @@ struct InstructionCard: View {
     }
 }
 
-enum Directions: String {
-    case left = "arrow.left"
-    case right = "arrow.right"
-    case straight = "arrow.up"
-    case stairUp = "figure.stairs"
-    case here = "mappin.and.ellipse"
-}
-
 #Preview {
-    InstructionCard()
+    InstructionCard(icon: Directions.straight.icon, direction: Directions.left.instruction)
 }
