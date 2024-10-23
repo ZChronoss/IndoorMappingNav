@@ -45,6 +45,7 @@ struct CategorySheet: View {
                         StoreCard(images: item.imageName) // Use imageName property
                     }
                 }
+                LongButton()
             }
 
             NavigationLink(
