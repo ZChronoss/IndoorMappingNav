@@ -10,8 +10,8 @@ import SwiftUI
 struct SpecificCategory: View {
     var subCategoryName: String
     var image: String
-    
-    @State private var isSelected: Bool = false
+    var isSelected: Bool
+    var onSelect: () -> Void
     
     var body: some View {
         VStack {
@@ -26,7 +26,7 @@ struct SpecificCategory: View {
                 )
                 .padding(.bottom, 5)
                 .onTapGesture {
-                    isSelected.toggle()
+                    onSelect()
                 }
             
             Text(subCategoryName)
@@ -39,5 +39,5 @@ struct SpecificCategory: View {
 }
 
 #Preview {
-    SpecificCategory(subCategoryName: "Bakery", image: "Image1")
+    SpecificCategory(subCategoryName: "Bakery", image: "Image1", isSelected: false, onSelect: {})
 }

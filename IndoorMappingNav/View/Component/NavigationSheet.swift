@@ -23,24 +23,8 @@ struct NavigationSheet: View {
             
             Spacer()
             
-            Button(action: {
-                
-            }) {
-                HStack {
-                    Image(systemName: "location.north.fill")
-                    
-                    Text("Navigate")
-                }
-                .padding(.vertical, 10)
-                .padding(.horizontal, 16)
-            }
-            .background(
-                RoundedRectangle(cornerRadius: 40)
-                    .fill(Color.blue)
-            )
-            .foregroundColor(.white)
+            NavigateButton()
         }
-        .padding(.horizontal, 24)
     }
 }
 

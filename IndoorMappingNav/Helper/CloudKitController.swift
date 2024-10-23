@@ -20,7 +20,6 @@ class CloudKitController: ObservableObject {
         let operation = CKQueryOperation(query: query)
         operation.desiredKeys = ["Id", "Name", "Category", "Address", "Images", "Floor", "MallId"]
         
-        var store: [Store]?
         let result = try await database.records(matching: query)
         let records = result.matchResults.compactMap { try?  $0.1.get()}
 //        do {

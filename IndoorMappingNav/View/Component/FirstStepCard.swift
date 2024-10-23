@@ -1,23 +1,23 @@
 //
-//  StepsCard.swift
+//  FirstStepCard.swift
 //  IndoorMappingNav
 //
-//  Created by Michael Varian Kostaman on 18/10/24.
+//  Created by Michael Varian Kostaman on 21/10/24.
 //
 
 import SwiftUI
 
-struct StepCard: View {
-    var iconImage: String
+struct FirstStepCard: View {
     var stepDescription: String
     var imageStep: String
     
     var body: some View {
         HStack {
             HStack(spacing: 16) {
-                Image(systemName: iconImage)
+                Image(systemName: "location.fill")
                     .font(.title3)
                     .fontWeight(.semibold)
+                    .foregroundColor(.blue)
                 
                 Text(stepDescription)
                     .font(.body)
@@ -32,12 +32,12 @@ struct StepCard: View {
                 .frame(width: 66)
         }
         .frame(height: 41)
-        .padding(.vertical, 16)
+        .padding(.bottom, 16)
         
         Divider()
     }
 }
 
 #Preview {
-    StepCard(iconImage: "arrow.up", stepDescription: "Sociolla", imageStep: "Image3")
+    FirstStepCard(stepDescription: "Sociolla", imageStep: "Image3")
 }
