@@ -8,36 +8,30 @@
 import SwiftUI
 
 struct SubCategoryTab: View {
-    var subCategory: [SubCategory] = [
-        SubCategory(name: "Bakery", image: "Image1"),
-        SubCategory(name: "Rice", image: "Image1"),
-        SubCategory(name: "Fast Food", image: "Image1"),
-        SubCategory(name: "Indonesian", image: "Image1"),
-        SubCategory(name: "Japanese", image: "Image1"),
-        SubCategory(name: "Japanese", image: "Image1"),
-        SubCategory(name: "Japanese", image: "Image1")
-    ]
+    var subCategories: [SubCategory] // Changed to accept an array of SubCategory
     
     @State private var selectedCategory: SubCategory?
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack (spacing: 32) {
-                ForEach(subCategory) { item in
+            HStack(spacing: 32) {
+                ForEach(subCategories, id: \.self) { item in
                     SpecificCategory(
-                        subCategoryName: item.name,
-                        image: item.image,
-                        isSelected: selectedCategory?.id == item.id,
+                        subCategoryName: item.rawValue, // Use the raw value of the enum
+                        image: item.imageName, // Assume image name is a computed property of the enum
+                        isSelected: selectedCategory == item,
                         onSelect: {
                             selectedCategory = item
                         }
                     )
                 }
             }
+            .padding(.horizontal)
         }
     }
 }
 
 #Preview {
-    SubCategoryTab()
+    // Provide example subcategories for the preview
+    SubCategoryTab(subCategories: [.bakery, .rice, .fastFood]) // Pass in example subcategories
 }

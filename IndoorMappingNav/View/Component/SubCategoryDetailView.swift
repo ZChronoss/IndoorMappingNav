@@ -15,17 +15,17 @@ struct SubCategoryDetailView: View {
         VStack(alignment: .leading) {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 16) {
-                    ForEach(subCategories) { subCategory in
+                    ForEach(subCategories, id: \.self) { subCategory in
                         VStack {
-                            Image(subCategory.image)
+                            Image(subCategory.imageName) // Use computed property for image name
                                 .resizable()
-                                .scaledToFill() // Fill the space while maintaining aspect ratio
-                                .frame(width: 115, height: 115) // Adjust the width and height
-                                .clipped() // Ensure the image doesn't overflow the frame
+                                .scaledToFill() // Maintain aspect ratio while filling the space
+                                .frame(width: 115, height: 115)
+                                .clipped()
                                 .cornerRadius(12)
                                 .padding(.bottom, 8)
 
-                            Text(subCategory.name)
+                            Text(subCategory.rawValue) // Use rawValue for display name
                                 .font(.caption)
                         }
                     }
@@ -40,12 +40,6 @@ struct SubCategoryDetailView: View {
 #Preview {
     SubCategoryDetailView(
         categoryName: "Food & Beverages",
-        subCategories: [
-            SubCategory(name: "Bakery", image: "Image1"),
-            SubCategory(name: "Rice", image: "Image1"),
-            SubCategory(name: "Fast Food", image: "Image1"),
-            SubCategory(name: "Indonesian", image: "Image1"),
-            SubCategory(name: "Japanese", image: "Image1")
-        ]
+        subCategories: [.bakery, .rice, .fastFood, .indonesian, .japanese] // Use enum cases directly
     )
 }

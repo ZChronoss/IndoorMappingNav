@@ -8,22 +8,14 @@
 import SwiftUI
 
 struct CategorySheet: View {
-    var categoryName: String
-    var subCategory: [SubCategory] = [
-        SubCategory(name: "Bakery", image: "Image1"),
-        SubCategory(name: "Rice", image: "Image1"),
-        SubCategory(name: "Fast Food", image: "Image1"),
-        SubCategory(name: "Indonesian", image: "Image1"),
-        SubCategory(name: "Japanese", image: "Image1")
-    ]
-    
+    var category: Category
     @Binding var categoryDetent: PresentationDetent // Receive binding
     @State private var isDetailViewActive = false
-    
+
     var body: some View {
-        VStack (alignment: .leading) {
-            HStack (alignment: .center) {
-                Text(categoryName)
+        VStack(alignment: .leading) {
+            HStack(alignment: .center) {
+                Text(category.name.rawValue) // Use the name from CategoryType
                     .font(Font.system(.title3))
                 Spacer()
                 Button(action: {
@@ -39,26 +31,26 @@ struct CategorySheet: View {
                 .cornerRadius(12)
             }
             .padding(.bottom, 16)
-            
+
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack (spacing: 32) {
-                    SubCategoryTab()
+                HStack(spacing: 32) {
+                    SubCategoryTab(subCategories: category.subcategory ?? []) // Pass array of SubCategory
                 }
             }
             .padding(.bottom, 16)
-            
+
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], spacing: 10) {
-                    ForEach(subCategory) { item in
-                        StoreCard(images: item.image)
+                    ForEach(category.subcategory ?? [], id: \.self) { item in
+                        StoreCard(images: item.imageName) // Use imageName property
                     }
                 }
             }
-            
+
             NavigationLink(
                 destination: SubCategoryDetailView(
-                    categoryName: categoryName,
-                    subCategories: subCategory
+                    categoryName: category.name.rawValue,
+                    subCategories: category.subcategory ?? []
                 ),
                 isActive: $isDetailViewActive
             ) {
@@ -74,8 +66,9 @@ struct CategorySheet: View {
     @State var detent: PresentationDetent = .fraction(0.17) // Example state for preview
 
     return NavigationStack {
+        let category = Category(name: .fnb, image: "fnbImage", subcategory: [.bakery, .rice, .fastFood]) // Example category
         CategorySheet(
-            categoryName: "Food & Beverages",
+            category: category,
             categoryDetent: $detent // Pass binding in preview
         )
     }
