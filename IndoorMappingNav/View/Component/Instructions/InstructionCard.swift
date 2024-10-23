@@ -11,9 +11,15 @@ struct InstructionCard: View {
     var icon: String
     var direction: AttributedString
     
+    var isFirst: Bool
+    var isLast: Bool
+    
+    @Binding var focusedCard: Int
+    var maxCards: Int
+    
     // TODO: Sesuain text dengan direction
     var body: some View {
-        VStack {
+        VStack(alignment: .trailing) {
             HStack(spacing: 16) {
                 Image(systemName: icon)
                     .font(.system(.title))
@@ -21,14 +27,36 @@ struct InstructionCard: View {
                 Text("\(direction) and you will see **Starbucks**")
                     .font(.system(.subheadline))
             }
-            .padding(24)
+            .padding(.horizontal, 24)
+            
+            if isFirst {
+                JumpToEndButton(action: {
+                    withAnimation {
+                        focusedCard = maxCards - 1
+                    }
+                })
+                .padding(.horizontal, 24)
+                    
+            }
+            
+            if isLast {
+                RestartButton(action: {
+                    withAnimation {
+                        focusedCard = 0
+                    }
+                })
+                .padding(.horizontal, 24)
+            }
+            
         }
-        .background(.blue600)
+        .frame(height: 130)
         .foregroundStyle(.white)
+        .background(.blue600)
         .clipShape(RoundedRectangle(cornerRadius: 16))
     }
 }
 
 #Preview {
-    InstructionCard(icon: Directions.straight.icon, direction: Directions.left.instruction)
+//    @State var focusedCard: Int = 1
+//    InstructionCard(icon: Directions.straight.icon, direction: Directions.left.instruction, isFirst: true, isLast: false, focusedCard: $focusedCard, maxCards: 2)
 }

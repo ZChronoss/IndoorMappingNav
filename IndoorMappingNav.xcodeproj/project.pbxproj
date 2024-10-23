@@ -90,6 +90,8 @@
 				"Helper/Font+Extension.swift",
 				Model/Mall.swift,
 				Model/Store.swift,
+				"View/Component/Button Instruction/JumpToEndButton.swift",
+				"View/Component/Button Instruction/RestartButton.swift",
 				View/Component/CategoryButton.swift,
 				View/Component/CustomBadge.swift,
 				"View/Component/Floor Button/FloorButton.swift",
