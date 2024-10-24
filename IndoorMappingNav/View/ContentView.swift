@@ -144,7 +144,7 @@ struct ContentView: View {
             isSheetOpen.toggle()
         })
         .sheet(isPresented: $isSheetOpen) {
-            StoreDetailView(storeName: selectedStore ?? "Error: No Store Selected")
+            StoreDetailView()
                 .presentationDetents([.fraction(0.5)])
                 .presentationBackgroundInteraction(.enabled)
         }

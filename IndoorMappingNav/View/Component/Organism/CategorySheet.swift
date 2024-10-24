@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct CategorySheet: View {
-    var category: Category
+    var category: StoreCategory
     @Binding var categoryDetent: PresentationDetent // Receive binding
     @State private var isDetailViewActive = false
 
@@ -66,8 +66,8 @@ struct CategorySheet: View {
 #Preview {
     @State var detent: PresentationDetent = .fraction(0.17) // Example state for preview
 
-    return NavigationStack {
-        let category = Category(name: .fnb, image: "fnbImage", subcategory: [.bakery, .rice, .fastFood]) // Example category
+    NavigationStack {
+        let category = StoreCategory(name: .fnb, subcategory: [.bakery, .rice, .fastFood]) // Example category
         CategorySheet(
             category: category,
             categoryDetent: $detent // Pass binding in preview
