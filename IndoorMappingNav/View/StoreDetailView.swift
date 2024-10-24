@@ -36,8 +36,12 @@ struct StoreDetailView: View {
                     .foregroundStyle(.secondary)
             }
             
-            ImageCarousel(images: ["Image1", "Image2", "Image3"])
-                .ignoresSafeArea()
+            // IMAGE CAROUSEL
+            if let images = viewModel.store.images {
+                ImageCarousel(images: images)
+            }
+            
+            
             
             VStack(alignment: .center) {
                 Button {

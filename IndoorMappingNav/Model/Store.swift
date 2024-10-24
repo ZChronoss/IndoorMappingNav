@@ -13,7 +13,7 @@ class Store: Identifiable, CloudKitRecordInitializable {
     var name: String?
     var category: StoreCategory?
     var address: String?
-    var images: [CKAsset?]?
+    var images: [Data?]?
     var floor: String?
     var mallId: CKRecord.Reference?
     
@@ -29,12 +29,29 @@ class Store: Identifiable, CloudKitRecordInitializable {
         
         self.category = getCategory(num: categoryId ?? 7)
         self.address = record["Address"] as? String
-        self.images = record["Images"] as? [CKAsset?]
+        
+        let imagesRecord = record["Images"] as? [CKAsset?]
+        
+        self.images = processImage(imageRecords: imagesRecord)
+//        self.images = record["Images"] as? [CKAsset?]
         self.floor = record["Floor"] as? String
         self.mallId = record["MallId"] as? CKRecord.Reference
     }
     
-    func getCategory(num: Int64) -> StoreCategory {
+    private func processImage(imageRecords: [CKAsset?]?) -> [Data?] {
+        var datas: [Data?] = []
+        
+        for image in imageRecords ?? [] {
+            if let url = image?.fileURL {
+                let data = try? Data(contentsOf: url)
+                datas.append(data ?? nil)
+            }
+        }
+        
+        return datas
+    }
+    
+    private func getCategory(num: Int64) -> StoreCategory {
         var category: StoreCategory
         
         switch num {
