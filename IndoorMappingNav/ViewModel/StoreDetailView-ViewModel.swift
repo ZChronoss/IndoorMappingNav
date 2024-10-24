@@ -9,14 +9,29 @@ import Foundation
 
 extension StoreDetailView {
     
-    @Observable
-    class ViewModel {
-        var store: Store?
+    class ViewModel: ObservableObject {
+        private let cloudkitController = CloudKitController()
+        @Published var stores: [Store] = []
+        
+        @Published var store: Store = Store()
+        @Published private(set) var isLoading = false
+        
+        func getStores() async {
+            isLoading = true
+            
+            do {
+                self.stores = try await cloudkitController.fetchStores()
+            } catch {
+                print("Error: Data fetching failed (\(error.localizedDescription))")
+            }
+            
+            isLoading = false
+        }
         
         func getStoreDetail(_ name: String) {
-            
-            //Need to add logic with the database we use
-//            self.store = Store(name: name, category: "Fashion & Lifestyle", address: "Blok O, G South Floor", images: ["Image1", "Image2", "Image3"])
+            store =  stores.first(where: {
+                $0.name == name
+            })!  
         }
     }
 }
