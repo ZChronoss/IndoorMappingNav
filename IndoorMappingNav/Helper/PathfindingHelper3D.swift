@@ -8,16 +8,22 @@
 import GameplayKit
 
 class PathfindingHelper3D {
-    var graph = GKGraph()
-    var intersectionNodes: [GKGraphNode3D] = []
+    var pathGraph = GKGraph()
+    var interGraph = GKGraph()
+    var pathNodes: [GKGraphNode3D] = []
+    var interNodes: [GKGraphNode3D] = []
 
     // Adds a node at a given position and type (intersection or store)
     func addNode(at position: SCNVector3, type: NodeType) -> GKGraphNode3D {
         let node = GKGraphNode3D(point: vector_float3(position.x, position.y, position.z))
-        graph.add([node])
         
-        if type == .intersection {
-            intersectionNodes.append(node)
+        if type == .path {
+            pathNodes.append(node)
+            pathGraph.add([node])
+        }
+        else if type == .intersection {
+            interNodes.append(node)
+            interGraph.add([node])
         }
         
 //        print("NODE: \(node)")
@@ -46,27 +52,36 @@ class PathfindingHelper3D {
 
 
     // Finds the path between the start and end nodes
-    func findPath(from startNode: GKGraphNode3D, to endNode: GKGraphNode3D) -> [GKGraphNode3D]? {
+    func findPath(from startNode: GKGraphNode3D, to endNode: GKGraphNode3D, type: NodeType) -> [GKGraphNode3D]? {
         print("Finding path from \(startNode.position) to \(endNode.position)")
         
-        let path = graph.findPath(from: startNode, to: endNode) as? [GKGraphNode3D]
+        var path: [GKGraphNode3D]?
         
-        if let path = path {
-            print("Path found with \(path.count) nodes")
-        } else {
-            print("No path found")
+        if type == .path {
+            path = pathGraph.findPath(from: startNode, to: endNode) as? [GKGraphNode3D]
+        }
+        else if type == .intersection {
+            path = interGraph.findPath(from: startNode, to: endNode) as? [GKGraphNode3D]
         }
         
         return path
     }
 
     // Finds the nearest graph node to a given position
-    func findNearestNode(to position: SCNVector3) -> GKGraphNode3D? {
+    func findNearestNode(to position: SCNVector3, type: NodeType) -> GKGraphNode3D? {
         let targetPoint = vector_float3(position.x, position.y, position.z)
         
-        let nearestNode = intersectionNodes.min(by: {
-            simd_distance($0.position, targetPoint) < simd_distance($1.position, targetPoint)
-        })
+        var nearestNode: GKGraphNode3D?
+        if type == .path {
+            nearestNode = pathNodes.min(by: {
+                simd_distance($0.position, targetPoint) < simd_distance($1.position, targetPoint)
+            })
+        }
+        else if type == .intersection {
+            nearestNode = interNodes.min(by: {
+                simd_distance($0.position, targetPoint) < simd_distance($1.position, targetPoint)
+            })
+        }
         
         return nearestNode
     }

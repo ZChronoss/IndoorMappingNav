@@ -10,12 +10,16 @@ import GameplayKit
 
 enum NodeType {
     case store
+    case path
     case intersection
 }
 
 class PathfindingService {
     var pathfinder = PathfindingHelper3D()
     var pathEntities: [Entity] = []
+    var interEntities: [Entity] = []
+    var pathNodes: [GKGraphNode3D] = []
+    var interNodes: [GKGraphNode3D] = []
     var scene: Entity? = nil
     var cameraEntity: Entity?
     
@@ -61,7 +65,7 @@ class PathfindingService {
         
         let gridSpacing: Float = 0.12
         
-        var pathNodes: [GKGraphNode3D] = []
+        
         
         for x in stride(from: -groundSizeX, through: groundSizeX / 2, by: gridSpacing) {
             for z in stride(from: -groundSizeZ / 2, through: groundSizeZ / 2, by: gridSpacing) {
@@ -71,38 +75,45 @@ class PathfindingService {
                     groundPosition.z + z
                 )
                 
-//                                let markerPosition = SCNVector3(
-//                                    groundPosition.x + x,
-//                                    0.5,  // Slightly above the ground plane
-//                                    groundPosition.z + z
-//                                )
+//                                                let markerPosition = SCNVector3(
+//                                                    groundPosition.x + x,
+//                                                    0.5,  // Slightly above the ground plane
+//                                                    groundPosition.z + z
+//                                                )
                 
-                if checkForPath(at: simd_float3(nodePosition)) {
-                    let pathNode = pathfinder.addNode(at: nodePosition, type: .intersection)
-//                                        let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
-//                                        loadedScene.addChild(marker)
+                if checkForPath(at: simd_float3(nodePosition), type: .path) {
+                    let pathNode = pathfinder.addNode(at: nodePosition, type: .path)
+//                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
+//                                                            loadedScene.addChild(marker)
                     pathNodes.append(pathNode)
                 }
+                
+                if checkForPath(at: simd_float3(nodePosition), type: .intersection) {
+                    let interNode = pathfinder.addNode(at: nodePosition, type: .intersection)
+//                                                            let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
+//                                                            loadedScene.addChild(marker)
+                    interNodes.append(interNode)
+                }
             }
+            
         }
-        
-        print("Base graph is going to setup with \(pathNodes.count) nodes.")
         pathfinder.connectNodes(pathNodes)
-        print("Base graph setup with \(pathNodes.count) nodes.")
+        pathfinder.connectNodes(interNodes)
+        print("Base graph setup with \(pathNodes.count) path nodes & \(interNodes.count) inter nodes.")
         setupCamera()
     }
     
     func setupCamera() {
         if let existingCamera = cameraEntity {
-                existingCamera.removeFromParent()
-            }
+            existingCamera.removeFromParent()
+        }
         
         let cameraPosition = simd_float3(1, 1, 1)
         let cameraLookAt = simd_float3(0, 0, 0)
         
         _ = CameraHelper.setupCamera(in: scene, cameraPosition: cameraPosition, lookAtPosition: cameraLookAt, fov: 50.0)
     }
-
+    
     
     func interpolateCatmullRom(points: [simd_float3], segments: Int) -> [simd_float3] {
         var result: [simd_float3] = []
@@ -144,63 +155,97 @@ class PathfindingService {
     func drawPathBetweenNodes(from start: simd_float3, to end: simd_float3) {
         pathEntities.forEach { $0.removeFromParent() }
         pathEntities.removeAll()
-
+        interEntities.forEach { $0.removeFromParent() }
+        interEntities.removeAll()
+        
+        var pathPositions: [simd_float3] = []
+        
         let startNode = pathfinder.addNode(at: SCNVector3(start.x, start.y, start.z), type: .store)
         let endNode = pathfinder.addNode(at: SCNVector3(end.x, end.y, end.z), type: .store)
-
-        if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z)),
-           let nearestEndNode = pathfinder.findNearestNode(to: SCNVector3(end.x, end.y, end.z)) {
-            startNode.addConnections(to: [nearestStartNode], bidirectional: true)
-            endNode.addConnections(to: [nearestEndNode], bidirectional: true)
-        }
-
+        
         let pathSphere = createMarkerEntity(at: startNode.position)
         scene?.addChild(pathSphere)
-
-        // Find the path using GameplayKit
-        if let path = pathfinder.findPath(from: startNode, to: endNode) {
-            var pathPositions: [simd_float3] = path.map { simd_float3($0.position) }
+        
+        if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .path),
+           let nearestEndNode = pathfinder.findNearestNode(to: SCNVector3(end.x, end.y, end.z), type: .path) {
+            print("near2:",nearestStartNode)
+            startNode.addConnections(to: [nearestStartNode], bidirectional: true)
+            endNode.addConnections(to: [nearestEndNode], bidirectional: true)
             
-            // Insert first and last positions as control points for smoothing
-            pathPositions.insert(pathPositions.first!, at: 0)
-            pathPositions.append(pathPositions.last!)
-            
-            let smoothPath = interpolateCatmullRom(points: pathPositions, segments: 20)
-            
-            for i in 0..<smoothPath.count - 1 {
-                let startPos = smoothPath[i]
-                let endPos = smoothPath[i + 1]
-                let fullPathLineEntity = createLineEntity(from: startPos, to: endPos, opacity: 0.3)
+            // Find the path using GameplayKit
+            if let path = pathfinder.findPath(from: startNode, to: endNode, type: .path) {
+                pathPositions = path.map { simd_float3($0.position) }
+                print("PATH===",pathPositions.count)
                 
-                pathEntities.append(fullPathLineEntity)
-                scene?.addChild(fullPathLineEntity)
-            }
-            
-            var animatedIndex = 0
-            let stepDuration = 0.001
-
-            Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
-                if animatedIndex >= smoothPath.count - 1 {
-                    timer.invalidate()
-                    return
+//                for i in 0..<pathPositions.count {
+//                    let debug = createMarkerEntity(at: pathPositions[i], color: .black)
+//                    scene?.addChild(debug)
+//                }
+                
+                // Insert first and last positions as control points for smoothing
+                pathPositions.insert(pathPositions.first!, at: 0)
+                pathPositions.append(pathPositions.last!)
+                
+                let smoothPath = interpolateCatmullRom(points: pathPositions, segments: 20)
+                
+                for i in 0..<smoothPath.count - 1 {
+                    let startPos = smoothPath[i]
+                    let endPos = smoothPath[i + 1]
+                    let fullPathLineEntity = createLineEntity(from: startPos, to: endPos, opacity: 0.3)
+                    
+                    pathEntities.append(fullPathLineEntity)
+                    scene?.addChild(fullPathLineEntity)
                 }
-
-                let animatedStartPos = smoothPath[animatedIndex]
-                let animatedEndPos = smoothPath[animatedIndex + 1]
-                animatedIndex += 1
-
-                self.showDirection(from: animatedStartPos, to: animatedEndPos)
-
-                // Create and animate the second line
-                let animatedLineEntity = self.createLineEntity(from: animatedStartPos, to: animatedEndPos, opacity: 1.0)
-                self.scene?.addChild(animatedLineEntity)
-
-                // Move the pathSphere along the animated line
-                pathSphere.position = animatedEndPos
+                
+                var animatedIndex = 0
+                let stepDuration = 0.0001
+                
+                Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
+                    if animatedIndex >= smoothPath.count - 1 {
+                        timer.invalidate()
+                        return
+                    }
+                    
+                    let animatedStartPos = smoothPath[animatedIndex]
+                    let animatedEndPos = smoothPath[animatedIndex + 1]
+                    animatedIndex += 1
+                    
+                    self.showDirection(from: animatedStartPos, to: animatedEndPos)
+                    
+                    let animatedLineEntity = self.createLineEntity(from: animatedStartPos, to: animatedEndPos, opacity: 1.0)
+                    self.scene?.addChild(animatedLineEntity)
+                    
+                    pathSphere.position = animatedEndPos
+                }
+            }
+        }
+        
+        if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .intersection) {
+            for i in 0..<interNodes.count - 1 {
+                
+                
+                let startPos = interNodes[i]
+                
+                for j in 0..<pathPositions.count {
+                    if startPos.position == pathPositions[j] {
+                        print("GOT INTERPOSITION", pathPositions[j])
+                        let intersectionEntity = createMarkerEntity(at: startPos.position)
+                        
+                        interEntities.append(intersectionEntity)
+                        scene?.addChild(intersectionEntity)
+                    }
+                }
+            }
+            interEntities.sort { (entity1, entity2) -> Bool in
+                let pos1 = entity1.position
+                let pos2 = entity2.position
+                let dist1 = distance(simd_float3(nearestStartNode.position), simd_float3(pos1))
+                let dist2 = distance(simd_float3(nearestStartNode.position), simd_float3(pos2))
+                return dist1 < dist2
             }
         }
     }
-
+    
     func showDirection(from startPos: simd_float3, to endPos: simd_float3) {
         var directionOutput: String
         let direction = normalize(endPos - startPos)
@@ -225,9 +270,9 @@ class PathfindingService {
                 directionOutput = "Straight"
             }
         }
-//        print(directionOutput)
+        //        print(directionOutput)
     }
-
+    
     // MARK: - RealityKit Entity Creation for Path Segments
     func createLineEntity(from start: simd_float3, to end: simd_float3, opacity: Float) -> Entity {
         let lineLength = simd_distance(start, end)
@@ -243,16 +288,22 @@ class PathfindingService {
     }
     
     // MARK: - Collision Check Function
-    func checkForPath(at position: simd_float3) -> Bool {
+    func checkForPath(at position: simd_float3, type: NodeType) -> Bool {
         guard let scene = scene else { return false }
         
-        let pathEntities = scene.findPath()
-        guard !pathEntities.isEmpty else {
+        var entities: [Entity] = []
+        if type == .path {
+            entities = scene.findPath()
+        }
+        else if type == .intersection {
+            entities = scene.findIntersection()
+        }
+        guard !entities.isEmpty else {
             print("No path found.")
             return false
         }
         
-        for path in pathEntities {
+        for path in entities {
             if isPointInsideBoundingBox(position, boundingBox: path.visualBounds(relativeTo: scene)) {
                 print("Collision detected at position \(position) within \(path.name).")
                 return true
@@ -276,6 +327,11 @@ class PathfindingService {
         let pathEntities = scene?.findPath() ?? []
         for pathEntity in pathEntities {
             addCollisionComponent(to: pathEntity)
+        }
+        
+        let interEntities = scene?.findIntersection() ?? []
+        for interEntity in interEntities {
+            addCollisionComponent(to: interEntity)
         }
     }
     
@@ -334,6 +390,20 @@ extension Entity {
         }
         
         return path
+    }
+    
+    func findIntersection() -> [Entity] {
+        var inter: [Entity] = []
+        
+        if self.name.contains("PSP") {
+            inter.append(self)
+        }
+        
+        for child in children {
+            inter.append(contentsOf: child.findIntersection())
+        }
+        
+        return inter
     }
     
     func findAllEntities(excluding entityName: String = "pwy_") -> [Entity] {
