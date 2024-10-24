@@ -44,34 +44,43 @@ class PathfindingService2D {
     func moveToNextNode() {
         guard currentIndex < currentPath.count - 1 else { return }
         
-        currentIndex += 20
+        currentIndex += 1
         moveObject(to: currentPath[currentIndex])
     }
     
     func moveToPreviousNode() {
         guard currentIndex > 0 else { return }
         
-        currentIndex -= 20
+        currentIndex -= 1
         moveObject(to: currentPath[currentIndex])
     }
     
     func moveObject(to position: simd_float3) {
-        let nextIndex = min(currentIndex + 20, currentPath.count - 1)
+        guard currentIndex < currentPath.count else { return }
+        
+        let nextIndex = currentIndex + 1
+        
+        guard nextIndex < currentPath.count else {
+            objectEntity?.position = position
+            panCameraToFollow(objectEntity, xCamera: 0, zCamera: 0)
+            return
+        }
+        
         let nextNode = currentPath[nextIndex]
-        
-        print(currentIndex)
-        
         objectEntity?.position = position
-        rotateCameraToFace(nextNode)
+        
+        if nextNode != position {
+            rotateCameraToFace(nextNode)
+        } else {
+            print("Next node is the same as the current node, no rotation needed.")
+        }
     }
+
     
     func rotateCameraToFace(_ nextNode: simd_float3) {
         guard let object = objectEntity else { return }
         
         let direction = normalize(nextNode - object.position)
-        print("nextNode: ", nextNode)
-        print("object: ", object.position)
-        print("direction: ", direction)
         
         // Compute the angle based on the direction the object is moving
         let angle = atan2(direction.x, direction.z)
@@ -79,22 +88,17 @@ class PathfindingService2D {
         // Instead of rotating the scene, rotate the camera to face the object’s direction
         cameraEntity?.orientation = simd_quatf(angle: angle, axis: [0, 1, 0])
         
-        print("Rotating camera by angle: \(angle) radians to align with object direction")
         panCameraToFollow(objectEntity, xCamera: -sin(angle), zCamera: -cos(angle))
     }
     
     func panCameraToFollow(_ entity: Entity?, xCamera: Float, zCamera: Float) {
         guard let object = entity else { return }
         
-        print("Panning camera to object at position: \(object.position)")
-        
         if let existingCamera = cameraEntity {
             existingCamera.removeFromParent()
         }
         
         let cameraPosition = simd_float3(object.position.x + xCamera, object.position.y + 5, object.position.z + zCamera)
-        
-        print("Camera position set to: \(cameraPosition), looking at object position: \(object.position)")
         
         _ = CameraHelper.setupCamera(in: scene, cameraPosition: cameraPosition, lookAtPosition: object.position, fov: 50.0)
     }

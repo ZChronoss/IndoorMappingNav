@@ -41,9 +41,10 @@ struct ContentView: View {
                     //                    loadedScene.transform.scale = [scaleNum, scaleNum, scaleNum]
                     scene = loadedScene
                     content.add(scene!)
+                    scene?.setScale([scale, scale, scale], relativeTo: nil)
                     pathfinder.setupPath(loadedScene: scene!)
                     
-                    pathfinder.startNavigation(start: "G_factory", end: "Huawei")
+                    pathfinder.startNavigation(start: "Huawei", end: "Lift")
                 }
             }
             update: { content in
@@ -174,20 +175,19 @@ struct ContentView: View {
             // 3D to 2D path conversion (flatten Y-axis)
             guard let scene = scene else { return }
             scene.setScale([2,2,2], relativeTo: nil)
-            let path = pathfinder.pathEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
+            let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
             pathfinder2D.setup2DNavigation(path: path, scene: scene)
         }
         // Navigation buttons
-                    HStack {
-                        Button("Previous") {
-                            pathfinder2D.moveToPreviousNode()
-                        }
-                        Button("Next") {
-                            pathfinder2D.moveToNextNode()
-                        }
-                    }
-        Slider(value: $scale, in: 0...3)
-            .padding()
+        HStack {
+            Button("Previous") {
+                pathfinder2D.moveToPreviousNode()
+            }
+            Button("Next") {
+                pathfinder2D.moveToNextNode()
+            }
+        }
+        .padding()
     }
 }
 
