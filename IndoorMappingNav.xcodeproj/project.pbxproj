@@ -120,10 +120,12 @@
 				View/Component/StoreCard.swift,
 				View/Component/SubCategoryCard.swift,
 				View/Component/SubCategoryDetailView.swift,
+				View/Component/SwipingFinger.swift,
 				View/Component/TapSearchBarButton.swift,
 				View/Component/ToiletIcon.swift,
 				View/ContentView.swift,
 				View/ImageCarousel.swift,
+				View/OverlayView.swift,
 				View/StoreDetailView.swift,
 				"ViewModel/StoreDetailView-ViewModel.swift",
 			);
