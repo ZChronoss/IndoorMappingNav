@@ -111,11 +111,23 @@ class PathfindingService: ObservableObject {
         if let existingCamera = cameraEntity {
             existingCamera.removeFromParent()
         }
+//        guard let cameraEntity = cameraEntity else { return }
         
         let cameraPosition = simd_float3(1, 1, 1)
         let cameraLookAt = simd_float3(0, 0, 0)
         
-        _ = CameraHelper.setupCamera(in: scene, cameraPosition: cameraPosition, lookAtPosition: cameraLookAt, fov: 50.0)
+//        _ = CameraHelper.setupCamera(in: scene, cameraPosition: cameraPosition, lookAtPosition: cameraLookAt, fov: 50.0)
+        let cameraAnchor = AnchorEntity(world: cameraPosition)
+        let perspectiveCameraComponent = PerspectiveCameraComponent()
+        
+        let newCameraEntity = Entity()
+        newCameraEntity.components[PerspectiveCameraComponent.self] = perspectiveCameraComponent
+        newCameraEntity.look(at: cameraLookAt, from: cameraPosition, relativeTo: nil)
+        
+        scene!.addChild(cameraAnchor)
+        cameraAnchor.addChild(newCameraEntity)
+        
+        cameraEntity = newCameraEntity
     }
     
     
