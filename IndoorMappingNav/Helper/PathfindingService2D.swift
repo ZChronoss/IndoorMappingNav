@@ -15,10 +15,12 @@ class PathfindingService2D {
     var scene: Entity? = nil
     var cameraEntity: Entity?
     
-    func setup2DNavigation(path: [simd_float3], scene: Entity) {
+    func setup2DNavigation(path: [simd_float3], scene: Entity, camera: Entity) {
         self.currentPath = path
         self.scene = scene
         self.currentIndex = 0
+        
+        cameraEntity = camera
         
         if let firstPosition = path.first {
             print(firstPosition)
@@ -26,9 +28,9 @@ class PathfindingService2D {
             objectEntity = createObjectEntity(at: firstPosition)
             scene.addChild(objectEntity!)
             
-            panCameraToFollow(objectEntity, xCamera: 0, zCamera: 0)
+            rotateCameraToFace(currentPath[currentIndex+1])
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.000000001) {
-                self.panCameraToFollow(self.objectEntity, xCamera: 0, zCamera: 0)
+                self.rotateCameraToFace(self.currentPath[self.currentIndex+1])
             }
         }
     }
@@ -40,7 +42,7 @@ class PathfindingService2D {
         objectEntity.position = position
         return objectEntity
     }
-    //MARK: +-20 MASIH UNTUK DEBUG, BELUM INPUT INTERSECTION
+    
     func moveToNextNode() {
         guard currentIndex < currentPath.count - 1 else { return }
         
@@ -75,7 +77,6 @@ class PathfindingService2D {
             print("Next node is the same as the current node, no rotation needed.")
         }
     }
-
     
     func rotateCameraToFace(_ nextNode: simd_float3) {
         guard let object = objectEntity else { return }
@@ -90,20 +91,19 @@ class PathfindingService2D {
         
         panCameraToFollow(objectEntity, xCamera: -sin(angle), zCamera: -cos(angle))
     }
-    
+  
     func panCameraToFollow(_ entity: Entity?, xCamera: Float, zCamera: Float) {
-        guard let object = entity else { return }
+        guard let object = entity, let cameraEntity = cameraEntity else { return }
         
-        if let existingCamera = cameraEntity {
-            existingCamera.removeFromParent()
-        }
-        
-        let cameraPosition = simd_float3(object.position.x + xCamera, object.position.y + 5, object.position.z + zCamera)
-        
-        _ = CameraHelper.setupCamera(in: scene, cameraPosition: cameraPosition, lookAtPosition: object.position, fov: 50.0)
+        let cameraPosition = simd_float3(object.position.x + xCamera, object.position.y + 3, object.position.z + zCamera)
+
+        cameraEntity.position = cameraPosition
+        cameraEntity.look(at: object.position, from: cameraPosition, relativeTo: scene)
+
+        print("TEST", cameraPosition, object.position)
+        // Attach the camera directly to the scene
+        scene?.addChild(cameraEntity)
     }
-    
-    
-    
+
 }
 

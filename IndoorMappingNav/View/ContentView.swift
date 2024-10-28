@@ -33,6 +33,8 @@ struct ContentView: View {
     @State var selectedStore: String?
     @State var scale: Float = 0.2
     
+    @State var is2DMode = false
+    
     var body: some View {
         ZStack {
             // Main RealityView content
@@ -160,6 +162,7 @@ struct ContentView: View {
                 
                 Spacer() // Push the RealityView to the bottom
             }
+            .realityViewCameraControls(is2DMode ? .pan : .orbit)
         }
         .onChange(of: selectedStore, { oldValue, newValue in
             isSheetOpen.toggle()
@@ -176,7 +179,8 @@ struct ContentView: View {
             guard let scene = scene else { return }
             scene.setScale([2,2,2], relativeTo: nil)
             let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
-            pathfinder2D.setup2DNavigation(path: path, scene: scene)
+            pathfinder2D.setup2DNavigation(path: path, scene: scene, camera: pathfinder.cameraEntity!)
+            is2DMode = true
         }
         // Navigation buttons
         HStack {
