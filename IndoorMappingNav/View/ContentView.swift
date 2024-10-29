@@ -11,27 +11,20 @@ import GameplayKit
 import MallMap
 
 struct ContentView: View {
+    @StateObject var pathfinder = PathfindingService()
+    @StateObject var pathfinder2D = PathfindingService2D()
+    
     @State private var entityPositions: [Entity: simd_float3] = [:] // Store only the original position
     @State private var entityState: [Entity: Bool] = [:]
     @State var isSheetOpen = false
     @State var selectedStore: String?
-    @State var scale: Float = 1
+    @State var scale: Float = 0.2
     @State private var isMoving: Bool = false
-    @State private var startScale: Float? = nil
+    
     @State private var selectedCategory: String = "Food & Beverage"
-
-    var pathfinder = PathfindingHelper3D()
-    var scaleNum: Float = 0.05
-    var positionScale: Float = 1.0 / 0.05
-    var pathfinder = PathfindingService()
-    var pathfinder2D = PathfindingService2D()
     
     @State private var scene: Entity? = nil
     @State private var pathEntities: [Entity] = []
-    
-    @State var isSheetOpen = false
-    @State var selectedStore: String?
-    @State var scale: Float = 0.2
     
     @State var is2DMode = false
     
@@ -40,7 +33,6 @@ struct ContentView: View {
             // Main RealityView content
             RealityView { content in
                 if let loadedScene = try? await Entity(named: "Scene", in: mallMapBundle) {
-                    //                    loadedScene.transform.scale = [scaleNum, scaleNum, scaleNum]
                     scene = loadedScene
                     content.add(scene!)
                     scene?.setScale([scale, scale, scale], relativeTo: nil)
@@ -49,25 +41,20 @@ struct ContentView: View {
                     pathfinder.startNavigation(start: "Huawei", end: "Lift")
                 }
             }
-            update: { content in
-                print(scale)
-                if let glassCube = content.entities.first {
-                    glassCube.setScale([scale, scale, scale], relativeTo: nil)
-                }
-            }
-            .simultaneousGesture(
-                MagnifyGesture()
-                    .onChanged({ value in
-                        if let startScale {
-                            scale = max(0.5, min(2, Float(value.magnification) * startScale))
-                        } else {
-                            startScale = scale
-                        }
-                    })
-                    .onEnded { _ in
-                        startScale = scale
-                    }
-            )
+            .realityViewCameraControls(is2DMode ? .pan : .orbit)
+//            .simultaneousGesture(
+//                MagnifyGesture()
+//                    .onChanged({ value in
+//                        if let startScale {
+//                            scale = max(0.5, min(2, Float(value.magnification) * startScale))
+//                        } else {
+//                            startScale = scale
+//                        }
+//                    })
+//                    .onEnded { _ in
+//                        startScale = scale
+//                    }
+//            )
             .gesture(
                 SpatialTapGesture()
                     .targetedToAnyEntity()
@@ -112,7 +99,7 @@ struct ContentView: View {
                         }
                     })
             )
-            .realityViewCameraControls(.orbit)
+            
 
             // Overlay: Location title, search bar, and category buttons
             
@@ -162,7 +149,6 @@ struct ContentView: View {
                 
                 Spacer() // Push the RealityView to the bottom
             }
-            .realityViewCameraControls(is2DMode ? .pan : .orbit)
         }
         .onChange(of: selectedStore, { oldValue, newValue in
             isSheetOpen.toggle()
@@ -179,7 +165,8 @@ struct ContentView: View {
             guard let scene = scene else { return }
             scene.setScale([2,2,2], relativeTo: nil)
             let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
-            pathfinder2D.setup2DNavigation(path: path, scene: scene, camera: pathfinder.cameraEntity!)
+            guard let camera = pathfinder.cameraEntity else { return }
+            pathfinder2D.setup2DNavigation(path: path, scene: scene, camera: camera)
             is2DMode = true
         }
         // Navigation buttons
