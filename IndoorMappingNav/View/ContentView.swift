@@ -7,44 +7,54 @@
 
 import SwiftUI
 import RealityKit
+import GameplayKit
 import MallMap
 
 struct ContentView: View {
+    @StateObject var pathfinder = PathfindingService()
+    @StateObject var pathfinder2D = PathfindingService2D()
+    
     @State private var entityPositions: [Entity: simd_float3] = [:] // Store only the original position
     @State private var entityState: [Entity: Bool] = [:]
     @State var isSheetOpen = false
     @State var selectedStore: String?
-    @State var scale: Float = 1
+    @State var scale: Float = 0.2
     @State private var isMoving: Bool = false
-    @State private var startScale: Float? = nil
+    
     @State private var selectedCategory: String = "Food & Beverage"
-
+    
+    @State private var scene: Entity? = nil
+    @State private var pathEntities: [Entity] = []
+    
+    @State var is2DMode = false
+    
     var body: some View {
         ZStack {
             // Main RealityView content
             RealityView { content in
-                if let scene = try? await Entity(named: "Scene", in: mallMapBundle) {
-                    content.add(scene)
+                if let loadedScene = try? await Entity(named: "Scene", in: mallMapBundle) {
+                    scene = loadedScene
+                    content.add(scene!)
+                    scene?.setScale([scale, scale, scale], relativeTo: nil)
+                    pathfinder.setupPath(loadedScene: scene!)
+                    
+                    pathfinder.startNavigation(start: "Huawei", end: "Lift")
                 }
             }
-            update: { content in
-                if let glassCube = content.entities.first {
-                    glassCube.setScale([scale, scale, scale], relativeTo: nil)
-                }
-            }
-            .simultaneousGesture(
-                MagnifyGesture()
-                    .onChanged({ value in
-                        if let startScale {
-                            scale = max(0.5, min(2, Float(value.magnification) * startScale))
-                        } else {
-                            startScale = scale
-                        }
-                    })
-                    .onEnded { _ in
-                        startScale = scale
-                    }
-            )
+            .realityViewCameraControls(is2DMode ? .pan : .orbit)
+//            .simultaneousGesture(
+//                MagnifyGesture()
+//                    .onChanged({ value in
+//                        if let startScale {
+//                            scale = max(0.5, min(2, Float(value.magnification) * startScale))
+//                        } else {
+//                            startScale = scale
+//                        }
+//                    })
+//                    .onEnded { _ in
+//                        startScale = scale
+//                    }
+//            )
             .gesture(
                 SpatialTapGesture()
                     .targetedToAnyEntity()
@@ -89,7 +99,7 @@ struct ContentView: View {
                         }
                     })
             )
-            .realityViewCameraControls(.orbit)
+            
 
             // Overlay: Location title, search bar, and category buttons
             
@@ -150,6 +160,25 @@ struct ContentView: View {
         }
         .padding(.top, 56)
         .ignoresSafeArea()
+        Button("2D Mode") {
+            // 3D to 2D path conversion (flatten Y-axis)
+            guard let scene = scene else { return }
+            scene.setScale([2,2,2], relativeTo: nil)
+            let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
+            guard let camera = pathfinder.cameraEntity else { return }
+            pathfinder2D.setup2DNavigation(path: path, scene: scene, camera: camera)
+            is2DMode = true
+        }
+        // Navigation buttons
+        HStack {
+            Button("Previous") {
+                pathfinder2D.moveToPreviousNode()
+            }
+            Button("Next") {
+                pathfinder2D.moveToNextNode()
+            }
+        }
+        .padding()
     }
 }
 
