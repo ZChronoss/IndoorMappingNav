@@ -126,7 +126,6 @@
 				View/Component/SwipingFinger.swift,
 				View/Component/TapSearchBarButton.swift,
 				View/Component/ToiletIcon.swift,
-				View/ContentView.swift,
 				View/ImageCarousel.swift,
 				View/OverlayView.swift,
 				View/StoreDetailView.swift,

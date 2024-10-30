@@ -61,11 +61,11 @@ struct StoreDetailView: View {
             reason: viewModel.isLoading ? .placeholder : []
         )
         .refreshable {
-            await viewModel.getStores()
+//            await viewModel.getStores()
         }
         .task {
-            await viewModel.getStores()
-            viewModel.getStoreDetail("Star")
+//            await viewModel.getStores()
+            await viewModel.getStoreDetail("A&W")
         }
     }
 }

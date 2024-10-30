@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct SearchBar: View {
-    @State private var searchText: String = ""
+    @Binding var searchText: String
     var image: Image
     var iconColor: Color
     
@@ -19,6 +19,7 @@ struct SearchBar: View {
                 .bold()
             TextField("Search for a store...", text: $searchText)
                 .textFieldStyle(PlainTextFieldStyle())
+                .autocorrectionDisabled()
                 .padding(8)
                 .cornerRadius(16)
         }
@@ -31,5 +32,5 @@ struct SearchBar: View {
 }
 
 #Preview {
-    SearchBar(image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
+    SearchBar(searchText: .constant("Ha"), image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
 }

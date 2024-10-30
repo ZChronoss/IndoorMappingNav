@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SearchBarWithChevron: View {
     @FocusState var isActive: Bool
+    @Binding var searchText: String
     
     var body: some View {
         HStack(spacing: 20) {
@@ -20,7 +21,7 @@ struct SearchBarWithChevron: View {
                         .foregroundStyle(.black)
                 })
             }
-            SearchBar(image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
+            SearchBar(searchText: $searchText, image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
                 .focused(
                     withAnimation(.easeOut, {
                         $isActive
@@ -33,5 +34,5 @@ struct SearchBarWithChevron: View {
 }
 
 #Preview {
-    SearchBarWithChevron()
+    SearchBarWithChevron(searchText: .constant(""))
 }

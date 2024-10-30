@@ -1,5 +1,5 @@
 //
-//  ContentView.swift
+//  HomeView.swift
 //  IndoorMappingNav
 //
 //  Created by Michael Varian Kostaman on 11/10/24.
@@ -10,7 +10,9 @@ import RealityKit
 import GameplayKit
 import MallMap
 
-struct ContentView: View {
+struct HomeView: View {
+    @StateObject var vm = ViewModel()
+    
     @StateObject var pathfinder = PathfindingService()
     @StateObject var pathfinder2D = PathfindingService2D()
     
@@ -46,19 +48,6 @@ struct ContentView: View {
                 }
             }
             .realityViewCameraControls(is2DMode ? .pan : .orbit)
-//            .simultaneousGesture(
-//                MagnifyGesture()
-//                    .onChanged({ value in
-//                        if let startScale {
-//                            scale = max(0.5, min(2, Float(value.magnification) * startScale))
-//                        } else {
-//                            startScale = scale
-//                        }
-//                    })
-//                    .onEnded { _ in
-//                        startScale = scale
-//                    }
-//            )
             .gesture(
                 SpatialTapGesture()
                     .targetedToAnyEntity()
@@ -129,8 +118,12 @@ struct ContentView: View {
                         .padding(.horizontal, 20)
                         .padding(.bottom, 16)
 
-                        SearchBar(image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
+                        SearchBarWithCancel(searchText: $vm.searchText)
                             .padding(.horizontal, 20)
+                            .disabled(true)
+                            .onTapGesture {
+                                SearchPageView()
+                            }
                     }
                 }
 
@@ -208,5 +201,5 @@ struct CustomCornerShape: Shape {
 
 
 #Preview {
-    ContentView()
+    HomeView()
 }
