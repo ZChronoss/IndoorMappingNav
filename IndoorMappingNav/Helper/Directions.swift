@@ -36,19 +36,19 @@ class RightDirection: Directions {
     }
 }
 
-class StraightDirections: Directions {
+class StraightDirection: Directions {
     init() {
         super.init(icon: Directions.straight.icon, instruction: Directions.straight.instruction)
     }
 }
 
-class StairUpDirections: Directions {
+class StairUpDirection: Directions {
     init() {
         super.init(icon: Directions.stairUp.icon, instruction: Directions.stairUp.instruction)
     }
 }
 
-class HereDirections: Directions {
+class HereDirection: Directions {
     init() {
         super.init(icon: Directions.here.icon, instruction: Directions.here.instruction)
     }

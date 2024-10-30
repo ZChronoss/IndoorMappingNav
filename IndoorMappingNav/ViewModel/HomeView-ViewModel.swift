@@ -7,8 +7,7 @@
 
 import Foundation
 
-extension HomeView {
-    @MainActor
+extension HomeViewComponents {
     class ViewModel: ObservableObject {
         private let cloudkitController = CloudKitController()
         /// SEARCH FUNC

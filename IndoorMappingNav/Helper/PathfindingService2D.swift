@@ -9,6 +9,7 @@ import RealityKit
 import GameplayKit
 
 class PathfindingService2D: ObservableObject {
+    static let shared = PathfindingService2D()
     var currentPath: [simd_float3] = []
     var currentIndex = 0
     var objectEntity: Entity?
@@ -47,21 +48,8 @@ class PathfindingService2D: ObservableObject {
         return objectEntity
     }
     
-    func moveToNextNode() {
-        guard currentIndex < currentPath.count - 1 else { return }
-        
-        currentIndex += 1
-        moveObject(to: currentPath[currentIndex])
-    }
-    
-    func moveToPreviousNode() {
-        guard currentIndex > 0 else { return }
-        
-        currentIndex -= 1
-        moveObject(to: currentPath[currentIndex])
-    }
-    
-    func moveObject(to position: simd_float3) {
+    func moveObject(to currentIndex: Int) {
+        let position = currentPath[currentIndex]
         guard currentIndex < currentPath.count else { return }
         
         let nextIndex = currentIndex + 1
@@ -104,7 +92,6 @@ class PathfindingService2D: ObservableObject {
         cameraEntity.position = cameraPosition
         cameraEntity.look(at: object.position, from: cameraPosition, relativeTo: scene)
 
-        print("TEST", cameraPosition, object.position)
         // Attach the camera directly to the scene
         scene?.addChild(cameraEntity)
     }

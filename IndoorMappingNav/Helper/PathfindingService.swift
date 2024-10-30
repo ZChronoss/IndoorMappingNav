@@ -15,11 +15,13 @@ enum NodeType {
 }
 
 class PathfindingService: ObservableObject {
+    static let shared = PathfindingService()
     var pathfinder = PathfindingHelper3D()
     var pathEntities: [Entity] = []
     var interEntities: [Entity] = []
     var pathNodes: [GKGraphNode3D] = []
     var interNodes: [GKGraphNode3D] = []
+    var instructions: [Directions] = []
     var scene: Entity? = nil
     var cameraEntity: Entity?
     
@@ -179,7 +181,6 @@ class PathfindingService: ObservableObject {
         
         if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .path),
            let nearestEndNode = pathfinder.findNearestNode(to: SCNVector3(end.x, end.y, end.z), type: .path) {
-            print("near2:",nearestStartNode)
             startNode.addConnections(to: [nearestStartNode], bidirectional: true)
             endNode.addConnections(to: [nearestEndNode], bidirectional: true)
             
@@ -188,17 +189,17 @@ class PathfindingService: ObservableObject {
                 pathPositions = path.map { simd_float3($0.position) }
                 print("PATH===",pathPositions.count)
                 
-//                for i in 0..<pathPositions.count {
-//                    let debug = createMarkerEntity(at: pathPositions[i], color: .black)
-//                    scene?.addChild(debug)
-//                }
+                //                for i in 0..<pathPositions.count {
+                //                    let debug = createMarkerEntity(at: pathPositions[i], color: .black)
+                //                    scene?.addChild(debug)
+                //                }
                 
                 // Insert first and last positions as control points for smoothing
                 guard let firstPosition = pathPositions.first,
                       let lastPosition = pathPositions.last else {
                     return
                 }
-
+                
                 pathPositions.insert(firstPosition, at: 0)
                 pathPositions.append(lastPosition)
                 
@@ -226,8 +227,6 @@ class PathfindingService: ObservableObject {
                     let animatedEndPos = smoothPath[animatedIndex + 1]
                     animatedIndex += 1
                     
-                    self.showDirection(from: animatedStartPos, to: animatedEndPos)
-                    
                     let animatedLineEntity = self.createLineEntity(from: animatedStartPos, to: animatedEndPos, opacity: 1.0)
                     self.scene?.addChild(animatedLineEntity)
                     
@@ -239,13 +238,12 @@ class PathfindingService: ObservableObject {
         if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .intersection) {
             for i in 0..<interNodes.count - 1 {
                 
-                
                 let startPos = interNodes[i]
                 
                 for j in 0..<pathPositions.count {
                     if startPos.position == pathPositions[j] {
                         print("GOT INTERPOSITION", pathPositions[j])
-                        let intersectionEntity = createMarkerEntity(at: startPos.position)
+                        let intersectionEntity = createMarkerEntity(at: simd_float3(startPos.position.x, -0.1, startPos.position.z), color: .clear)
                         
                         interEntities.append(intersectionEntity)
                         scene?.addChild(intersectionEntity)
@@ -260,34 +258,46 @@ class PathfindingService: ObservableObject {
                 return dist1 < dist2
             }
         }
+        
+        saveDirection()
     }
     
-    func showDirection(from startPos: simd_float3, to endPos: simd_float3) {
-        var directionOutput: String
-        let direction = normalize(endPos - startPos)
-        let referenceDirection = simd_float3(0, 1, 0)
-        let crossProduct = simd_cross(direction, referenceDirection)
-        
-        // Detect dominant axis of movement
-        if abs(direction.x) > abs(direction.z) {
-            if crossProduct.x > 0 {
-                directionOutput = "Right"
-            } else if crossProduct.x < 0 {
-                directionOutput = "Left"
+    func saveDirection() {
+        var startPos: simd_float3
+        var endPos: simd_float3
+        for i in 0..<interEntities.count {
+            startPos = interEntities[i].position
+            if i == interEntities.count - 1 {
+                endPos = pathEntities[pathEntities.count-1].position
             } else {
-                directionOutput = "Straight"
+                endPos = interEntities[i + 1].position
             }
-        } else {
-            if crossProduct.z < 0 {
-                directionOutput = "Right"
-            } else if crossProduct.z > 0 {
-                directionOutput = "Left"
+            
+            
+            let direction = normalize(endPos - startPos)
+            let referenceDirection = simd_float3(0, 1, 0)
+            let crossProduct = simd_cross(direction, referenceDirection)
+            
+            if abs(direction.x) > abs(direction.z) {
+                if crossProduct.x > 0 {
+                    instructions.append(RightDirection())
+                } else if crossProduct.x < 0 {
+                    instructions.append(LeftDirection())
+                } else {
+                    instructions.append(StraightDirection())
+                }
             } else {
-                directionOutput = "Straight"
+                if crossProduct.z < 0 {
+                    instructions.append(RightDirection())
+                } else if crossProduct.z > 0 {
+                    instructions.append(LeftDirection())
+                } else {
+                    instructions.append(StraightDirection())
+                }
             }
         }
-        //        print(directionOutput)
     }
+
     
     // MARK: - RealityKit Entity Creation for Path Segments
     func createLineEntity(from start: simd_float3, to end: simd_float3, opacity: Float) -> Entity {
