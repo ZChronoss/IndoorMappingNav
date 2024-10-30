@@ -13,10 +13,9 @@ struct StoreDetailView: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            
             VStack(alignment: .leading, spacing: 3) {
                 // TITLE
-                Text(viewModel.store.name ?? "Error: No Store Name")
+                Text(viewModel.store.name ?? "Hai")
                     .font(.system(.title3))
                 
                 // CATEGORY
@@ -40,7 +39,6 @@ struct StoreDetailView: View {
             // IMAGE CAROUSEL
             if let images = viewModel.store.images {
                 ImageCarousel(images: images)
-                    .ignoresSafeArea()
             }
             
             
