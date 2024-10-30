@@ -23,6 +23,10 @@ struct ContentView: View {
     
     @State private var selectedCategory: String = "Food & Beverage"
     
+    // Setelah gua tambahin ini, kenapa jadi beda
+    @State private var isCategorySheetOpen = false
+    @State var categoryDetent: PresentationDetent = .fraction(0.17)
+    
     @State private var scene: Entity? = nil
     @State private var pathEntities: [Entity] = []
     
@@ -135,12 +139,15 @@ struct ContentView: View {
                     HStack(spacing: 10) {
                         CategoryButton(categoryName: "Food & Beverage", categoryIcon: "fork.knife", categoryColor: .red, isSelected: selectedCategory == "Food & Beverage") {
                             selectedCategory = "Food & Beverage"
+                            isCategorySheetOpen = true
                         }
                         CategoryButton(categoryName: "Shopping", categoryIcon: "cart", categoryColor: .green, isSelected: selectedCategory == "Shopping") {
                             selectedCategory = "Shopping"
+                            isCategorySheetOpen = true
                         }
                         CategoryButton(categoryName: "Entertainment", categoryIcon: "gamecontroller", categoryColor: .purple, isSelected: selectedCategory == "Entertainment") {
                             selectedCategory = "Entertainment"
+                            isCategorySheetOpen = true
                         }
                     }
                     .padding(.horizontal)
@@ -157,6 +164,11 @@ struct ContentView: View {
             StoreDetailView()
                 .presentationDetents([.fraction(0.5)])
                 .presentationBackgroundInteraction(.enabled)
+        }
+        .sheet(isPresented: $isCategorySheetOpen) {
+            NavigationStack {
+                CategorySheet(categoryName: selectedCategory, categoryDetent: $categoryDetent)
+            }
         }
         .padding(.top, 56)
         .ignoresSafeArea()

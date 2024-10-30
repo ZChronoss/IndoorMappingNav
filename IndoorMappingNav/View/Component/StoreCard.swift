@@ -8,28 +8,51 @@
 import SwiftUI
 
 struct StoreCard: View {
-    
-    var images: String
+    var store: Store
     
     var body: some View {
         VStack (alignment: .leading, spacing: 8) {
-            Image(images)
-                .resizable()
-                .scaledToFit()
-                .clipShape(
-                    UnevenRoundedRectangle(topLeadingRadius: 8, bottomLeadingRadius: 0, bottomTrailingRadius: 0, topTrailingRadius: 8)
-                )
+            if let imageData = store.images?.first,
+               let validData = imageData,
+               let uiImage = UIImage(data: validData) {
+                Image(uiImage: uiImage)
+                    .resizable()
+                    .scaledToFit()
+                    .clipShape(
+                        UnevenRoundedRectangle(
+                            topLeadingRadius: 8,
+                            bottomLeadingRadius: 0,
+                            bottomTrailingRadius: 0,
+                            topTrailingRadius: 8
+                        )
+                    )
+            } else {
+                // Placeholder view if the image is not available
+                Rectangle()
+                    .fill(Color.gray)
+                    .frame(height: 100)
+                    .clipShape(
+                        UnevenRoundedRectangle(
+                            topLeadingRadius: 8,
+                            bottomLeadingRadius: 0,
+                            bottomTrailingRadius: 0,
+                            topTrailingRadius: 8
+                        )
+                    )
+            }
+//            Image(images)
+
             
             VStack(alignment: .leading) {
-                Text("Store Name") // change into store.name
+                Text(store.name ?? "Unknown Store")
                     .font(.callout)
                     .fontWeight(.bold)
-                
-                Text("Specific Category")
+
+                Text(store.category?.name.rawValue ?? "Unknown Category")
                     .font(.caption)
             }
 
-            Text("Floor Name")
+            Text(store.floor ?? "Unknown Floor")
                 .font(.caption)
             
         }
@@ -55,5 +78,9 @@ struct RoundedCornersShape: Shape {
 }
 
 #Preview {
-    StoreCard(images: "Image4")
+    let store = Store()
+    store.name = "Sample Store"
+    store.floor = "1st Floor"
+    store.category = StoreCategory(name: .fnb)
+    return StoreCard(store: store)
 }

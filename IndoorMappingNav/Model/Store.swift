@@ -9,7 +9,7 @@ import Foundation
 import CloudKit
 
 class Store: Identifiable, CloudKitRecordInitializable {
-    var id: Int64?
+    var id: CKRecord.ID
     var name: String?
     var category: StoreCategory?
     var address: String?
@@ -18,11 +18,11 @@ class Store: Identifiable, CloudKitRecordInitializable {
     var mallId: CKRecord.Reference?
     
     init(){
-        
+        self.id = CKRecord.ID(recordName: UUID().uuidString)
     }
     
     required init(record: CKRecord) {
-        self.id = record["Id"] as? Int64
+        self.id = record.recordID
         self.name = record["Name"] as? String
         
         let categoryId = record["Category"] as? Int64
@@ -74,4 +74,6 @@ class Store: Identifiable, CloudKitRecordInitializable {
         }
         return category
     }
+    
+    
 }
