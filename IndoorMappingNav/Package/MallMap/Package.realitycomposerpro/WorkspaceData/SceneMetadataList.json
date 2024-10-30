@@ -2,19 +2,18 @@
   "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7" : {
     "objectMetadataList" : [
       [
-        "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7",
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
-        "Star_001"
+        "Timeline",
+        "Track2"
       ],
       {
         "isExpanded" : true,
         "isLocked" : false
       },
       [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Timeline",
-        "Track2"
+        "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7",
+        "root"
       ],
       {
         "isExpanded" : true,
@@ -40,6 +39,7 @@
         "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
         "Star"
+        "Star"
       ],
       {
         "isExpanded" : true,
@@ -48,6 +48,7 @@
       [
         "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
+        "Plane"
         "Plane"
       ],
       {
@@ -63,97 +64,11 @@
       {
         "isExpanded" : true,
         "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Tinesco"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Camera"
-      ],
-      {
-        "disallowsFraming" : false,
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Timeline"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Timeline",
-        "Track2"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "6613B4BE-F93D-42B0-8F22-045DB64D2315",
-        "_3D_Mapping_Toko_Material",
-        "Materials"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      }
-    ]
-  },
-  "801BB739-7548-43D3-AD07-9343D9CB54CB" : {
-    "objectMetadataList" : [
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
       }
     ]
   },
   "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98" : {
     "objectMetadataList" : [
-      [
-        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping_Alpha_Material__1_",
-        "Geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping_Alpha_Material__1_",
-        "Materials"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping_Coba_persimpangan",
-        "Geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
         "SMS_Lt_2_3D_Mapping__3_"
@@ -174,35 +89,7 @@
       },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping__GLB",
-        "Geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "MaplePlywood",
         "SMS_1_LT_UG_3D_Mapping_Persimpangan",
-        "Geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping_Alpha_Material",
-        "Geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping__GLB",
         "Materials"
       ],
       {
@@ -211,7 +98,8 @@
       },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "MaplePlywood"
+        "SMS_1_LT_UG_3D_Mapping_Persimpangan",
+        "Geom"
       ],
       {
         "isExpanded" : true,
@@ -229,7 +117,8 @@
       },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping_Persimpangan"
+        "SMS_1_LT_UG_3D_Mapping__GLB",
+        "Materials"
       ],
       {
         "isExpanded" : true,
@@ -237,8 +126,77 @@
       },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping_Persimpangan",
-        "Geom"
+        "SMS_1_LT_UG_3D_Mapping_Persimpangan"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
+  "EFA93561-04AB-4694-BE18-5B95DFF15B9F" : {
+    "objectMetadataList" : [
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "SMS_Lt_2_3D_Mapping"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "Timeline",
+        "Track"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "SMS_Lt_2_3D_Mapping",
+        "Cube_012"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "SMS_Lt_2_3D_Mapping",
+        "Star"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "Timeline"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
+        "SMS_Lt_2_3D_Mapping",
+        "Stroberi"
       ],
       {
         "isExpanded" : true,

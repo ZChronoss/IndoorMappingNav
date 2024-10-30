@@ -22,7 +22,6 @@ class PathfindingService: ObservableObject {
     var interNodes: [GKGraphNode3D] = []
     var scene: Entity? = nil
     var cameraEntity: Entity?
-    var cameraEntity: Entity?
     
     func startNavigation(start: String, end: String) {
         print("Scene when starting navigation: \(scene?.name ?? "nil")")
@@ -39,9 +38,6 @@ class PathfindingService: ObservableObject {
                 
                 print("Navigation from \(start) to \(end)")
                 drawPathBetweenNodes(from: startPosition, to: endPosition)
-            }
-            else {
-                print("Could not find start or end node: \(start) or \(end).")
             }
             else {
                 print("Could not find start or end node: \(start) or \(end).")
@@ -116,7 +112,6 @@ class PathfindingService: ObservableObject {
         let cameraPosition = simd_float3(1, 1, 1)
         let cameraLookAt = simd_float3(0, 0, 0)
         
-//        _ = CameraHelper.setupCamera(in: scene, cameraPosition: cameraPosition, lookAtPosition: cameraLookAt, fov: 50.0)
         let cameraAnchor = AnchorEntity(world: cameraPosition)
         let perspectiveCameraComponent = PerspectiveCameraComponent()
         
@@ -124,7 +119,7 @@ class PathfindingService: ObservableObject {
         newCameraEntity.components[PerspectiveCameraComponent.self] = perspectiveCameraComponent
         newCameraEntity.look(at: cameraLookAt, from: cameraPosition, relativeTo: nil)
         
-        scene!.addChild(cameraAnchor)
+        scene?.addChild(cameraAnchor)
         cameraAnchor.addChild(newCameraEntity)
         
         cameraEntity = newCameraEntity
@@ -199,8 +194,13 @@ class PathfindingService: ObservableObject {
 //                }
                 
                 // Insert first and last positions as control points for smoothing
-                pathPositions.insert(pathPositions.first!, at: 0)
-                pathPositions.append(pathPositions.last!)
+                guard let firstPosition = pathPositions.first,
+                      let lastPosition = pathPositions.last else {
+                    return
+                }
+
+                pathPositions.insert(firstPosition, at: 0)
+                pathPositions.append(lastPosition)
                 
                 let smoothPath = interpolateCatmullRom(points: pathPositions, segments: 20)
                 
@@ -214,7 +214,7 @@ class PathfindingService: ObservableObject {
                 }
                 
                 var animatedIndex = 0
-                let stepDuration = 0.0001
+                let stepDuration = 0.000001
                 
                 Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
                     if animatedIndex >= smoothPath.count - 1 {

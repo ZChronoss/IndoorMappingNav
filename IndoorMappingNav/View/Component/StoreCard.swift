@@ -8,45 +8,20 @@
 import SwiftUI
 
 struct StoreCard: View {
-    var store: Store
-    var store: Store
+    
+    var images: String
     
     var body: some View {
         VStack (alignment: .leading, spacing: 8) {
-            if let imageData = store.images?.first,
-               let validData = imageData,
-               let uiImage = UIImage(data: validData) {
-                Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
-                    .clipShape(
-                        UnevenRoundedRectangle(
-                            topLeadingRadius: 8,
-                            bottomLeadingRadius: 0,
-                            bottomTrailingRadius: 0,
-                            topTrailingRadius: 8
-                        )
-                    )
-            } else {
-                // Placeholder view if the image is not available
-                Rectangle()
-                    .fill(Color.gray)
-                    .frame(height: 100)
-                    .clipShape(
-                        UnevenRoundedRectangle(
-                            topLeadingRadius: 8,
-                            bottomLeadingRadius: 0,
-                            bottomTrailingRadius: 0,
-                            topTrailingRadius: 8
-                        )
-                    )
-            }
-//            Image(images)
-
+            Image(images)
+                .resizable()
+                .scaledToFit()
+                .clipShape(
+                    UnevenRoundedRectangle(topLeadingRadius: 8, bottomLeadingRadius: 0, bottomTrailingRadius: 0, topTrailingRadius: 8)
+                )
             
             VStack(alignment: .leading) {
-                Text(store.name ?? "Unknown Store")
-                Text(store.name ?? "Unknown Store")
+                Text("Store Name") // change into store.name
                     .font(.callout)
                     .fontWeight(.bold)
 

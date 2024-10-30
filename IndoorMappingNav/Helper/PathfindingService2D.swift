@@ -8,7 +8,7 @@
 import RealityKit
 import GameplayKit
 
-class PathfindingService2D {
+class PathfindingService2D: ObservableObject {
     var currentPath: [simd_float3] = []
     var currentIndex = 0
     var objectEntity: Entity?
@@ -25,9 +25,13 @@ class PathfindingService2D {
         if let firstPosition = path.first {
             print(firstPosition)
             print(currentPath.count)
-            objectEntity = createObjectEntity(at: firstPosition)
-            scene.addChild(objectEntity!)
+            guard let newObjectEntity = createObjectEntity(at: firstPosition) else {
+                return
+            }
             
+            objectEntity = newObjectEntity
+            scene.addChild(newObjectEntity)
+
             rotateCameraToFace(currentPath[currentIndex+1])
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.000000001) {
                 self.rotateCameraToFace(self.currentPath[self.currentIndex+1])
@@ -35,7 +39,7 @@ class PathfindingService2D {
         }
     }
     
-    func createObjectEntity(at position: simd_float3) -> Entity {
+    func createObjectEntity(at position: simd_float3) -> Entity? {
         let object = MeshResource.generateBox(size: [0.1, 0.1, 0.1])
         let material = SimpleMaterial(color: .green, isMetallic: false)
         let objectEntity = ModelEntity(mesh: object, materials: [material])

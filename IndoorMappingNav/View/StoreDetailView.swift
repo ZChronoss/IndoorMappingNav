@@ -10,12 +10,14 @@ import SwiftUI
 
 struct StoreDetailView: View {
     @StateObject private var viewModel = ViewModel()
+    @StateObject private var viewModel = ViewModel()
     
     var body: some View {
         VStack(alignment: .leading) {
+            
             VStack(alignment: .leading, spacing: 3) {
                 // TITLE
-                Text(viewModel.store.name ?? "Hai")
+                Text(viewModel.store.name ?? "Error: No Store Name")
                     .font(.system(.title3))
                 
                 // CATEGORY
@@ -39,6 +41,7 @@ struct StoreDetailView: View {
             // IMAGE CAROUSEL
             if let images = viewModel.store.images {
                 ImageCarousel(images: images)
+                    .ignoresSafeArea()
             }
             
             
@@ -66,10 +69,20 @@ struct StoreDetailView: View {
         .task {
 //            await viewModel.getStores()
             await viewModel.getStoreDetail("A&W")
+        .redacted(
+            reason: viewModel.isLoading ? .placeholder : []
+        )
+        .refreshable {
+//            await viewModel.getStores()
+        }
+        .task {
+//            await viewModel.getStores()
+            await viewModel.getStoreDetail("A&W")
         }
     }
 }
 
 #Preview {
+    StoreDetailView()
     StoreDetailView()
 }

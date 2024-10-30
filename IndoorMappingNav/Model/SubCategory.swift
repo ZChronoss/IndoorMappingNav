@@ -36,7 +36,6 @@ enum SubCategory: String {
     case clinic = "Clinic"
     case wellness = "Wellness"
     case others = "Others"
-    
 }
 
 extension SubCategory {

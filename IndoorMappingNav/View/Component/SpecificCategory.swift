@@ -12,6 +12,8 @@ struct SpecificCategory: View {
     var image: String
     var isSelected: Bool
     var onSelect: () -> Void
+    var isSelected: Bool
+    var onSelect: () -> Void
     
     var body: some View {
         VStack {
@@ -27,6 +29,7 @@ struct SpecificCategory: View {
                 .padding(.bottom, 5)
                 .onTapGesture {
                     onSelect()
+                    onSelect()
                 }
             
             Text(subCategoryName)
@@ -39,5 +42,5 @@ struct SpecificCategory: View {
 }
 
 #Preview {
-    SpecificCategory(subCategoryName: "Bakery", image: "Image1", isSelected: true, onSelect: {})
+    SpecificCategory(subCategoryName: "Bakery", image: "Image1", isSelected: false, onSelect: {})
 }
