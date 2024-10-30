@@ -58,4 +58,23 @@ class StoreCategory {
             break
         }
     }
+    
+    func getSubCategories() -> [SubCategory] {
+        switch name {
+        case .fnb:
+            return [
+                .bakery, .rice, .fastFood, .indonesian, .japanese, .western, .beverage, .coffee
+            ]
+        case .shopping:
+            return [
+                .fashion, .bagnShoes, .electronic, .sport, .momnKid, .supermarket, .home
+            ]
+        case .hnb:
+            return [
+                .selfCare, .accessories, .makeup, .perfume, .salon, .clinic, .wellness, .others
+            ]
+        default:
+            return []
+        }
+    }
 }
