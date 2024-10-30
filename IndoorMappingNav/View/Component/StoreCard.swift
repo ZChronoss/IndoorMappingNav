@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StoreCard: View {
     var store: Store
+    var store: Store
     
     var body: some View {
         VStack (alignment: .leading, spacing: 8) {
@@ -16,9 +17,8 @@ struct StoreCard: View {
                let validData = imageData,
                let uiImage = UIImage(data: validData) {
                 Image(uiImage: uiImage)
-                    .frame(width: 159, height: 102)
-//                    .resizable()
-//                    .scaledToFit()
+                    .resizable()
+                    .scaledToFit()
                     .clipShape(
                         UnevenRoundedRectangle(
                             topLeadingRadius: 8,
@@ -46,15 +46,15 @@ struct StoreCard: View {
             
             VStack(alignment: .leading) {
                 Text(store.name ?? "Unknown Store")
+                Text(store.name ?? "Unknown Store")
                     .font(.callout)
                     .fontWeight(.bold)
-                    .lineLimit(1) // Limit to a single line
-                    .truncationMode(.tail)
 
                 Text(store.category?.name.rawValue ?? "Unknown Category")
                     .font(.caption)
             }
 
+            Text(store.floor ?? "Unknown Floor")
             Text(store.floor ?? "Unknown Floor")
                 .font(.caption)
             
@@ -81,6 +81,11 @@ struct RoundedCornersShape: Shape {
 }
 
 #Preview {
+    let store = Store()
+    store.name = "Sample Store"
+    store.floor = "1st Floor"
+    store.category = StoreCategory(name: .fnb)
+    return StoreCard(store: store)
     let store = Store()
     store.name = "Sample Store"
     store.floor = "1st Floor"
