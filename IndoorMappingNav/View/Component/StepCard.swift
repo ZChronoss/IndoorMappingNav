@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StepCard: View {
     var iconImage: String
+    var stepDescription: String
     var imageStep: String
     
     var body: some View {
@@ -18,9 +19,9 @@ struct StepCard: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                 
-                Text("Keep going straight until you find Nike")
+                Text(stepDescription)
                     .font(.body)
-                    .frame(width: 213)
+                    .frame(width: 213, alignment: .leading)
             }
             
             Spacer()
@@ -38,5 +39,5 @@ struct StepCard: View {
 }
 
 #Preview {
-    StepCard(iconImage: "arrow.up", imageStep: "Image3")
+    StepCard(iconImage: "arrow.up", stepDescription: "Sociolla", imageStep: "Image3")
 }

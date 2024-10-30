@@ -11,7 +11,7 @@ import SwiftUI
 struct FlooqiClipApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }

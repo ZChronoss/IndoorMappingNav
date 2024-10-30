@@ -9,28 +9,36 @@ import SwiftUI
 
 struct SearchBarWithCancel: View {
     @FocusState var isActive: Bool
+    @Binding var searchText: String
     
     var body: some View {
-        HStack(spacing: 20) {
-            SearchBar(image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
-                .focused($isActive)
-                .animation(.easeOut, value: isActive)
-                .transition(.slide)
+        VStack {
+            HStack(spacing: 20) {
+                SearchBar(searchText: $searchText, image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
+                    .focused($isActive)
+                    .animation(.easeOut, value: isActive)
+                    .transition(.slide)
+                
+                if isActive {
+                    Button("Cancel", action: {
+                        withAnimation {
+                            isActive.toggle()
+                        }
+                        searchText = ""
+                    })
+                    .transition(.move(edge: .trailing))
+                }
+            }
             
             if isActive {
-                Button("cancel", action: {
-                    withAnimation {
-                        isActive.toggle()
-                    }
-                })
-//                .animation(.linear, value: isActive)
-                .transition(.move(edge: .trailing))
-                
+                withAnimation {
+                    SearchPageView()                    
+                }
             }
         }
     }
 }
 
 #Preview {
-    SearchBarWithCancel()
+    SearchBarWithCancel(searchText: .constant(""))
 }

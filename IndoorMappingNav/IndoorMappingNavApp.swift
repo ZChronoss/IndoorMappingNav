@@ -14,7 +14,7 @@ struct IndoorMappingNavApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            SearchPageView()
                 .environmentObject(locationManager)
         }
     }

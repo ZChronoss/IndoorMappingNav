@@ -9,19 +9,21 @@ import Foundation
 import SwiftUI
 
 struct ImageCarousel: View {
-    var images: [String]
+    var images: [Data?]
     @State private var selectedImageIdx: Int = 0
     
     var body: some View {
         TabView(selection: $selectedImageIdx) {
             ForEach(0 ..< images.count, id: \.self) { imageIdx in
-                Image(images[imageIdx], label: Text("hai"))
-                    .resizable()
-                    .scaledToFill()
-                    .frame(height: 200)
-                    .clipShape(RoundedRectangle(cornerRadius: 25))
-                    .tag(imageIdx)
-                    .padding(.horizontal, 16)
+                if let data = images[imageIdx], let image = UIImage(data: data) {
+                    Image(uiImage: image)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(height: 200)
+                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .tag(imageIdx)
+                        .padding(.horizontal, 16)
+                }
             }
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))

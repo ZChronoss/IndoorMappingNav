@@ -9,21 +9,41 @@ import Foundation
 import SwiftUI
 
 struct StoreDetailView: View {
-    @State private var viewModel = ViewModel()
-    var storeName: String
-    
+    @StateObject private var viewModel = ViewModel()
     
     var body: some View {
         VStack(alignment: .leading) {
-//            Text(viewModel.store?.name ?? "Error: No Store Name")
-//                .font(.system(.title3))
-//            Text(viewModel.store?.category ?? "Error: No Category")
-//                .font(.system(.caption))
-//            Text(viewModel.store?.address ?? "Error: No Address")
-//                .font(.system(.caption))
             
-            ImageCarousel(images: ["Image1", "Image2", "Image3"])
-                .ignoresSafeArea()
+            VStack(alignment: .leading, spacing: 3) {
+                // TITLE
+                Text(viewModel.store.name ?? "Error: No Store Name")
+                    .font(.system(.title3))
+                
+                // CATEGORY
+                HStack(spacing: 2) {
+                    Image(viewModel.store.category?.image ?? "")
+                        .resizable()
+                        .frame(width: 13, height: 13)
+                    
+                    Text(viewModel.store.category?.name.rawValue ?? "Error: No Category")
+                        .font(.system(.caption))
+                        .bold()
+                        .foregroundStyle(viewModel.store.category?.color ?? .black)
+                }
+                
+                // ADDRESS
+                Text((viewModel.store.address ?? "") + ", " + (viewModel.store.floor ?? "Error: No Address"))
+                    .font(.system(.caption))
+                    .foregroundStyle(.secondary)
+            }
+            
+            // IMAGE CAROUSEL
+            if let images = viewModel.store.images {
+                ImageCarousel(images: images)
+                    .ignoresSafeArea()
+            }
+            
+            
             
             VStack(alignment: .center) {
                 Button {
@@ -39,12 +59,19 @@ struct StoreDetailView: View {
             .padding(.top, 20)
         }
         .safeAreaPadding(.horizontal, 16)
-        .onAppear() {
-            viewModel.getStoreDetail(storeName)
+        .redacted(
+            reason: viewModel.isLoading ? .placeholder : []
+        )
+        .refreshable {
+//            await viewModel.getStores()
+        }
+        .task {
+//            await viewModel.getStores()
+            await viewModel.getStoreDetail("A&W")
         }
     }
 }
 
 #Preview {
-    StoreDetailView(storeName: "Test")
+    StoreDetailView()
 }

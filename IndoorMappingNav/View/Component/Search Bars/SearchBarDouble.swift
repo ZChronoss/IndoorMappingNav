@@ -10,10 +10,12 @@ import SwiftUI
 struct SearchBarDouble: View {
     @FocusState private var isActive1: Bool
     @FocusState private var isActive2: Bool
+    @Binding var searchText: String
+    @Binding var searchText2: String
     
     var body: some View {
         VStack(alignment: .leading){
-            SearchBar(image:
+            SearchBar(searchText: $searchText, image:
                         Image(systemName: "location.fill"), iconColor: .blue500
             )
             .focused($isActive1)
@@ -31,7 +33,7 @@ struct SearchBarDouble: View {
             .foregroundStyle(.blue500)
             .padding(.leading, 25)
             
-            SearchBar(image:
+            SearchBar(searchText: $searchText2, image:
                         Image(systemName: "mappin.and.ellipse"), iconColor: .blue500
             )
             .focused($isActive2)
@@ -44,5 +46,5 @@ struct SearchBarDouble: View {
 }
 
 #Preview {
-    SearchBarDouble()
+    SearchBarDouble(searchText: .constant(""), searchText2: .constant(""))
 }

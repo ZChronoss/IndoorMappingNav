@@ -13,29 +13,31 @@ class CloudKitController: ObservableObject {
     
     func fetchStores() async throws -> [Store] {
         let predicate = NSPredicate(value: true) // Fetch all stores
-//        let sort = NSSortDescriptor(key: "Id", ascending: true)
         let query = CKQuery(recordType: "Store", predicate: predicate)
-//        query.sortDescriptors = [sort]
         
-        let operation = CKQueryOperation(query: query)
-        operation.desiredKeys = ["Id", "Name", "Category", "Address", "Images", "Floor", "MallId"]
+        let wantedField = ["Name", "Category", "Address", "Images", "Floor", "Subcategory"]
         
-        var store: [Store]?
-        let result = try await database.records(matching: query)
-        let records = result.matchResults.compactMap { try?  $0.1.get()}
-//        do {
-//            let (storeResults, _) = try await database.records(matching: query)
-//            
-//            return storeResults.compactMap { _, result in
-//                let newStore = try? Store(record: result.get())
-//                store?.append(newStore!)
-//                return newStore
-//            }
-//        } catch {
-//            print("Error fetching store records from CloudKit: \(error.localizedDescription)")
-//        }
+        let result = try await database.records(matching: query, desiredKeys: wantedField, resultsLimit: 10)
+        let records = result.matchResults.compactMap { try? $0.1.get() }
         
         return records.compactMap(Store.init)
+    }
+    
+    func fetchStoreByName(name: String) async throws -> Store {
+        let predicate = NSPredicate(format: "%K == %@", "Name", name)
+        
+        let query = CKQuery(recordType: "Store", predicate: predicate)
+        
+        let result = try await database.records(matching: query, resultsLimit: 1)
+        let record = result.matchResults.compactMap { _, result in
+            try? result.get()
+        }
+        
+        if let store = record.first {
+            return Store(record: store)
+        }else{
+            return Store()
+        }
     }
     
     // Fetch a Mall by ID (from a store reference)
@@ -57,6 +59,53 @@ class CloudKitController: ObservableObject {
             }
         }
     }
+}
+
+
+extension CloudKitController {
+    /// DEBUGGING
+    /// I have to do a small update on a value in the record to fix the database.
+    /// This will enable the ability to query with strings
+    ///
+    /// MARK: Done btw
+    func fixDatabase() async throws -> Void{
+        let predicate = NSPredicate(value: true) // Fetch all stores
+        let query = CKQuery(recordType: "Store", predicate: predicate)
+        
+        let result = try await database.records(matching: query)
+        let records = result.matchResults.compactMap { try? $0.1.get() }
+        
+        for record in records {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy/MM/dd"
+            let someDateTime = formatter.date(from: "2024/10/28")
+            
+            let date = record.modificationDate
+            
+            if date?.compare(someDateTime!) == .orderedAscending {
+                var name = record["Name"] as? String
+                name?.append(" fix")
+                record.setValue(name, forKey: "Name")
+                try await database.save(record)
+            }
+        }
+    }
     
-    // ini buat fix bug
+    func fixDatabase2() async throws -> Void{
+        let predicate = NSPredicate(value: true) // Fetch all stores
+        let query = CKQuery(recordType: "Store", predicate: predicate)
+        
+        let result = try await database.records(matching: query)
+        let records = result.matchResults.compactMap { try? $0.1.get() }
+        
+        for record in records {
+            if var name = record["Name"] as? String {
+                if name.hasSuffix(" fix") {
+                    name.removeLast(4)
+                    record.setValue(name, forKey: "Name")
+                    try await database.save(record)
+                }
+            }
+        }
+    }
 }

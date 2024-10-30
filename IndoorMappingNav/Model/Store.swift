@@ -11,19 +11,67 @@ import CloudKit
 class Store: Identifiable, CloudKitRecordInitializable {
     var id: CKRecord.ID
     var name: String?
-    var category: Int64?
+    var category: StoreCategory?
     var address: String?
-    var images: [CKAsset?]?
+    var images: [Data?]?
     var floor: String?
     var mallId: CKRecord.Reference?
+    
+    init(){
+        self.id = CKRecord.ID(recordName: UUID().uuidString)
+    }
     
     required init(record: CKRecord) {
         self.id = record.recordID
         self.name = record["Name"] as? String
-        self.category = record["Category"] as? Int64
+        
+        let categoryId = record["Category"] as? Int64
+        
+        self.category = getCategory(num: categoryId ?? 7)
         self.address = record["Address"] as? String
-        self.images = record["Images"] as? [CKAsset?]
+        
+        let imagesRecord = record["Images"] as? [CKAsset?]
+        
+        self.images = processImage(imageRecords: imagesRecord)
+//        self.images = record["Images"] as? [CKAsset?]
         self.floor = record["Floor"] as? String
         self.mallId = record["MallId"] as? CKRecord.Reference
+    }
+    
+    private func processImage(imageRecords: [CKAsset?]?) -> [Data?] {
+        var datas: [Data?] = []
+        
+        for image in imageRecords ?? [] {
+            if let url = image?.fileURL {
+                let data = try? Data(contentsOf: url)
+                datas.append(data ?? nil)
+            }
+        }
+        
+        return datas
+    }
+    
+    private func getCategory(num: Int64) -> StoreCategory {
+        var category: StoreCategory
+        
+        switch num {
+        case 1:
+            category = StoreCategory(name: .toilet)
+        case 2:
+            category = StoreCategory(name: .fnb)
+        case 3:
+            category = StoreCategory(name: .shopping)
+        case 4:
+            category = StoreCategory(name: .service)
+        case 5:
+            category = StoreCategory(name: .hnb)
+        case 6:
+            category = StoreCategory(name: .entertainment)
+        case 7:
+            category = StoreCategory(name: .other)
+        default:
+            category = StoreCategory(name: .other)
+        }
+        return category
     }
 }

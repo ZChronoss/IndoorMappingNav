@@ -9,8 +9,6 @@ import SwiftUI
 
 struct StoreCard: View {
     
-//    var store: Store
-    
     var images: String
     
     var body: some View {
@@ -22,7 +20,7 @@ struct StoreCard: View {
                     UnevenRoundedRectangle(topLeadingRadius: 8, bottomLeadingRadius: 0, bottomTrailingRadius: 0, topTrailingRadius: 8)
                 )
             
-            VStack {
+            VStack(alignment: .leading) {
                 Text("Store Name") // change into store.name
                     .font(.callout)
                     .fontWeight(.bold)
