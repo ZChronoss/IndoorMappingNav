@@ -77,23 +77,23 @@ class PathfindingService: ObservableObject {
                     groundPosition.z + z
                 )
                 
-//                                                let markerPosition = SCNVector3(
-//                                                    groundPosition.x + x,
-//                                                    0.5,  // Slightly above the ground plane
-//                                                    groundPosition.z + z
-//                                                )
+                //                                                let markerPosition = SCNVector3(
+                //                                                    groundPosition.x + x,
+                //                                                    0.5,  // Slightly above the ground plane
+                //                                                    groundPosition.z + z
+                //                                                )
                 
                 if checkForPath(at: simd_float3(nodePosition), type: .path) {
                     let pathNode = pathfinder.addNode(at: nodePosition, type: .path)
-//                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
-//                                                            loadedScene.addChild(marker)
+                    //                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
+                    //                                                            loadedScene.addChild(marker)
                     pathNodes.append(pathNode)
                 }
                 
                 if checkForPath(at: simd_float3(nodePosition), type: .intersection) {
                     let interNode = pathfinder.addNode(at: nodePosition, type: .intersection)
-//                                                            let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
-//                                                            loadedScene.addChild(marker)
+                    //                                                            let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
+                    //                                                            loadedScene.addChild(marker)
                     interNodes.append(interNode)
                 }
             }
@@ -109,7 +109,7 @@ class PathfindingService: ObservableObject {
         if let existingCamera = cameraEntity {
             existingCamera.removeFromParent()
         }
-//        guard let cameraEntity = cameraEntity else { return }
+        //        guard let cameraEntity = cameraEntity else { return }
         
         let cameraPosition = simd_float3(1, 1, 1)
         let cameraLookAt = simd_float3(0, 0, 0)
@@ -263,38 +263,39 @@ class PathfindingService: ObservableObject {
     }
     
     func saveDirection() {
-        var startPos: simd_float3
-        var endPos: simd_float3
-        for i in 0..<interEntities.count {
-            startPos = interEntities[i].position
-            if i == interEntities.count - 1 {
-                endPos = pathEntities[pathEntities.count-1].position
-            } else {
-                endPos = interEntities[i + 1].position
-            }
-            
-            
-            let direction = normalize(endPos - startPos)
-            let referenceDirection = simd_float3(0, 1, 0)
-            let crossProduct = simd_cross(direction, referenceDirection)
+        var lastDirection: Directions? = nil
+        var removedInter: [Int] = []
+        
+        func determineDirection(from start: simd_float3, to end: simd_float3) -> Directions? {
+            let direction = normalize(end - start)
+            let crossProduct = simd_cross(direction, simd_float3(0, 1, 0))
             
             if abs(direction.x) > abs(direction.z) {
-                if crossProduct.x > 0 {
-                    instructions.append(RightDirection())
-                } else if crossProduct.x < 0 {
-                    instructions.append(LeftDirection())
-                } else {
-                    instructions.append(StraightDirection())
-                }
+                if crossProduct.x > 0 { return RightDirection() }
+                if crossProduct.x < 0 { return LeftDirection() }
+                if crossProduct.x == 0 { return StraightDirection() }
             } else {
-                if crossProduct.z < 0 {
-                    instructions.append(RightDirection())
-                } else if crossProduct.z > 0 {
-                    instructions.append(LeftDirection())
-                } else {
-                    instructions.append(StraightDirection())
-                }
+                if crossProduct.z < 0 { return RightDirection() }
+                if crossProduct.z > 0 { return LeftDirection() }
+                if crossProduct.z == 0 { return StraightDirection() }
             }
+            return nil
+        }
+        
+        for i in 0..<interEntities.count {
+            let startPos = interEntities[i].position
+            let endPos = (i == interEntities.count - 1) ? pathEntities.last!.position : interEntities[i + 1].position
+            
+            if let newDirection = determineDirection(from: startPos, to: endPos), newDirection != lastDirection {
+                instructions.append(newDirection)
+                lastDirection = newDirection
+            } else {
+                removedInter.append(i)
+            }
+        }
+        
+        for index in removedInter.reversed() {
+            interEntities.remove(at: index)
         }
     }
 

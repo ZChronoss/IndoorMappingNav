@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Directions: Identifiable {
+class Directions: Identifiable, Equatable {
     let id: UUID = UUID()
     let icon: String
     let instruction: AttributedString
@@ -15,6 +15,10 @@ class Directions: Identifiable {
     init(icon: String = "", instruction: AttributedString = "") {
         self.icon = icon
         self.instruction = instruction
+    }
+    
+    static func == (lhs: Directions, rhs: Directions) -> Bool {
+        return lhs.icon == rhs.icon && lhs.instruction == rhs.instruction
     }
     
     static let left = (icon: "arrow.left", instruction: try! AttributedString(markdown: "Go to the **left** side"))
