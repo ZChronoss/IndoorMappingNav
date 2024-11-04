@@ -286,11 +286,16 @@ class PathfindingService: ObservableObject {
             let startPos = interEntities[i].position
             let endPos = (i == interEntities.count - 1) ? pathEntities.last!.position : interEntities[i + 1].position
             
-            if let newDirection = determineDirection(from: startPos, to: endPos), newDirection != lastDirection {
+            if let newDirection = determineDirection(from: startPos, to: endPos) {
+                if newDirection is StraightDirection {
+                    if lastDirection is StraightDirection {
+                        removedInter.append(i)
+                        continue
+                    }
+                }
                 instructions.append(newDirection)
+                print(newDirection)
                 lastDirection = newDirection
-            } else {
-                removedInter.append(i)
             }
         }
         
@@ -298,7 +303,7 @@ class PathfindingService: ObservableObject {
             interEntities.remove(at: index)
         }
     }
-
+    
     
     // MARK: - RealityKit Entity Creation for Path Segments
     func createLineEntity(from start: simd_float3, to end: simd_float3, opacity: Float) -> Entity {

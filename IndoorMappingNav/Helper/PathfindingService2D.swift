@@ -49,25 +49,22 @@ class PathfindingService2D: ObservableObject {
     }
     
     func moveObject(to currentIndex: Int) {
-        let position = currentPath[currentIndex]
         guard currentIndex < currentPath.count else { return }
-        
-        let nextIndex = currentIndex + 1
-        
-        guard nextIndex < currentPath.count else {
-            objectEntity?.position = position
-            panCameraToFollow(objectEntity, xCamera: 0, zCamera: 0)
-            return
-        }
-        
-        let nextNode = currentPath[nextIndex]
+
+        let position = currentPath[currentIndex]
         objectEntity?.position = position
         
-        if nextNode != position {
-            rotateCameraToFace(nextNode)
+        let nextNode: simd_float3
+        
+        if currentIndex == currentPath.count - 1, currentIndex > 0 {
+            let prevNode = currentPath[currentIndex - 1]
+            let lastDirection = normalize(position - prevNode)
+            nextNode = position + lastDirection // Extend in the same direction
         } else {
-            print("Next node is the same as the current node, no rotation needed.")
+            nextNode = currentPath[currentIndex + 1]
         }
+        
+        rotateCameraToFace(nextNode)
     }
     
     func rotateCameraToFace(_ nextNode: simd_float3) {
@@ -78,7 +75,7 @@ class PathfindingService2D: ObservableObject {
         // Compute the angle based on the direction the object is moving
         let angle = atan2(direction.x, direction.z)
         
-        // Instead of rotating the scene, rotate the camera to face the object’s direction
+        // Rotate the camera to face the object’s direction
         cameraEntity?.orientation = simd_quatf(angle: angle, axis: [0, 1, 0])
         
         panCameraToFollow(objectEntity, xCamera: -sin(angle), zCamera: -cos(angle))
