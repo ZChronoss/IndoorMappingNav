@@ -91,11 +91,11 @@
 				Helper/PathfindingHelper3D.swift,
 				Helper/PathfindingService.swift,
 				Helper/PathfindingService2D.swift,
+				"Helper/UINavigationController+Extension.swift",
 				Model/Category.swift,
 				Model/Mall.swift,
 				Model/Store.swift,
 				Model/SubCategory.swift,
-				"SearchPageView-ViewModel.swift",
 				"View/Component/Button Instruction/JumpToEndButton.swift",
 				"View/Component/Button Instruction/RestartButton.swift",
 				View/Component/CategoryButton.swift,
@@ -131,6 +131,7 @@
 				View/SearchPageView.swift,
 				View/StoreDetailView.swift,
 				"ViewModel/HomeView-ViewModel.swift",
+				"ViewModel/SearchPageView-ViewModel.swift",
 				"ViewModel/StoreDetailView-ViewModel.swift",
 			);
 			target = 11EBECF12CC54F880069EE18 /* FlooqiClip */;

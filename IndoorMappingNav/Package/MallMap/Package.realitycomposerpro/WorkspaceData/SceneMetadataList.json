@@ -2,18 +2,18 @@
   "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7" : {
     "objectMetadataList" : [
       [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Timeline",
-        "Track2"
+        "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7",
+        "root"
       ],
       {
         "isExpanded" : true,
         "isLocked" : false
       },
       [
-        "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7",
-        "root"
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
+        "Timeline",
+        "Track2"
       ],
       {
         "isExpanded" : true,
@@ -38,6 +38,16 @@
       [
         "801BB739-7548-43D3-AD07-9343D9CB54CB",
         "root",
+        "Timeline",
+        "Track"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "801BB739-7548-43D3-AD07-9343D9CB54CB",
+        "root",
         "Star"
       ],
       {
@@ -52,16 +62,6 @@
       {
         "isExpanded" : true,
         "isLocked" : false
-      },
-      [
-        "801BB739-7548-43D3-AD07-9343D9CB54CB",
-        "root",
-        "Timeline",
-        "Track"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
       }
     ]
   },
@@ -69,7 +69,7 @@
     "objectMetadataList" : [
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_Lt_2_3D_Mapping__3_"
+        "SMS_1_LT_UG_3D_Mapping_Persimpangan"
       ],
       {
         "isExpanded" : true,
@@ -87,8 +87,7 @@
       },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping_Persimpangan",
-        "Materials"
+        "MaplePlywood"
       ],
       {
         "isExpanded" : true,
@@ -124,7 +123,17 @@
       },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "SMS_1_LT_UG_3D_Mapping_Persimpangan"
+        "SMS_Lt_2_3D_Mapping__3_"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
+        "MaplePlywood",
+        "Timeline",
+        "Track2"
       ],
       {
         "isExpanded" : true,
@@ -137,7 +146,7 @@
       [
         "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
         "Root",
-        "SMS_Lt_2_3D_Mapping"
+        "Timeline"
       ],
       {
         "isExpanded" : true,
@@ -156,35 +165,17 @@
       [
         "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
         "Root",
+        "SMS_Lt_2_3D_Mapping"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
+        "Root",
         "SMS_Lt_2_3D_Mapping",
         "Cube_012"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root",
-        "SMS_Lt_2_3D_Mapping",
-        "Star"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root",
-        "Timeline"
       ],
       {
         "isExpanded" : true,
@@ -217,11 +208,7 @@
       {
         "isExpanded" : true,
         "isLocked" : false
-      }
-    ]
-  },
-  "EFA93561-04AB-4694-BE18-5B95DFF15B9F" : {
-    "objectMetadataList" : [
+      },
       [
         "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
         "Root",
@@ -234,74 +221,7 @@
       },
       [
         "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root",
-        "Timeline"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root",
-        "SMS_Lt_2_3D_Mapping",
-        "Stroberi"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
         "Root"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root",
-        "SMS_1_LT_UG_3D_Mapping_"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root",
-        "SMS_1_LT_UG_3D_Mapping_",
-        "Geom"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root",
-        "SMS_Lt_2_3D_Mapping"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root",
-        "Timeline",
-        "Track"
-      ],
-      {
-        "isExpanded" : true,
-        "isLocked" : false
-      },
-      [
-        "EFA93561-04AB-4694-BE18-5B95DFF15B9F",
-        "Root",
-        "SMS_Lt_2_3D_Mapping",
-        "Cube_012"
       ],
       {
         "isExpanded" : true,

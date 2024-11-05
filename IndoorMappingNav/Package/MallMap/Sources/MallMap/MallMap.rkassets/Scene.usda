@@ -13,6 +13,29 @@ def "MaplePlywood" (
     references = @MaplePlywood.usdz@
 )
 {
+    reorder nameChildren = ["UsdPreviewSurface", "MaterialXPreviewSurface", "add", "Swizzle_1", "Swizzle", "Multiply_1", "Mix", "Metallic", "Normal", "PhysicalSize_Multiplier", "BaseColor", "Roughness", "multiply", "Timeline"]
+    def RealityKitTimeline "Timeline"
+    {
+        reorder nameChildren = ["Track2", "Track"]
+        def RealityKitTrack "Track2"
+        {
+            def RealityKitAction "Transform_By"
+            {
+                string actionKind = "moveBy"
+                int blendLayer = 300
+                double duration = 1
+                uniform token info:id = "356F7805-B149-4064-8C54-22BC94C02830"
+                float3 position = (0, 1, 0)
+                double startTime = 0
+                rel target = </SMS_1_LT_UG_3D_Mapping_Persimpangan/Geom/Farmers_Market>
+
+                def RealityKitStruct "timingFunction"
+                {
+                    token type = "easeInOut"
+                }
+            }
+        }
+    }
 }
 
 def "SMS_1_LT_UG_3D_Mapping_Persimpangan" (
@@ -1150,6 +1173,44 @@ def "SMS_1_LT_UG_3D_Mapping_Persimpangan" (
             rel material:binding = </MaplePlywood> (
                 bindMaterialAs = "weakerThanDescendants"
             )
+        }
+
+        over "Farmers_Market"
+        {
+            def RealityKitComponent "RCP_BehaviorsContainer"
+            {
+                rel behaviors = </SMS_1_LT_UG_3D_Mapping_Persimpangan/Geom/Farmers_Market/OnTap>
+                uniform token info:id = "RCP.BehaviorsContainer"
+            }
+
+            def Preliminary_Behavior "OnTap"
+            {
+                rel actions = </SMS_1_LT_UG_3D_Mapping_Persimpangan/Geom/Farmers_Market/OnTap/Action>
+                uniform bool exclusive
+                rel triggers = </SMS_1_LT_UG_3D_Mapping_Persimpangan/Geom/Farmers_Market/OnTap/Trigger>
+
+                def Preliminary_Trigger "Trigger"
+                {
+                    rel affectedObjects = </SMS_1_LT_UG_3D_Mapping_Persimpangan/Geom/Farmers_Market>
+                    token info:id = "TapGesture"
+                }
+
+                def Preliminary_Action "Action"
+                {
+                    rel affectedObjects = </MaplePlywood>
+                    rel animationLibraryKey = </MaplePlywood/Timeline>
+                    rel animationLibraryKeyOverrideKey = </SMS_1_LT_UG_3D_Mapping_Persimpangan/Geom/Farmers_Market/OnTap/Trigger>
+                    token info:id = "PlayTimeline"
+                    int loops = 0
+                    int performCount = 1
+                    token type = "serial"
+                }
+            }
+
+            def RealityKitComponent "InputTarget"
+            {
+                uniform token info:id = "RealityKit.InputTarget"
+            }
         }
     }
 }
