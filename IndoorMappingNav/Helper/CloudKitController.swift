@@ -140,25 +140,5 @@ extension CloudKitController {
         ]
         return categoryMap[category]
     }
-    
-    func fetchStoreByName(name: String) async throws -> Store {
-        let predicate = NSPredicate(format: "%K == %@", "Name", name)
-        
-        let query = CKQuery(recordType: "Store", predicate: predicate)
-        
-        //        let operation = CKQueryOperation(query: query)
-        //        operation.desiredKeys = ["Name", "Category", "Address", "Images", "Floor"]
-        
-        let result = try await database.records(matching: query, resultsLimit: 1)
-        let record = result.matchResults.compactMap { _, result in
-            try? result.get()
-        }
-        
-        if let store = record.first {
-            return Store(record: store)
-        }else{
-            return Store()
-        }
-    }
     // ini buat fix bug
 }

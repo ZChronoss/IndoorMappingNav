@@ -65,7 +65,6 @@ struct SearchPageView: View {
             vm.destStoreName = self.destStore.name ?? ""
             vm.destStoreFloor = self.destStore.floor.map(SearchResult.getFloorAbbreviation) ?? ""
             
-//            print(destStoreName)
             if !vm.destStoreName.isEmpty {
                 vm.hasSelectedDestination = true
             }
