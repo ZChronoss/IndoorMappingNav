@@ -30,4 +30,5 @@ extension StoreDetailView {
             isLoading = false
         }
     }
+    
 }

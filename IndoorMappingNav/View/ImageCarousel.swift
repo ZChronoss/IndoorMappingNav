@@ -29,6 +29,9 @@ struct ImageCarousel: View {
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .automatic))
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
         .frame(height: 200)
+        .onChange(of: selectedImageIdx) { oldValue, newValue in
+            print("hai")
+        }
     }
     
 }
