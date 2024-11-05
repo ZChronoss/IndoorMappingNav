@@ -91,6 +91,7 @@
 				Helper/PathfindingHelper3D.swift,
 				Helper/PathfindingService.swift,
 				Helper/PathfindingService2D.swift,
+				"Helper/UINavigationController+Extension.swift",
 				Model/Category.swift,
 				Model/Mall.swift,
 				Model/Store.swift,
@@ -129,7 +130,7 @@
 				View/ImageCarousel.swift,
 				View/OverlayView.swift,
 				View/StoreDetailView.swift,
-				"ViewModel/CategorySheet-ViewModel.swift",
+				"ViewModel/HomeView-ViewModel.swift",
 				"ViewModel/StoreDetailView-ViewModel.swift",
 			);
 			target = 11EBECF12CC54F880069EE18 /* FlooqiClip */;

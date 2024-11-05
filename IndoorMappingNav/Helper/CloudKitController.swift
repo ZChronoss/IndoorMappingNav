@@ -18,7 +18,7 @@ class CloudKitController: ObservableObject {
         
         let wantedField = ["Name", "Category", "Address", "Images", "Floor", "Subcategory"]
         
-        let result = try await database.records(matching: query, desiredKeys: wantedField, resultsLimit: 10)
+        let result = try await database.records(matching: query, desiredKeys: wantedField)
         let records = result.matchResults.compactMap { try? $0.1.get() }
         //        do {
         //            let (storeResults, _) = try await database.records(matching: query)
@@ -36,7 +36,7 @@ class CloudKitController: ObservableObject {
     }
     
     func fetchStoreByName(name: String) async throws -> Store {
-        let predicate = NSPredicate(format: "%K == %@", "Name", name)
+        let predicate = NSPredicate(format: "Name == %@", name)
         
         let query = CKQuery(recordType: "Store", predicate: predicate)
         
@@ -50,6 +50,18 @@ class CloudKitController: ObservableObject {
         }else{
             return Store()
         }
+    }
+    
+    func fetchStoreBeginsWith(_ key: String) async throws -> [Store] {
+        let predicate = NSPredicate(format: "Name BEGINSWITH %@", key)
+        let query = CKQuery(recordType: "Store", predicate: predicate)
+        
+        let wantedField = ["Name", "Category", "Floor"]
+        
+        let result = try await database.records(matching: query, desiredKeys: wantedField, resultsLimit: 10)
+        let records = result.matchResults.compactMap { try? $0.1.get() }
+        
+        return records.compactMap(Store.init)
     }
     
     // Fetch a Mall by ID (from a store reference)

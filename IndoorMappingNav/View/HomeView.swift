@@ -19,7 +19,7 @@ struct HomeView: View {
     @State private var entityPositions: [Entity: simd_float3] = [:] // Store only the original position
     @State private var entityState: [Entity: Bool] = [:]
     @State var isSheetOpen = false
-    @State var selectedStore: String?
+    
     @State var scale: Float = 0.2
     @State private var isMoving: Bool = false
     
@@ -132,15 +132,12 @@ struct HomeView: View {
                     HStack(spacing: 10) {
                         CategoryButton(categoryName: "Food & Beverage", categoryIcon: "fork.knife", categoryColor: .red, isSelected: selectedCategory == "Food & Beverage") {
                             selectedCategory = "Food & Beverage"
-                            isCategorySheetOpen = true
                         }
                         CategoryButton(categoryName: "Shopping", categoryIcon: "cart", categoryColor: .green, isSelected: selectedCategory == "Shopping") {
                             selectedCategory = "Shopping"
-                            isCategorySheetOpen = true
                         }
                         CategoryButton(categoryName: "Entertainment", categoryIcon: "gamecontroller", categoryColor: .purple, isSelected: selectedCategory == "Entertainment") {
                             selectedCategory = "Entertainment"
-                            isCategorySheetOpen = true
                         }
                     }
                     .padding(.horizontal)
@@ -157,11 +154,6 @@ struct HomeView: View {
             StoreDetailView()
                 .presentationDetents([.fraction(0.5)])
                 .presentationBackgroundInteraction(.enabled)
-        }
-        .sheet(isPresented: $isCategorySheetOpen) {
-            NavigationStack {
-                CategorySheet(categoryName: selectedCategory, categoryDetent: $categoryDetent)
-            }
         }
         .padding(.top, 56)
         .ignoresSafeArea()

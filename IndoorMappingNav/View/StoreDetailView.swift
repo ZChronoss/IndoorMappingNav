@@ -9,67 +9,76 @@ import Foundation
 import SwiftUI
 
 struct StoreDetailView: View {
+    @Environment(\.dismiss) var dismiss
     @StateObject private var viewModel = ViewModel()
+    var store: Store
+    
+    var showRoute: (_ store: Store) -> Void
     
     var body: some View {
-        VStack(alignment: .leading) {
-            VStack(alignment: .leading, spacing: 3) {
-                // TITLE
-                Text(viewModel.store.name ?? "Hai")
-                    .font(.system(.title3))
+        NavigationStack {
+            VStack(alignment: .leading) {
                 
-                // CATEGORY
-                HStack(spacing: 2) {
-                    Image(viewModel.store.category?.image ?? "")
-                        .resizable()
-                        .frame(width: 13, height: 13)
+                VStack(alignment: .leading, spacing: 3) {
+                    // TITLE
+                    Text(viewModel.store.name ?? "Error: No Store Name")
+                        .font(.system(.title3))
                     
-                    Text(viewModel.store.category?.name.rawValue ?? "Error: No Category")
+                    // CATEGORY
+                    HStack(spacing: 2) {
+                        Image(viewModel.store.category?.image ?? "")
+                            .resizable()
+                            .frame(width: 13, height: 13)
+                        
+                        Text(viewModel.store.category?.name.rawValue ?? "Error: No Category")
+                            .font(.system(.caption))
+                            .bold()
+                            .foregroundStyle(viewModel.store.category?.color ?? .black)
+                    }
+                    
+                    // ADDRESS
+                    Text((viewModel.store.address ?? "") + ", " + (viewModel.store.floor ?? "Error: No Address"))
                         .font(.system(.caption))
-                        .bold()
-                        .foregroundStyle(viewModel.store.category?.color ?? .black)
+                        .foregroundStyle(.secondary)
                 }
                 
-                // ADDRESS
-                Text((viewModel.store.address ?? "") + ", " + (viewModel.store.floor ?? "Error: No Address"))
-                    .font(.system(.caption))
-                    .foregroundStyle(.secondary)
-            }
-            
-            // IMAGE CAROUSEL
-            if let images = viewModel.store.images {
-                ImageCarousel(images: images)
-            }
-            
-            
-            
-            VStack(alignment: .center) {
-                Button {
-                    
-                } label: {
-                    Text("View Route")
-                        .bold()
-                        .foregroundStyle(Color.white)
-                        .frame(maxWidth: .infinity)
+                // IMAGE CAROUSEL
+                if let images = viewModel.store.images {
+                    ImageCarousel(images: images)
+                        .ignoresSafeArea()
                 }
-                .buttonStyle(.borderedProminent)
+                
+                
+                
+                VStack(alignment: .center) {
+                    Button {
+                        showRoute(viewModel.store)
+                        dismiss()
+                    } label: {
+                        Text("View Route")
+                            .bold()
+                            .foregroundStyle(Color.white)
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(.borderedProminent)
+                }
+                .padding(.top, 20)
             }
-            .padding(.top, 20)
-        }
-        .safeAreaPadding(.horizontal, 16)
-        .redacted(
-            reason: viewModel.isLoading ? .placeholder : []
-        )
-        .refreshable {
-//            await viewModel.getStores()
-        }
-        .task {
-//            await viewModel.getStores()
-            await viewModel.getStoreDetail("A&W")
+            .safeAreaPadding(.horizontal, 16)
+            .onAppear(perform: {
+                viewModel.store = store
+//                Task {
+//                    viewModel.storeName = storeName
+//                    await viewModel.getStoreDetail()
+//                }
+            })
+            .redacted(
+                reason: viewModel.isLoading ? .placeholder : []
+            )
         }
     }
 }
 
 #Preview {
-    StoreDetailView()
+    //    StoreDetailView()
 }

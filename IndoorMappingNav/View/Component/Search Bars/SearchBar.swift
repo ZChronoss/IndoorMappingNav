@@ -11,17 +11,23 @@ struct SearchBar: View {
     @Binding var searchText: String
     var image: Image
     var iconColor: Color
+    var placeholder: String = "Search for a store name"
+    var label: String = ""
     
     var body: some View {
         HStack() {
             image
                 .foregroundStyle(iconColor)
                 .bold()
-            TextField("Search for a store...", text: $searchText)
+            TextField(placeholder, text: $searchText)
                 .textFieldStyle(PlainTextFieldStyle())
                 .autocorrectionDisabled()
                 .padding(8)
                 .cornerRadius(16)
+                .truncationMode(.tail)
+            Label(label.isEmpty ? "" : label, systemImage: label.isEmpty ? "microphone.fill": "")
+                .foregroundStyle(.secondaryAlt)
+                .font(label.isEmpty ? .headline : .system(.caption, weight: .bold))
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
@@ -32,5 +38,5 @@ struct SearchBar: View {
 }
 
 #Preview {
-    SearchBar(searchText: .constant("Ha"), image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
+    SearchBar(searchText: .constant("Haankdnawkldnakwdnkaldnklawdnlkaanlkankldadnklmdaklmd"), image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
 }
