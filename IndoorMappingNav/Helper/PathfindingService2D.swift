@@ -22,10 +22,9 @@ class PathfindingService2D: ObservableObject {
         self.currentIndex = 0
         
         cameraEntity = camera
-        
+        print(currentPath.count)
         if let firstPosition = path.first {
             print(firstPosition)
-            print(currentPath.count)
             guard let newObjectEntity = createObjectEntity(at: firstPosition) else {
                 return
             }

@@ -265,38 +265,59 @@ class PathfindingService: ObservableObject {
     func saveDirection() {
         var lastDirection: Directions? = nil
         var removedInter: [Int] = []
-        
         func determineDirection(from start: simd_float3, to end: simd_float3) -> Directions? {
-            let direction = normalize(end - start)
-            let crossProduct = simd_cross(direction, simd_float3(0, 1, 0))
+            let storeName = findClosestEntity(from: end)?.name ?? ""
+            let movementDirection = normalize(end - start)
             
-            if abs(direction.x) > abs(direction.z) {
-                if crossProduct.x > 0 { return RightDirection() }
-                if crossProduct.x < 0 { return LeftDirection() }
-                if crossProduct.x == 0 { return StraightDirection() }
-            } else {
-                if crossProduct.z < 0 { return RightDirection() }
-                if crossProduct.z > 0 { return LeftDirection() }
-                if crossProduct.z == 0 { return StraightDirection() }
+            // Calculate the facing angle in radians
+            let facingAngle = atan2(movementDirection.x, movementDirection.z)
+            
+            // Determine the reference direction based on the facing angle
+            let referenceDirection: simd_float3
+            switch facingAngle {
+            case (-.pi / 4)...(.pi / 4):
+                // Facing close to negative z-axis (forward)
+                referenceDirection = simd_float3(0, 0, -1)
+            case (.pi / 4)...(3 * .pi / 4):
+                // Facing close to negative x-axis (left)
+                referenceDirection = simd_float3(1, 0, 0)
+            case (-3 * .pi / 4)...(-.pi / 4):
+                // Facing close to positive x-axis (right)
+                referenceDirection = simd_float3(-1, 0, 0)
+            default:
+                // Facing close to positive z-axis (backward)
+                referenceDirection = simd_float3(0, 0, 1)
             }
-            return nil
+            
+            // Calculate cross product in the x-z plane
+            let crossProduct = simd_cross(referenceDirection, movementDirection)
+            
+            // Determine direction based on the cross product's y-component
+            if crossProduct.y > 0 {
+                return RightDirection(store: storeName)
+            } else if crossProduct.y < 0 {
+                return LeftDirection(store: storeName)
+            } else {
+                return StraightDirection(store: storeName)
+            }
         }
-        
+
         for i in 0..<interEntities.count {
             let startPos = interEntities[i].position
             let endPos = (i == interEntities.count - 1) ? pathEntities.last!.position : interEntities[i + 1].position
             
-            if let newDirection = determineDirection(from: startPos, to: endPos) {
-                if newDirection is StraightDirection {
-                    if lastDirection is StraightDirection {
-                        removedInter.append(i)
-                        continue
-                    }
-                }
-                instructions.append(newDirection)
-                print(newDirection)
-                lastDirection = newDirection
+            guard let currentDirection = determineDirection(from: startPos, to: endPos) else { continue }
+            if currentDirection is StraightDirection, lastDirection is StraightDirection {
+                removedInter.append(i)
             }
+            lastDirection = currentDirection
+            
+            let nextPos = (i >= interEntities.count - 2) ? pathEntities.last!.position : interEntities[i + 2].position
+            if let nextDirection = determineDirection(from: endPos, to: nextPos),
+               currentDirection is StraightDirection, nextDirection is StraightDirection {
+                continue
+            }
+            instructions.append(currentDirection)
         }
         
         for index in removedInter.reversed() {
@@ -351,6 +372,7 @@ class PathfindingService: ObservableObject {
     
     func setupCollision() {
         if let sceneEntities = scene?.findAllEntities() {
+            print("ALL", sceneEntities)
             for entity in sceneEntities {
                 entity.components.remove(CollisionComponent.self)
             }
@@ -379,6 +401,28 @@ class PathfindingService: ObservableObject {
     func isPointInsideBoundingBox(_ point: simd_float3, boundingBox: BoundingBox) -> Bool {
         return (point.x >= boundingBox.min.x && point.x <= boundingBox.max.x) &&
         (point.z >= boundingBox.min.z && point.z <= boundingBox.max.z)
+    }
+    
+    func findClosestEntity(from position: simd_float3) -> Entity? {
+        guard let scene = scene else { return nil }
+        let validEntities = scene.findAllEntities()
+        
+        var closestEntity: Entity? = nil
+        var closestDistance: Float = .infinity
+        
+        for entity in validEntities {
+            if !entity.name.isEmpty {
+                let distance = simd_distance(entity.position, position)
+                
+                if distance < closestDistance {
+                    closestDistance = distance
+                    closestEntity = entity
+                }
+            }
+            
+        }
+        
+        return closestEntity
     }
     
 }
@@ -438,15 +482,16 @@ extension Entity {
         return inter
     }
     
-    func findAllEntities(excluding entityName: String = "pwy_") -> [Entity] {
+    func findAllEntities(excluding nameFragments: [String] = ["pwy_", "PSP", "Based"]) -> [Entity] {
         var allEntities: [Entity] = []
         
-        if !self.name.contains(entityName) {
+        let containsName = nameFragments.contains { self.name.contains($0) }
+        if !containsName {
             allEntities.append(self)
         }
         
         for child in children {
-            allEntities.append(contentsOf: child.findAllEntities(excluding: entityName))
+            allEntities.append(contentsOf: child.findAllEntities(excluding: nameFragments))
         }
         
         return allEntities

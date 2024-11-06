@@ -11,10 +11,12 @@ class Directions: Identifiable, Equatable {
     let id: UUID = UUID()
     let icon: String
     let instruction: AttributedString
+    let store: String
     
-    init(icon: String = "", instruction: AttributedString = "") {
+    init(icon: String = "", instruction: AttributedString = "", store: String = "") {
         self.icon = icon
         self.instruction = instruction
+        self.store = store
     }
     
     static func == (lhs: Directions, rhs: Directions) -> Bool {
@@ -29,31 +31,31 @@ class Directions: Identifiable, Equatable {
 }
 
 class LeftDirection: Directions {
-    init() {
-        super.init(icon: Directions.left.icon, instruction: Directions.left.instruction)
+    init(store: String) {
+        super.init(icon: Directions.left.icon, instruction: Directions.left.instruction, store: store)
     }
 }
 
 class RightDirection: Directions {
-    init() {
-        super.init(icon: Directions.right.icon, instruction: Directions.right.instruction)
+    init(store: String) {
+        super.init(icon: Directions.right.icon, instruction: Directions.right.instruction, store: store)
     }
 }
 
 class StraightDirection: Directions {
-    init() {
-        super.init(icon: Directions.straight.icon, instruction: Directions.straight.instruction)
+    init(store: String) {
+        super.init(icon: Directions.straight.icon, instruction: Directions.straight.instruction, store: store)
     }
 }
 
 class StairUpDirection: Directions {
-    init() {
-        super.init(icon: Directions.stairUp.icon, instruction: Directions.stairUp.instruction)
+    init(store: String) {
+        super.init(icon: Directions.stairUp.icon, instruction: Directions.stairUp.instruction, store: store)
     }
 }
 
 class HereDirection: Directions {
-    init() {
-        super.init(icon: Directions.here.icon, instruction: Directions.here.instruction)
+    init(store: String) {
+        super.init(icon: Directions.here.icon, instruction: Directions.here.instruction, store: store)
     }
 }

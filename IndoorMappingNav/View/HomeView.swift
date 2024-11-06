@@ -32,15 +32,28 @@ struct HomeView: View {
     @State var is2DMode = false
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                // Main RealityView content
-                RealityView { content in
-                    if let loadedScene = try? await Entity(named: "Scene", in: mallMapBundle) {
-                        scene = loadedScene
-                        content.add(scene!)
-                        scene?.setScale([scale, scale, scale], relativeTo: nil)
-                        pathfinder.setupPath(loadedScene: scene!)
+        ZStack {
+            // Main RealityView content
+            RealityView { content in
+                if let loadedScene = try? await Entity(named: "Scene", in: mallMapBundle) {
+                    scene = loadedScene
+                    content.add(scene!)
+                    scene?.setScale([scale, scale, scale], relativeTo: nil)
+                    pathfinder.setupPath(loadedScene: scene!)
+                    
+                    pathfinder.startNavigation(start: "Mothercare", end: "J_CO_")
+                }
+            }
+            .realityViewCameraControls(is2DMode ? .pan : .orbit)
+            .gesture(
+                SpatialTapGesture()
+                    .targetedToAnyEntity()
+                    .onEnded({ target in
+                        guard !isMoving else { return } // Ignore tap if movement is ongoing
+                        isMoving = true // Lock the tap gesture
+                        let curTransform = target.entity.transform
+                        let curTranslation = curTransform.translation
+                        let moveUpDistance: Float = 0.5 // 1000cm = 10 meters
                         
                         // Check if the entity was clicked for the first time
                         if entityPositions[target.entity] == nil {

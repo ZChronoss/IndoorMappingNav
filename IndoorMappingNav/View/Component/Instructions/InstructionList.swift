@@ -18,6 +18,7 @@ struct InstructionList: View {
                 InstructionCard(
                     icon: instructions[idx].icon,
                     direction: instructions[idx].instruction,
+                    store: instructions[idx].store,
                     isFirst: instructions[idx].id == instructions.first?.id,
                     isLast: instructions[idx].id == instructions.last?.id,
                     focusedCard: $focusedCard,
