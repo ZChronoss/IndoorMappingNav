@@ -33,6 +33,7 @@ extension SearchPageView {
     @MainActor
     class ViewModel: ObservableObject {
         private let cloudkitController = CloudKitController()
+        let defaults = UserDefaults.standard
         
         @Published var hasSelectedDestination: Bool = false
         
@@ -40,6 +41,8 @@ extension SearchPageView {
         @Published var stores: [Store] = []
         // To store filtered Stores
         @Published var filteredStores: [Store] = []
+        // To store search history
+        @Published var searchHistory: [Store] = []
         
         @Published private(set) var isLoading = false
         @Published var searchText: String  = "" {
@@ -70,6 +73,7 @@ extension SearchPageView {
         init() {
             Task {
                 await getStores()
+                searchHistory = getStoreFromDefault() ?? []
             }
         }
         
@@ -101,62 +105,46 @@ extension SearchPageView {
             self.isLoading = false
         }
         
-        func getSearchedStores() {
-            $searchText
-                .map { text in
-                    //                    DispatchQueue.main.async {
-                    //                        self.isLoading = true
-                    //                    }
-                    
-                    guard !text.isEmpty else {
-                        return self.stores
-                    }
-                    
-                    let lowercasedText = text.lowercased()
-                    
-                    //                    DispatchQueue.main.async {
-                    //                        self.isLoading = false
-                    //                    }ˆ
-                    
-                    return self.stores.filter { (store) -> Bool in
-                        return (store.name?.lowercased().contains(lowercasedText))!
-                    }
+        func getStoreFromDefault() -> [Store]? {
+            // Get names from User Default
+            guard let names = defaults.stringArray(forKey: "storeName") else { return [] }
+            
+            var defaultStores: [Store] = []
+            
+            // Loop through the names and search for the store by name
+            for name in names {
+                let store = stores.first { store in
+                    store.name == name
                 }
-                .sink{ [weak self] (returnVal) in
-                    self?.stores = returnVal
-                }
-                .store(in: &cancellables)
+                
+                defaultStores.append(store!)
+            }
             
-            //            $searchText
-            //                .asyncMap({ text in
-            //                    DispatchQueue.main.async {
-            //                        self.isLoading = true
-            //                    }
-            //
-            //                    let retVal = text.isEmpty ? self.stores : self.stores.filter {
-            //                        $0.name?.ranges(of: text) != nil
-            //                    }
-            //
-            //                    DispatchQueue.main.async {
-            //                        self.isLoading = false
-            //                    }
-            //
-            //                    return retVal
-            //                }).sink(receiveCompletion: { completion in
-            //                    print(completion)
-            //                }, receiveValue: { value in
-            //                    DispatchQueue.main.async {
-            //                        self.stores = value
-            //                    }
-            //                })
-            //                .store(in: &cancellables)
+            return defaultStores.reversed()
+        }
+        
+        func setStoreFromDefault(_ name: String) {
+            var nameArr = defaults.stringArray(forKey: "storeName")
             
-            //            do {
-            //                self.stores = try await cloudkitController.fetchStoreBeginsWith(keyword)
-            //            } catch {
-            //                print("Error: Data fetching failed (\(error.localizedDescription))")
-            //            }
+            if nameArr == nil {
+                nameArr = []
+            }
             
+            if ((nameArr?.contains(name)) != nil) {
+                nameArr?.removeAll(where: { removeName in
+                    removeName == name
+                })
+            }
+            
+            nameArr?.append(name)
+            
+            if nameArr?.count ?? 0 > 5 {
+                nameArr?.removeFirst()
+            }
+            
+            defaults.removeObject(forKey: "storeName")
+            defaults.set(nameArr, forKey: "storeName")
+            searchHistory = getStoreFromDefault() ?? []
         }
     }
 }

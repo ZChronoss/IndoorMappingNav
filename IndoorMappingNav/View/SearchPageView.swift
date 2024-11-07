@@ -33,7 +33,7 @@ struct SearchPageView: View {
             
             ScrollView {
                 LazyVStack(spacing: 8) {
-                    ForEach(vm.filteredStores.isEmpty ? vm.stores : vm.filteredStores) {store in
+                    ForEach(vm.searchText.isEmpty ? vm.searchHistory : vm.filteredStores) {store in
                         SearchResult(store: store)
                             .onTapGesture {
                                 if !vm.hasSelectedDestination {
@@ -43,6 +43,8 @@ struct SearchPageView: View {
                                     openSheet(store)
                                     dismiss()
                                 }
+                                vm.setStoreFromDefault(store.name ?? "")
+                                print(vm.searchHistory)
                                 vm.hasSelectedDestination = true
                                 
                                 if vm.trueIfStartStoreIsSelected {

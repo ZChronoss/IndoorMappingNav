@@ -77,3 +77,4 @@ class Store: Identifiable, CloudKitRecordInitializable {
     
     
 }
+
