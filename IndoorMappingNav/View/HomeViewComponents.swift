@@ -41,18 +41,17 @@ struct HomeViewComponents: View {
                             .onTapGesture {
                                 vm.selectedDestination = Store()
                                 vm.isSearching = true
+                                isSheetOpen = false
                             }
                             .navigationDestination(isPresented: $vm.isSearching) {
                                 SearchPageView(destStore: vm.selectedDestination ?? Store()) { store in
                                     vm.selectedStore = store
                                     vm.storeName = store.name ?? ""
+                                    isSheetOpen = true
                                 }
                             }
                     }
                 }
-                .onChange(of: vm.storeName, { oldValue, newValue in
-                    isSheetOpen.toggle()
-                })
                 .sheet(isPresented: $isSheetOpen) {
                     StoreDetailView(store: vm.selectedStore ?? Store()) { store in
                         vm.selectedDestination = store

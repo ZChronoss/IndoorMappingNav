@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct NavigationView: View {
+struct NavigateView: View {
     @EnvironmentObject var pathfinder2D: PathfindingService2D
     @EnvironmentObject var pathfinder: PathfindingService
     @State private var focusedCard: Int = 0
@@ -24,6 +24,6 @@ struct NavigationView: View {
 }
 
 #Preview {
-    NavigationView()
+    NavigateView()
 }
 
