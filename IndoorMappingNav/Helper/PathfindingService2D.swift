@@ -9,6 +9,7 @@ import RealityKit
 import GameplayKit
 
 class PathfindingService2D: ObservableObject {
+    static let shared = PathfindingService2D()
     var currentPath: [simd_float3] = []
     var currentIndex = 0
     var objectEntity: Entity?
@@ -21,10 +22,9 @@ class PathfindingService2D: ObservableObject {
         self.currentIndex = 0
         
         cameraEntity = camera
-        
+        print(currentPath.count)
         if let firstPosition = path.first {
             print(firstPosition)
-            print(currentPath.count)
             guard let newObjectEntity = createObjectEntity(at: firstPosition) else {
                 return
             }
@@ -47,39 +47,23 @@ class PathfindingService2D: ObservableObject {
         return objectEntity
     }
     
-    func moveToNextNode() {
-        guard currentIndex < currentPath.count - 1 else { return }
-        
-        currentIndex += 1
-        moveObject(to: currentPath[currentIndex])
-    }
-    
-    func moveToPreviousNode() {
-        guard currentIndex > 0 else { return }
-        
-        currentIndex -= 1
-        moveObject(to: currentPath[currentIndex])
-    }
-    
-    func moveObject(to position: simd_float3) {
+    func moveObject(to currentIndex: Int) {
         guard currentIndex < currentPath.count else { return }
-        
-        let nextIndex = currentIndex + 1
-        
-        guard nextIndex < currentPath.count else {
-            objectEntity?.position = position
-            panCameraToFollow(objectEntity, xCamera: 0, zCamera: 0)
-            return
-        }
-        
-        let nextNode = currentPath[nextIndex]
+
+        let position = currentPath[currentIndex]
         objectEntity?.position = position
         
-        if nextNode != position {
-            rotateCameraToFace(nextNode)
+        let nextNode: simd_float3
+        
+        if currentIndex == currentPath.count - 1, currentIndex > 0 {
+            let prevNode = currentPath[currentIndex - 1]
+            let lastDirection = normalize(position - prevNode)
+            nextNode = position + lastDirection // Extend in the same direction
         } else {
-            print("Next node is the same as the current node, no rotation needed.")
+            nextNode = currentPath[currentIndex + 1]
         }
+        
+        rotateCameraToFace(nextNode)
     }
     
     func rotateCameraToFace(_ nextNode: simd_float3) {
@@ -90,7 +74,7 @@ class PathfindingService2D: ObservableObject {
         // Compute the angle based on the direction the object is moving
         let angle = atan2(direction.x, direction.z)
         
-        // Instead of rotating the scene, rotate the camera to face the object’s direction
+        // Rotate the camera to face the object’s direction
         cameraEntity?.orientation = simd_quatf(angle: angle, axis: [0, 1, 0])
         
         panCameraToFollow(objectEntity, xCamera: -sin(angle), zCamera: -cos(angle))
@@ -104,7 +88,6 @@ class PathfindingService2D: ObservableObject {
         cameraEntity.position = cameraPosition
         cameraEntity.look(at: object.position, from: cameraPosition, relativeTo: scene)
 
-        print("TEST", cameraPosition, object.position)
         // Attach the camera directly to the scene
         scene?.addChild(cameraEntity)
     }

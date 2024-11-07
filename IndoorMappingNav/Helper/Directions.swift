@@ -7,14 +7,20 @@
 
 import Foundation
 
-class Directions: Identifiable {
+class Directions: Identifiable, Equatable {
     let id: UUID = UUID()
     let icon: String
     let instruction: AttributedString
+    let store: String
     
-    init(icon: String = "", instruction: AttributedString = "") {
+    init(icon: String = "", instruction: AttributedString = "", store: String = "") {
         self.icon = icon
         self.instruction = instruction
+        self.store = store
+    }
+    
+    static func == (lhs: Directions, rhs: Directions) -> Bool {
+        return lhs.icon == rhs.icon && lhs.instruction == rhs.instruction
     }
     
     static let left = (icon: "arrow.left", instruction: try! AttributedString(markdown: "Go to the **left** side"))
@@ -25,31 +31,31 @@ class Directions: Identifiable {
 }
 
 class LeftDirection: Directions {
-    init() {
-        super.init(icon: Directions.left.icon, instruction: Directions.left.instruction)
+    init(store: String) {
+        super.init(icon: Directions.left.icon, instruction: Directions.left.instruction, store: store)
     }
 }
 
 class RightDirection: Directions {
-    init() {
-        super.init(icon: Directions.right.icon, instruction: Directions.right.instruction)
+    init(store: String) {
+        super.init(icon: Directions.right.icon, instruction: Directions.right.instruction, store: store)
     }
 }
 
-class StraightDirections: Directions {
-    init() {
-        super.init(icon: Directions.straight.icon, instruction: Directions.straight.instruction)
+class StraightDirection: Directions {
+    init(store: String) {
+        super.init(icon: Directions.straight.icon, instruction: Directions.straight.instruction, store: store)
     }
 }
 
-class StairUpDirections: Directions {
-    init() {
-        super.init(icon: Directions.stairUp.icon, instruction: Directions.stairUp.instruction)
+class StairUpDirection: Directions {
+    init(store: String) {
+        super.init(icon: Directions.stairUp.icon, instruction: Directions.stairUp.instruction, store: store)
     }
 }
 
-class HereDirections: Directions {
-    init() {
-        super.init(icon: Directions.here.icon, instruction: Directions.here.instruction)
+class HereDirection: Directions {
+    init(store: String) {
+        super.init(icon: Directions.here.icon, instruction: Directions.here.instruction, store: store)
     }
 }

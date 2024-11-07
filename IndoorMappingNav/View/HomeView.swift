@@ -7,18 +7,15 @@
 
 import SwiftUI
 import RealityKit
-import GameplayKit
 import MallMap
 
 struct HomeView: View {
-    @StateObject var vm = ViewModel()
-    
-    @StateObject var pathfinder = PathfindingService()
-    @StateObject var pathfinder2D = PathfindingService2D()
+    @StateObject var vm = HomeViewModel()
+    @StateObject var pathfinder = PathfindingService.shared
+    @StateObject var pathfinder2D = PathfindingService2D.shared
     
     @State private var entityPositions: [Entity: simd_float3] = [:] // Store only the original position
     @State private var entityState: [Entity: Bool] = [:]
-    @State var isSheetOpen = false
     
     @State var scale: Float = 0.2
     @State private var isMoving: Bool = false
@@ -45,7 +42,7 @@ struct HomeView: View {
                         scene?.setScale([scale, scale, scale], relativeTo: nil)
                         pathfinder.setupPath(loadedScene: scene!)
                         
-                        pathfinder.startNavigation(start: "Huawei", end: "Lift")
+                        pathfinder.startNavigation(start: "Mothercare", end: "J_CO_")
                     }
                 }
                 .realityViewCameraControls(is2DMode ? .pan : .orbit)
@@ -96,101 +93,32 @@ struct HomeView: View {
                 
                 
                 // Overlay: Location title, search bar, and category buttons
-                
-                
+                if is2DMode == false {
+                    HomeViewComponents()
+                }
+                else {
+                    NavigationView()
+                }
                 VStack {
-                    ZStack(alignment: .top) {
-                        // White background rectangle
-                        CustomCornerShape(radius: 20, corners: [.bottomLeft, .bottomRight])
-                            .fill(Color(UIColor.systemBackground))
-                            .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 10)
-                            .frame(height: 95) // Adjust this value to control how far down the rectangle extends
-                        
-                        VStack(spacing: 0) {
-                            HStack {
-                                Text("Summarecon Mall Serpong")
-                                    .font(.system(size: 22, weight: .bold))
-                                    .foregroundColor(.black)
-                                Spacer()
-                                Image(systemName: "chevron.down")
-                                    .foregroundColor(.black)
-                            }
-                            .padding(.top, 20)
-                            .padding(.horizontal, 20)
-                            .padding(.bottom, 16)
-                            
-                            SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
-                                .padding(.horizontal, 20)
-                                .disabled(true)
-                                .onTapGesture {
-                                    vm.selectedDestination = Store()
-                                    vm.isSearching = true
-                                }
-                                .navigationDestination(isPresented: $vm.isSearching) {
-                                    SearchPageView(destStore: vm.selectedDestination ?? Store()) { store in
-                                        vm.selectedStore = store
-                                        vm.storeName = store.name ?? ""
-                                    }
-                                }
-                        }
+                    Spacer()
+                    Button("2D Mode") {
+                        // 3D to 2D path conversion (flatten Y-axis)
+                        guard let scene = scene else { return }
+                        scene.setScale([2,2,2], relativeTo: nil)
+                        let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
+                        guard let camera = pathfinder.cameraEntity else { return }
+                        pathfinder2D.setup2DNavigation(path: path, scene: scene, camera: camera)
+                        is2DMode = true
                     }
-                    
-                    
-                    ScrollView(.horizontal, showsIndicators: false) {
-                        HStack(spacing: 10) {
-                            CategoryButton(categoryName: "Food & Beverage", categoryIcon: "fork.knife", categoryColor: .red, isSelected: selectedCategory == "Food & Beverage") {
-                                selectedCategory = "Food & Beverage"
-                            }
-                            CategoryButton(categoryName: "Shopping", categoryIcon: "cart", categoryColor: .green, isSelected: selectedCategory == "Shopping") {
-                                selectedCategory = "Shopping"
-                            }
-                            CategoryButton(categoryName: "Entertainment", categoryIcon: "gamecontroller", categoryColor: .purple, isSelected: selectedCategory == "Entertainment") {
-                                selectedCategory = "Entertainment"
-                            }
-                        }
-                        .padding(.horizontal)
-                    }
-                    .padding(.top, 16)
-                    
-                    Spacer() // Push the RealityView to the bottom
+                    .padding(.bottom)
                 }
-            }
-            .onChange(of: vm.storeName, { oldValue, newValue in
-                isSheetOpen.toggle()
-            })
-            .sheet(isPresented: $isSheetOpen) {
-                StoreDetailView(store: vm.selectedStore ?? Store()) { store in
-                    vm.selectedDestination = store
-                    vm.isSearching = true
-                    isSheetOpen = false
-                }
-                .presentationDetents([.fraction(0.5)])
-                .presentationBackgroundInteraction(.enabled)
             }
             .padding(.top, 56)
             .ignoresSafeArea()
-            
-            Button("2D Mode") {
-                // 3D to 2D path conversion (flatten Y-axis)
-                guard let scene = scene else { return }
-                scene.setScale([2,2,2], relativeTo: nil)
-                let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
-                guard let camera = pathfinder.cameraEntity else { return }
-                pathfinder2D.setup2DNavigation(path: path, scene: scene, camera: camera)
-                is2DMode = true
-            }
-            
-            // Navigation buttons
-            HStack {
-                Button("Previous") {
-                    pathfinder2D.moveToPreviousNode()
-                }
-                Button("Next") {
-                    pathfinder2D.moveToNextNode()
-                }
-            }
-            .padding()
+            .environmentObject(pathfinder2D)
+            .environmentObject(pathfinder)
         }
+        
     }
 }
 

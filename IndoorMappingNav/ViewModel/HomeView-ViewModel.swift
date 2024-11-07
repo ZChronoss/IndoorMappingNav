@@ -7,9 +7,9 @@
 
 import Foundation
 
-extension HomeView {
-    @MainActor
-    class ViewModel: ObservableObject {
+//extension HomeViewComponents {
+//    @MainActor
+    class HomeViewModel: ObservableObject {
         private let cloudkitController = CloudKitController()
         /// SEARCH FUNC
         @Published var isSearching: Bool = false
@@ -21,7 +21,7 @@ extension HomeView {
         @Published var isLoading = false
         
         func getStoreDetail() async {
-            isLoading = true
+//            isLoading = true
             
             do {
                 self.selectedStore = try await cloudkitController.fetchStoreByName(name: storeName)
@@ -29,7 +29,7 @@ extension HomeView {
                 print("Error: Data fetching failed (\(error.localizedDescription))")
             }
             
-            isLoading = false
+//            isLoading = false
         }
     }
-}
+//}
