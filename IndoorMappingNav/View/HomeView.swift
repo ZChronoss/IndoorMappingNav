@@ -97,7 +97,7 @@ struct HomeView: View {
                     HomeViewComponents()
                 }
                 else {
-                    NavigationView()
+                    NavigateView()
                 }
                 VStack {
                     Spacer()
