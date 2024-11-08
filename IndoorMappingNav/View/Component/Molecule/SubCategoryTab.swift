@@ -27,6 +27,8 @@ struct SubCategoryTab: View {
                 }
             }
             .padding(.horizontal)
+            .padding(.vertical, 2)
+            .frame(height: 74)
         }
     }
 }
