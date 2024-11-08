@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 //extension HomeViewComponents {
 //    @MainActor
@@ -19,6 +20,9 @@ import Foundation
         @Published var selectedStore: Store?
         
         @Published var isLoading = false
+        
+        @Published var isCategorySheetOpen = false
+        @Published var categoryDetent: PresentationDetent = .fraction(0.17)
         
         func getStoreDetail() async {
 //            isLoading = true

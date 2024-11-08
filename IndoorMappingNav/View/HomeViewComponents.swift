@@ -61,6 +61,11 @@ struct HomeViewComponents: View {
                     .presentationDetents([.fraction(0.5)])
                     .presentationBackgroundInteraction(.enabled)
                 }
+                .sheet(isPresented: $vm.isCategorySheetOpen) {
+                    NavigationStack {
+                        CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent)
+                    }
+                }
                 
                 
                 ScrollView(.horizontal, showsIndicators: false) {
