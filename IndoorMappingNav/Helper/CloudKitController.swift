@@ -20,17 +20,6 @@ class CloudKitController: ObservableObject {
         
         let result = try await database.records(matching: query, desiredKeys: wantedField, resultsLimit: 10)
         let records = result.matchResults.compactMap { try? $0.1.get() }
-        //        do {
-        //            let (storeResults, _) = try await database.records(matching: query)
-        //
-        //            return storeResults.compactMap { _, result in
-        //                let newStore = try? Store(record: result.get())
-        //                store?.append(newStore!)
-        //                return newStore
-        //            }
-        //        } catch {
-        //            print("Error fetching store records from CloudKit: \(error.localizedDescription)")
-        //        }
         
         return records.compactMap(Store.init)
     }
@@ -111,10 +100,10 @@ extension CloudKitController {
         
         let predicate = NSPredicate(format: "%K == %d", "Category", categoryID) // Query based on category ID
         let query = CKQuery(recordType: "Store", predicate: predicate)
-
+        
         let result = try await database.records(matching: query, resultsLimit: 10)
         let records = result.matchResults.compactMap { try? $0.1.get() }
-
+        
         return records.compactMap(Store.init) // Convert CKRecords to Store models
     }
     
@@ -128,25 +117,5 @@ extension CloudKitController {
         ]
         return categoryMap[category]
     }
-    
-    func fetchStoreByName(name: String) async throws -> Store {
-        let predicate = NSPredicate(format: "%K == %@", "Name", name)
-        
-        let query = CKQuery(recordType: "Store", predicate: predicate)
-        
-        //        let operation = CKQueryOperation(query: query)
-        //        operation.desiredKeys = ["Name", "Category", "Address", "Images", "Floor"]
-        
-        let result = try await database.records(matching: query, resultsLimit: 1)
-        let record = result.matchResults.compactMap { _, result in
-            try? result.get()
-        }
-        
-        if let store = record.first {
-            return Store(record: store)
-        }else{
-            return Store()
-        }
-    }
-    // ini buat fix bug
 }
+

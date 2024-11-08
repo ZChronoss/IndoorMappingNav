@@ -16,6 +16,19 @@ struct CategorySheet: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+            HStack {
+                Spacer()
+                
+                Rectangle()
+                    .fill(Color.gray.opacity(0.5)) // Set color and opacity
+                    .frame(width: 36, height: 5) // Width and height of the line
+                    .cornerRadius(2) // Round the edges
+                    .padding(.bottom, 16) // Add some bottom padding to separate from the content
+                
+                Spacer()
+            }
+
+            
             HStack(alignment: .center) {
                 Text(categoryName) // Use the name from CategoryType
                     .font(Font.system(.title3))
@@ -44,8 +57,6 @@ struct CategorySheet: View {
             }
             .padding(.bottom, 16)
 
-
-            // Tanya ke Renaldi cara ngefetch image dari StoreImage gimana
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], spacing: 10) {
                     ForEach(viewModel.storesByCategory) { store in
@@ -53,7 +64,7 @@ struct CategorySheet: View {
                     }
                 }
             }
-
+            
             NavigationLink(
                 destination: SubCategoryDetailView(
                     categoryName: viewModel.storesByCategory.first?.category?.name.rawValue ?? "nil",
@@ -65,7 +76,7 @@ struct CategorySheet: View {
             }
         }
         .padding(.horizontal, 16)
-        .padding(.top, 41)
+        .padding(.top, 12)
         .task {
             await viewModel.getStoreByCategory(categoryName)
             await viewModel.getAllSubCategories()

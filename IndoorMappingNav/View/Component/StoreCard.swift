@@ -16,8 +16,9 @@ struct StoreCard: View {
                let validData = imageData,
                let uiImage = UIImage(data: validData) {
                 Image(uiImage: uiImage)
-                    .resizable()
-                    .scaledToFit()
+                    .frame(width: 159, height: 102)
+//                    .resizable()
+//                    .scaledToFit()
                     .clipShape(
                         UnevenRoundedRectangle(
                             topLeadingRadius: 8,
@@ -47,6 +48,8 @@ struct StoreCard: View {
                 Text(store.name ?? "Unknown Store")
                     .font(.callout)
                     .fontWeight(.bold)
+                    .lineLimit(1) // Limit to a single line
+                    .truncationMode(.tail)
 
                 Text(store.category?.name.rawValue ?? "Unknown Category")
                     .font(.caption)

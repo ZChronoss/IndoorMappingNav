@@ -39,5 +39,5 @@ struct SpecificCategory: View {
 }
 
 #Preview {
-    SpecificCategory(subCategoryName: "Bakery", image: "Image1", isSelected: false, onSelect: {})
+    SpecificCategory(subCategoryName: "Bakery", image: "Image1", isSelected: true, onSelect: {})
 }
