@@ -9,8 +9,11 @@ import SwiftUI
 
 struct StepCard: View {
     var iconImage: String
-    var stepDescription: String
+    var direction: AttributedString
+    var store: String
     var imageStep: String
+    
+    var isLast: Bool
     
     var body: some View {
         HStack {
@@ -19,9 +22,15 @@ struct StepCard: View {
                     .font(.title3)
                     .fontWeight(.semibold)
                 
-                Text(stepDescription)
-                    .font(.body)
-                    .frame(width: 213, alignment: .leading)
+                if isLast {
+                    Text("\(direction) and you have arrived at **\(store)**")
+                        .font(.body)
+                        .frame(alignment: .leading)
+                } else {
+                    Text("\(direction) and you will see **\(store)**")
+                        .font(.body)
+                        .frame(alignment: .leading)
+                }
             }
             
             Spacer()
@@ -38,6 +47,6 @@ struct StepCard: View {
     }
 }
 
-#Preview {
-    StepCard(iconImage: "arrow.up", stepDescription: "Sociolla", imageStep: "Image3")
-}
+//#Preview {
+//    StepCard(iconImage: "arrow.up", direction: "Sociolla", store: "miniso", imageStep: "Image3")
+//}

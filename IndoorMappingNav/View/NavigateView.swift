@@ -16,6 +16,7 @@ struct NavigateView: View {
         VStack {
             Spacer()
             InstructionList(instructions: pathfinder.instructions, focusedCard: $focusedCard)
+//            NavigationSheetDetail(instructions: pathfinder.instructions, pathCounts: pathfinder.pathCounts)
         }
         .onChange(of: focusedCard) { _, newCardIndex in
             pathfinder2D.moveObject(to: newCardIndex)
