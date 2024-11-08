@@ -35,7 +35,7 @@ struct SearchResult: View {
             
             Spacer()
             
-            Text(getFloorAbbreviation(floor: store?.floor ?? "Basement"))
+            Text(SearchResult.getFloorAbbreviation(floor: store?.floor ?? "Basement"))
                 .font(.system(.caption, weight: .bold))
                 .foregroundStyle(.gray)
         }
@@ -44,7 +44,7 @@ struct SearchResult: View {
 }
 
 extension SearchResult {
-    func getFloorAbbreviation(floor: String) -> String {
+    static func getFloorAbbreviation(floor: String) -> String {
         switch floor {
         case "Ground Floor" : return "GF"
         case "1st Floor"    : return "1st"

@@ -8,13 +8,9 @@
 import SwiftUI
 
 struct InstructionList: View {
-    let instructions: [Directions] = [
-        LeftDirection(),
-        StraightDirections(),
-        RightDirection()
-    ]
+    let instructions: [Directions]
     
-    @State private var focusedCard: Int = 0
+    @Binding var focusedCard: Int
     
     var body: some View {
         TabView(selection: $focusedCard) {
@@ -22,6 +18,7 @@ struct InstructionList: View {
                 InstructionCard(
                     icon: instructions[idx].icon,
                     direction: instructions[idx].instruction,
+                    store: instructions[idx].store,
                     isFirst: instructions[idx].id == instructions.first?.id,
                     isLast: instructions[idx].id == instructions.last?.id,
                     focusedCard: $focusedCard,
@@ -30,10 +27,11 @@ struct InstructionList: View {
         }
         .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
+        .frame(height: 180)
     }
     
 }
 
-#Preview {
-    InstructionList()
-}
+//#Preview {
+//    InstructionList()
+//}

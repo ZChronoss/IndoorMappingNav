@@ -15,11 +15,13 @@ enum NodeType {
 }
 
 class PathfindingService: ObservableObject {
+    static let shared = PathfindingService()
     var pathfinder = PathfindingHelper3D()
     var pathEntities: [Entity] = []
     var interEntities: [Entity] = []
     var pathNodes: [GKGraphNode3D] = []
     var interNodes: [GKGraphNode3D] = []
+    var instructions: [Directions] = []
     var scene: Entity? = nil
     var cameraEntity: Entity?
     
@@ -75,23 +77,23 @@ class PathfindingService: ObservableObject {
                     groundPosition.z + z
                 )
                 
-//                                                let markerPosition = SCNVector3(
-//                                                    groundPosition.x + x,
-//                                                    0.5,  // Slightly above the ground plane
-//                                                    groundPosition.z + z
-//                                                )
+                //                                                let markerPosition = SCNVector3(
+                //                                                    groundPosition.x + x,
+                //                                                    0.5,  // Slightly above the ground plane
+                //                                                    groundPosition.z + z
+                //                                                )
                 
                 if checkForPath(at: simd_float3(nodePosition), type: .path) {
                     let pathNode = pathfinder.addNode(at: nodePosition, type: .path)
-//                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
-//                                                            loadedScene.addChild(marker)
+                    //                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
+                    //                                                            loadedScene.addChild(marker)
                     pathNodes.append(pathNode)
                 }
                 
                 if checkForPath(at: simd_float3(nodePosition), type: .intersection) {
                     let interNode = pathfinder.addNode(at: nodePosition, type: .intersection)
-//                                                            let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
-//                                                            loadedScene.addChild(marker)
+                    //                                                            let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
+                    //                                                            loadedScene.addChild(marker)
                     interNodes.append(interNode)
                 }
             }
@@ -107,7 +109,7 @@ class PathfindingService: ObservableObject {
         if let existingCamera = cameraEntity {
             existingCamera.removeFromParent()
         }
-//        guard let cameraEntity = cameraEntity else { return }
+        //        guard let cameraEntity = cameraEntity else { return }
         
         let cameraPosition = simd_float3(1, 1, 1)
         let cameraLookAt = simd_float3(0, 0, 0)
@@ -179,7 +181,6 @@ class PathfindingService: ObservableObject {
         
         if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .path),
            let nearestEndNode = pathfinder.findNearestNode(to: SCNVector3(end.x, end.y, end.z), type: .path) {
-            print("near2:",nearestStartNode)
             startNode.addConnections(to: [nearestStartNode], bidirectional: true)
             endNode.addConnections(to: [nearestEndNode], bidirectional: true)
             
@@ -188,17 +189,17 @@ class PathfindingService: ObservableObject {
                 pathPositions = path.map { simd_float3($0.position) }
                 print("PATH===",pathPositions.count)
                 
-//                for i in 0..<pathPositions.count {
-//                    let debug = createMarkerEntity(at: pathPositions[i], color: .black)
-//                    scene?.addChild(debug)
-//                }
+                //                for i in 0..<pathPositions.count {
+                //                    let debug = createMarkerEntity(at: pathPositions[i], color: .black)
+                //                    scene?.addChild(debug)
+                //                }
                 
                 // Insert first and last positions as control points for smoothing
                 guard let firstPosition = pathPositions.first,
                       let lastPosition = pathPositions.last else {
                     return
                 }
-
+                
                 pathPositions.insert(firstPosition, at: 0)
                 pathPositions.append(lastPosition)
                 
@@ -226,8 +227,6 @@ class PathfindingService: ObservableObject {
                     let animatedEndPos = smoothPath[animatedIndex + 1]
                     animatedIndex += 1
                     
-                    self.showDirection(from: animatedStartPos, to: animatedEndPos)
-                    
                     let animatedLineEntity = self.createLineEntity(from: animatedStartPos, to: animatedEndPos, opacity: 1.0)
                     self.scene?.addChild(animatedLineEntity)
                     
@@ -239,13 +238,12 @@ class PathfindingService: ObservableObject {
         if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .intersection) {
             for i in 0..<interNodes.count - 1 {
                 
-                
                 let startPos = interNodes[i]
                 
                 for j in 0..<pathPositions.count {
                     if startPos.position == pathPositions[j] {
                         print("GOT INTERPOSITION", pathPositions[j])
-                        let intersectionEntity = createMarkerEntity(at: startPos.position)
+                        let intersectionEntity = createMarkerEntity(at: simd_float3(startPos.position.x, -0.1, startPos.position.z), color: .clear)
                         
                         interEntities.append(intersectionEntity)
                         scene?.addChild(intersectionEntity)
@@ -260,34 +258,73 @@ class PathfindingService: ObservableObject {
                 return dist1 < dist2
             }
         }
+        
+        saveDirection()
     }
     
-    func showDirection(from startPos: simd_float3, to endPos: simd_float3) {
-        var directionOutput: String
-        let direction = normalize(endPos - startPos)
-        let referenceDirection = simd_float3(0, 1, 0)
-        let crossProduct = simd_cross(direction, referenceDirection)
-        
-        // Detect dominant axis of movement
-        if abs(direction.x) > abs(direction.z) {
-            if crossProduct.x > 0 {
-                directionOutput = "Right"
-            } else if crossProduct.x < 0 {
-                directionOutput = "Left"
-            } else {
-                directionOutput = "Straight"
+    func saveDirection() {
+        var lastDirection: Directions? = nil
+        var removedInter: [Int] = []
+        func determineDirection(from start: simd_float3, to end: simd_float3) -> Directions? {
+            let storeName = findClosestEntity(from: end)?.name ?? ""
+            let movementDirection = normalize(end - start)
+            
+            // Calculate the facing angle in radians
+            let facingAngle = atan2(movementDirection.x, movementDirection.z)
+            
+            // Determine the reference direction based on the facing angle
+            let referenceDirection: simd_float3
+            switch facingAngle {
+            case (-.pi / 4)...(.pi / 4):
+                // Facing close to negative z-axis (forward)
+                referenceDirection = simd_float3(0, 0, -1)
+            case (.pi / 4)...(3 * .pi / 4):
+                // Facing close to negative x-axis (left)
+                referenceDirection = simd_float3(1, 0, 0)
+            case (-3 * .pi / 4)...(-.pi / 4):
+                // Facing close to positive x-axis (right)
+                referenceDirection = simd_float3(-1, 0, 0)
+            default:
+                // Facing close to positive z-axis (backward)
+                referenceDirection = simd_float3(0, 0, 1)
             }
-        } else {
-            if crossProduct.z < 0 {
-                directionOutput = "Right"
-            } else if crossProduct.z > 0 {
-                directionOutput = "Left"
+            
+            // Calculate cross product in the x-z plane
+            let crossProduct = simd_cross(referenceDirection, movementDirection)
+            
+            // Determine direction based on the cross product's y-component
+            if crossProduct.y > 0 {
+                return RightDirection(store: storeName)
+            } else if crossProduct.y < 0 {
+                return LeftDirection(store: storeName)
             } else {
-                directionOutput = "Straight"
+                return StraightDirection(store: storeName)
             }
         }
-        //        print(directionOutput)
+
+        for i in 0..<interEntities.count {
+            let startPos = interEntities[i].position
+            let endPos = (i == interEntities.count - 1) ? pathEntities.last!.position : interEntities[i + 1].position
+            
+            guard let currentDirection = determineDirection(from: startPos, to: endPos) else { continue }
+            if currentDirection is StraightDirection, lastDirection is StraightDirection {
+                removedInter.append(i)
+            }
+            lastDirection = currentDirection
+            
+            let nextPos = (i >= interEntities.count - 2) ? pathEntities.last!.position : interEntities[i + 2].position
+            if let nextDirection = determineDirection(from: endPos, to: nextPos),
+               currentDirection is StraightDirection, nextDirection is StraightDirection {
+                continue
+            }
+            instructions.append(currentDirection)
+        }
+        
+        for index in removedInter.reversed() {
+            interEntities.remove(at: index)
+        }
     }
+    
     
     // MARK: - RealityKit Entity Creation for Path Segments
     func createLineEntity(from start: simd_float3, to end: simd_float3, opacity: Float) -> Entity {
@@ -335,6 +372,7 @@ class PathfindingService: ObservableObject {
     
     func setupCollision() {
         if let sceneEntities = scene?.findAllEntities() {
+            print("ALL", sceneEntities)
             for entity in sceneEntities {
                 entity.components.remove(CollisionComponent.self)
             }
@@ -363,6 +401,28 @@ class PathfindingService: ObservableObject {
     func isPointInsideBoundingBox(_ point: simd_float3, boundingBox: BoundingBox) -> Bool {
         return (point.x >= boundingBox.min.x && point.x <= boundingBox.max.x) &&
         (point.z >= boundingBox.min.z && point.z <= boundingBox.max.z)
+    }
+    
+    func findClosestEntity(from position: simd_float3) -> Entity? {
+        guard let scene = scene else { return nil }
+        let validEntities = scene.findAllEntities()
+        
+        var closestEntity: Entity? = nil
+        var closestDistance: Float = .infinity
+        
+        for entity in validEntities {
+            if !entity.name.isEmpty {
+                let distance = simd_distance(entity.position, position)
+                
+                if distance < closestDistance {
+                    closestDistance = distance
+                    closestEntity = entity
+                }
+            }
+            
+        }
+        
+        return closestEntity
     }
     
 }
@@ -422,15 +482,16 @@ extension Entity {
         return inter
     }
     
-    func findAllEntities(excluding entityName: String = "pwy_") -> [Entity] {
+    func findAllEntities(excluding nameFragments: [String] = ["pwy_", "PSP", "Based"]) -> [Entity] {
         var allEntities: [Entity] = []
         
-        if !self.name.contains(entityName) {
+        let containsName = nameFragments.contains { self.name.contains($0) }
+        if !containsName {
             allEntities.append(self)
         }
         
         for child in children {
-            allEntities.append(contentsOf: child.findAllEntities(excluding: entityName))
+            allEntities.append(contentsOf: child.findAllEntities(excluding: nameFragments))
         }
         
         return allEntities

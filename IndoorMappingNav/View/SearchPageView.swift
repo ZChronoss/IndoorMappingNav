@@ -8,26 +8,72 @@
 import SwiftUI
 
 struct SearchPageView: View {
-    @StateObject private var viewModel = ViewModel()
-    @State private var query = ""
+    @StateObject private var vm = ViewModel()
+    @Environment(\.dismiss) private var dismiss
+    @State var destStore: Store = Store()
+    
+    var openSheet: (Store) -> Void
     
     var body: some View {
-        VStack {
-            VStack(spacing: 8) {
-                ForEach(viewModel.stores) {store in
-                    SearchResult(store: store)
+        VStack() {
+            if !vm.hasSelectedDestination {
+                SearchBarWithCancel(searchText: $vm.searchText)
+                    .padding(.horizontal)
+            }else{
+                SearchBarDouble(searchText: $vm.startStoreName, searchText2: $vm.destStoreName, startStoreFloor: vm.startStoreFloor, destStoreFloor: vm.destStoreFloor) { type in
+                    switch type {
+                    case .start:
+                        vm.trueIfStartStoreIsSelected = true
+                    case .destination:
+                        vm.trueIfStartStoreIsSelected = false
+                    }
                 }
+                .padding(.horizontal)
             }
-        }
-        .ignoresSafeArea()
-        .redacted(reason: viewModel.isLoading ? .placeholder : [])
-        .task {
-            await viewModel.getStores()
+            
+            ScrollView {
+                LazyVStack(spacing: 8) {
+                    ForEach(vm.searchText.isEmpty ? vm.searchHistory : vm.filteredStores) {store in
+                        SearchResult(store: store)
+                            .onTapGesture {
+                                if !vm.hasSelectedDestination {
+                                    vm.destStoreName = ""
+                                    destStore = Store()
+                                    vm.hasSelectedDestination = false
+                                    openSheet(store)
+                                    dismiss()
+                                }
+                                vm.setStoreFromDefault(store.name ?? "")
+                                print(vm.searchHistory)
+                                vm.hasSelectedDestination = true
+                                
+                                if vm.trueIfStartStoreIsSelected {
+                                    vm.startStoreName = store.name ?? ""
+                                    vm.startStoreFloor = SearchResult.getFloorAbbreviation(floor: store.floor ?? "")
+                                }else{
+                                    vm.destStoreName = store.name ?? ""
+                                    vm.destStoreFloor = SearchResult.getFloorAbbreviation(floor: store.floor ?? "")
+                                }
+                            }
+                    }
+                }
+                .padding(.top)
+            }
+            .redacted(reason: vm.isLoading ? .placeholder : [])
         }
         .background(.white)
+        .navigationBarBackButtonHidden(true)
+        .onAppear() {
+            vm.destStoreName = self.destStore.name ?? ""
+            vm.destStoreFloor = self.destStore.floor.map(SearchResult.getFloorAbbreviation) ?? ""
+            
+            if !vm.destStoreName.isEmpty {
+                vm.hasSelectedDestination = true
+            }
+        }
     }
 }
 
 #Preview {
-    SearchPageView()
+    SearchPageView{ _ in }
 }

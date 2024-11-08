@@ -10,6 +10,7 @@ import SwiftUI
 struct InstructionCard: View {
     var icon: String
     var direction: AttributedString
+    var store: String
     
     var isFirst: Bool
     var isLast: Bool
@@ -24,8 +25,13 @@ struct InstructionCard: View {
                 Image(systemName: icon)
                     .font(.system(.title))
                     .bold()
-                Text("\(direction) and you will see **Starbucks**")
-                    .font(.system(.subheadline))
+                if isLast {
+                    Text("\(direction) and you have arrived at **\(store)**")
+                        .font(.system(.subheadline))
+                } else {
+                    Text("\(direction) and you will see **\(store)**")
+                        .font(.system(.subheadline))
+                }
             }
             .padding(.horizontal, 24)
             

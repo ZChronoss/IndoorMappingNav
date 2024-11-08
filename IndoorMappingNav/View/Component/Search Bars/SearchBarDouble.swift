@@ -8,43 +8,81 @@
 import SwiftUI
 
 struct SearchBarDouble: View {
-    @FocusState private var isActive1: Bool
-    @FocusState private var isActive2: Bool
+    enum SearchBarType {
+        case start
+        case destination
+    }
+    
+    @Environment(\.dismiss) var dismiss
+    @FocusState private var focusedField: SearchBarType?
+    
     @Binding var searchText: String
     @Binding var searchText2: String
     
+    var startStoreFloor: String = ""
+    var destStoreFloor: String = ""
+    
+    let action: (_ type: SearchBarType) -> Void
+    
     var body: some View {
-        VStack(alignment: .leading){
-            SearchBar(searchText: $searchText, image:
-                        Image(systemName: "location.fill"), iconColor: .blue500
-            )
-            .focused($isActive1)
-            .overlay {
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(isActive1 ? .blue500 : .clear, lineWidth: 1)
+        HStack(alignment: .top) {
+            Button {
+                dismiss()
+            } label: {
+                Image(systemName: "chevron.left")
+                    .bold()
+                    .foregroundStyle(.black)
             }
+            .padding(.top, 18)
+            .padding(.trailing, 8)
             
             VStack(alignment: .leading){
-                Circle()
-                Circle()
-                Circle()
+                SearchBar(searchText: $searchText,
+                          image: Image(systemName: "location.fill"),
+                          iconColor: .blue500,
+                          placeholder: "Where is your location?",
+                          label: startStoreFloor
+                )
+                .focused($focusedField, equals: .start)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(focusedField == .start ? .blue500 : .clear, lineWidth: 1)
+                }
+                
+                VStack(alignment: .leading){
+                    Circle()
+                    Circle()
+                    Circle()
+                }
+                .frame(width: 3)
+                .foregroundStyle(.blue500)
+                .padding(.leading, 25)
+                
+                SearchBar(searchText: $searchText2,
+                          image: Image(systemName: "mappin.and.ellipse"),
+                          iconColor: .blue500,
+                          placeholder: "Where to?",
+                          label: destStoreFloor
+                )
+                .focused($focusedField, equals: .destination)
+                .overlay {
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(focusedField == .destination ? .blue500 : .clear, lineWidth: 1)
+                }
             }
-            .frame(width: 3)
-            .foregroundStyle(.blue500)
-            .padding(.leading, 25)
-            
-            SearchBar(searchText: $searchText2, image:
-                        Image(systemName: "mappin.and.ellipse"), iconColor: .blue500
-            )
-            .focused($isActive2)
-            .overlay {
-                RoundedRectangle(cornerRadius: 16)
-                    .stroke(isActive2 ? .blue500 : .clear, lineWidth: 1)
-            }
+        }
+        .onAppear() {
+            focusedField = .start
+            action(.start)
+        }
+        .onChange(of: focusedField ?? .start) { _, val in
+            action(val)
         }
     }
 }
 
 #Preview {
-    SearchBarDouble(searchText: .constant(""), searchText2: .constant(""))
+    SearchBarDouble(searchText: .constant(""), searchText2: .constant("")) { _ in
+        
+    }
 }

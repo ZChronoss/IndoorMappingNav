@@ -8,6 +8,11 @@
 import SwiftUI
 
 struct SearchBarWithCancel: View {
+    enum FocusedField {
+        case textField
+    }
+    
+    @Environment(\.dismiss) var dismiss
     @FocusState var isActive: Bool
     @Binding var searchText: String
     
@@ -19,22 +24,17 @@ struct SearchBarWithCancel: View {
                     .animation(.easeOut, value: isActive)
                     .transition(.slide)
                 
-                if isActive {
-                    Button("Cancel", action: {
-                        withAnimation {
-                            isActive.toggle()
-                        }
-                        searchText = ""
-                    })
-                    .transition(.move(edge: .trailing))
-                }
+                Button("Cancel", action: {
+                    //                        withAnimation {
+                    //                            isActive = false
+                    //                        }
+                    //                        searchText = ""
+                    dismiss()
+                })
             }
-            
-            if isActive {
-                withAnimation {
-                    SearchPageView()                    
-                }
-            }
+        }
+        .onAppear() {
+            isActive = true
         }
     }
 }
