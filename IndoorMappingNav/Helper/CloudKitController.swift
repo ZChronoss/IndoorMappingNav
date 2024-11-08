@@ -112,17 +112,21 @@ extension CloudKitController {
         let predicate = NSPredicate(value: true) // Fetch all stores
         let query = CKQuery(recordType: "Store", predicate: predicate)
         
-        let result = try await database.records(matching: query)
+        let result = try await database.records(matching: query, resultsLimit: 10)
         let records = result.matchResults.compactMap { try? $0.1.get() }
         
-        for record in records {
-            if var name = record["Name"] as? String {
-                if name.hasSuffix(" fix") {
-                    name.removeLast(4)
-                    record.setValue(name, forKey: "Name")
-                    try await database.save(record)
-                }
-            }
-        }
+        return records.compactMap(Store.init) // Convert CKRecords to Store models
+    }
+    
+    private func mapCategoryToID(category: String) -> Int? {
+        let categoryMap = [
+            "Toilet": 1,
+            "Food & Beverage": 2,
+            "Shopping": 3,
+            "Service": 4,
+            "Health & Beauty": 5
+        ]
+        return categoryMap[category]
     }
 }
+

@@ -13,17 +13,44 @@ struct StoreCard: View {
     
     var body: some View {
         VStack (alignment: .leading, spacing: 8) {
-            Image(images)
-                .resizable()
-                .scaledToFit()
-                .clipShape(
-                    UnevenRoundedRectangle(topLeadingRadius: 8, bottomLeadingRadius: 0, bottomTrailingRadius: 0, topTrailingRadius: 8)
-                )
+            if let imageData = store.images?.first,
+               let validData = imageData,
+               let uiImage = UIImage(data: validData) {
+                Image(uiImage: uiImage)
+                    .frame(width: 159, height: 102)
+//                    .resizable()
+//                    .scaledToFit()
+                    .clipShape(
+                        UnevenRoundedRectangle(
+                            topLeadingRadius: 8,
+                            bottomLeadingRadius: 0,
+                            bottomTrailingRadius: 0,
+                            topTrailingRadius: 8
+                        )
+                    )
+            } else {
+                // Placeholder view if the image is not available
+                Rectangle()
+                    .fill(Color.gray)
+                    .frame(height: 100)
+                    .clipShape(
+                        UnevenRoundedRectangle(
+                            topLeadingRadius: 8,
+                            bottomLeadingRadius: 0,
+                            bottomTrailingRadius: 0,
+                            topTrailingRadius: 8
+                        )
+                    )
+            }
+//            Image(images)
+
             
             VStack(alignment: .leading) {
                 Text("Store Name") // change into store.name
                     .font(.callout)
                     .fontWeight(.bold)
+                    .lineLimit(1) // Limit to a single line
+                    .truncationMode(.tail)
 
                 Text(store.category?.name.rawValue ?? "Unknown Category")
                     .font(.caption)
