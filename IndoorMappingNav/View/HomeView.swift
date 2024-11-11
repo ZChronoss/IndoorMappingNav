@@ -33,19 +33,22 @@ struct HomeView: View {
     
     @State private var originalMaterials: [Entity: [RealityKit.Material]] = [:] // Store original materials
     
+    @StateObject var mapLoader = MapLoader()
     var body: some View {
         NavigationStack{
             ZStack {
                 // Main RealityView content
                 RealityView { content in
-                    if let loadedScene = try? await Entity(named: "Test2", in: mallMapBundle) {
-                        scene = loadedScene
-                        scene?.setScale([scale, scale, scale], relativeTo: nil)
-                        content.add(scene!)
-                        //                    pathfinder.setupPath(loadedScene: scene!)
-                        //
-                        //                    pathfinder.startNavigation(start: "Huawei", end: "Lift")
-                    }
+                    content.add(await mapLoader.getScene())
+
+//                    if let loadedScene = try? await Entity(named: "Test2", in: mallMapBundle) {
+//                        scene = loadedScene
+//                        scene?.setScale([scale, scale, scale], relativeTo: nil)
+//                        content.add(scene!)
+//                        //                    pathfinder.setupPath(loadedScene: scene!)
+//                        //
+//                        //                    pathfinder.startNavigation(start: "Huawei", end: "Lift")
+//                    }
                 }
                 .realityViewCameraControls(is2DMode ? .pan : .orbit)
                 .gesture(
@@ -151,6 +154,7 @@ struct HomeView: View {
             .ignoresSafeArea()
             .environmentObject(pathfinder2D)
             .environmentObject(pathfinder)
+            .environmentObject(mapLoader)
         }
     }
 }

@@ -12,6 +12,8 @@ struct SearchPageView: View {
     @Environment(\.dismiss) private var dismiss
     @State var destStore: Store = Store()
     
+    @StateObject var mapLoader = MapLoader()
+    
     var openSheet: (Store) -> Void
     
     var body: some View {
@@ -31,35 +33,42 @@ struct SearchPageView: View {
                 .padding(.horizontal)
             }
             
-            ScrollView {
-                LazyVStack(spacing: 8) {
-                    ForEach(vm.searchText.isEmpty ? vm.searchHistory : vm.filteredStores) {store in
-                        SearchResult(store: store)
-                            .onTapGesture {
-                                if !vm.hasSelectedDestination {
-                                    vm.destStoreName = ""
-                                    destStore = Store()
-                                    vm.hasSelectedDestination = false
-                                    openSheet(store)
-                                    dismiss()
+            
+            if vm.hasSelectedStart {
+                MapNavigateView_3D()
+                    .environmentObject(mapLoader)
+            } else {
+                ScrollView {
+                    LazyVStack(spacing: 8) {
+                        ForEach(vm.searchText.isEmpty ? vm.searchHistory : vm.filteredStores) {store in
+                            SearchResult(store: store)
+                                .onTapGesture {
+                                    if !vm.hasSelectedDestination {
+                                        vm.destStoreName = ""
+                                        destStore = Store()
+                                        vm.hasSelectedDestination = false
+                                        openSheet(store)
+                                        dismiss()
+                                    }
+                                    vm.setStoreFromDefault(store.name ?? "")
+                                    print(vm.searchHistory)
+                                    vm.hasSelectedDestination = true
+                                    
+                                    if vm.trueIfStartStoreIsSelected {
+                                        vm.startStoreName = store.name ?? ""
+                                        vm.startStoreFloor = SearchResult.getFloorAbbreviation(floor: store.floor ?? "")
+                                        vm.hasSelectedStart = true
+                                    }else{
+                                        vm.destStoreName = store.name ?? ""
+                                        vm.destStoreFloor = SearchResult.getFloorAbbreviation(floor: store.floor ?? "")
+                                    }
                                 }
-                                vm.setStoreFromDefault(store.name ?? "")
-                                print(vm.searchHistory)
-                                vm.hasSelectedDestination = true
-                                
-                                if vm.trueIfStartStoreIsSelected {
-                                    vm.startStoreName = store.name ?? ""
-                                    vm.startStoreFloor = SearchResult.getFloorAbbreviation(floor: store.floor ?? "")
-                                }else{
-                                    vm.destStoreName = store.name ?? ""
-                                    vm.destStoreFloor = SearchResult.getFloorAbbreviation(floor: store.floor ?? "")
-                                }
-                            }
+                        }
                     }
+                    .padding(.top)
                 }
-                .padding(.top)
+                .redacted(reason: vm.isLoading ? .placeholder : [])
             }
-            .redacted(reason: vm.isLoading ? .placeholder : [])
         }
         .background(.white)
         .navigationBarBackButtonHidden(true)
