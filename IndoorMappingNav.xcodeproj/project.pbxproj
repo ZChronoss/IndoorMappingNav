@@ -92,6 +92,7 @@
 				Helper/PathfindingHelper3D.swift,
 				Helper/PathfindingService.swift,
 				Helper/PathfindingService2D.swift,
+				"Helper/String+Extension.swift",
 				Model/Category.swift,
 				Model/Mall.swift,
 				Model/Store.swift,
@@ -100,6 +101,7 @@
 				"View/Component/Button Instruction/RestartButton.swift",
 				View/Component/CategoryButton.swift,
 				View/Component/CustomBadge.swift,
+				View/Component/CustomCornerShape.swift,
 				View/Component/FirstStepCard.swift,
 				"View/Component/Floor Button/FloorButton.swift",
 				"View/Component/Floor Button/FloorButtons.swift",
@@ -139,6 +141,7 @@
 				"ViewModel/HomeView-ViewModel.swift",
 				"ViewModel/SearchPageView-ViewModel.swift",
 				"ViewModel/StoreDetailView-ViewModel.swift",
+				ViewModel/TemporaryFile.swift,
 			);
 			target = 11EBECF12CC54F880069EE18 /* FlooqiClip */;
 		};
