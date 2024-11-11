@@ -11,20 +11,26 @@ import MallMap
 
 struct MapNavigateView_3D: View {
     @EnvironmentObject var mapLoader: MapLoader
-    @EnvironmentObject var pathfinder: PathfindingService
+    @StateObject var pathfinder = PathfindingService.shared
+    @StateObject var vm = ViewModel()
+    
     @State var isPresented: Bool = true
     
-    var start: String
-    var end: String
+    @State var start: String
+    @State var end: String
     
+//    @State var scene: Entity?
     var body: some View {
         VStack {
             RealityView { content in
-                content.add(await mapLoader.getScene())
+                vm.scene = await mapLoader.getScene()
+                pathfinder.setupPath(loadedScene: vm.scene ?? Entity())
+                pathfinder.startNavigation(start: vm.start, end: vm.end)
+                content.add(vm.scene ?? Entity())
             }
             .realityViewCameraControls(.orbit)
         }
-        .sheet(isPresented: $isPresented) {
+        .sheet(isPresented: $vm.isPresented) {
             NavigationSheetDetail(
                 instructions: pathfinder.instructions,
                 pathCounts: pathfinder.pathCounts
@@ -36,8 +42,19 @@ struct MapNavigateView_3D: View {
             .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.2)))
             .interactiveDismissDisabled()
         }
+//        .task {
+//            await scene = mapLoader.getScene()
+//            pathfinder.setupPath(loadedScene: scene ?? Entity())
+//            
+//            pathfinder.startNavigation(start: start, end: end)
+//        }
         .onAppear() {
-            pathfinder.startNavigation(start: start, end: end)
+            let newStart = start.replacingOccurrences(of: " ", with: "_")
+            vm.start = newStart
+            
+            let newEnd = end.replacingOccurrences(of: " ", with: "_")
+            vm.end = newEnd
+                
         }
     }
 }
