@@ -20,17 +20,6 @@ class CloudKitController: ObservableObject {
         
         let result = try await database.records(matching: query, desiredKeys: wantedField)
         let records = result.matchResults.compactMap { try? $0.1.get() }
-        //        do {
-        //            let (storeResults, _) = try await database.records(matching: query)
-        //
-        //            return storeResults.compactMap { _, result in
-        //                let newStore = try? Store(record: result.get())
-        //                store?.append(newStore!)
-        //                return newStore
-        //            }
-        //        } catch {
-        //            print("Error fetching store records from CloudKit: \(error.localizedDescription)")
-        //        }
         
         return records.compactMap(Store.init)
     }
@@ -47,7 +36,7 @@ class CloudKitController: ObservableObject {
         
         if let store = record.first {
             return Store(record: store)
-        }else{
+        } else{
             return Store()
         }
     }
@@ -123,10 +112,10 @@ extension CloudKitController {
         
         let predicate = NSPredicate(format: "%K == %d", "Category", categoryID) // Query based on category ID
         let query = CKQuery(recordType: "Store", predicate: predicate)
-
+        
         let result = try await database.records(matching: query, resultsLimit: 10)
         let records = result.matchResults.compactMap { try? $0.1.get() }
-
+        
         return records.compactMap(Store.init) // Convert CKRecords to Store models
     }
     
@@ -140,5 +129,5 @@ extension CloudKitController {
         ]
         return categoryMap[category]
     }
-    // ini buat fix bug
 }
+
