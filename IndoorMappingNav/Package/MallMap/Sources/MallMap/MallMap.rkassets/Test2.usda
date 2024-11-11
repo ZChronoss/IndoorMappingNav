@@ -1246,6 +1246,18 @@ def "_3D_Mapping_Toko_Material" (
                 float opacity = 0
             }
         }
+
+        over "Farmers_Market"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1.7070315, 0.2, 1.7070315)
+            double3 xformOp:translate = (-0.26334959268569946, 0.06650000065565109, -0.15154993534088135)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        over "G_Shock_casio"
+        {
+        }
     }
 
     def "MaplePlywood" (

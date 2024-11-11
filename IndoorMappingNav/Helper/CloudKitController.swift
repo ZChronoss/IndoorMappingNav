@@ -36,7 +36,7 @@ class CloudKitController: ObservableObject {
         
         if let store = record.first {
             return Store(record: store)
-        }else{
+        } else{
             return Store()
         }
     }
