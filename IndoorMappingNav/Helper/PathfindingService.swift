@@ -22,6 +22,7 @@ class PathfindingService: ObservableObject {
     var pathNodes: [GKGraphNode3D] = []
     var interNodes: [GKGraphNode3D] = []
     var instructions: [Directions] = []
+    var pathCounts: Float = 0
     var scene: Entity? = nil
     var cameraEntity: Entity?
     
@@ -204,6 +205,7 @@ class PathfindingService: ObservableObject {
                 pathPositions.append(lastPosition)
                 
                 let smoothPath = interpolateCatmullRom(points: pathPositions, segments: 20)
+                pathCounts = Float(smoothPath.count)
                 
                 for i in 0..<smoothPath.count - 1 {
                     let startPos = smoothPath[i]

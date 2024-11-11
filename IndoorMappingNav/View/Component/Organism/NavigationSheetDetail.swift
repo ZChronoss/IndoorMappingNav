@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct NavigationSheetDetail: View {
+    let instructions: [Directions]
+    let pathCounts: Float
     var body: some View {
         VStack {
-            NavigationSheet(distance: 7)
+            let roundedDistance = max(Int(round(pathCounts / 1000)), 1)
+            NavigationSheet(distance: roundedDistance)
             
             Divider()
             
@@ -23,13 +26,14 @@ struct NavigationSheetDetail: View {
 
             ScrollView {
                 VStack(alignment: .leading) {
-                    FirstStepCard(stepDescription: "Sociolla", imageStep: "Image1")
-                    StepCard(iconImage: "arrow.up", stepDescription: "Keep going straight until you find Nike", imageStep: "Image1")
-                    StepCard(iconImage: "arrow.right", stepDescription: "Going to the right side", imageStep: "Image1")
-                    StepCard(iconImage: "arrow.up", stepDescription: "Keep going straight until you find escalator", imageStep: "Image1")
-                    StepCard(iconImage: "figure.walk", stepDescription: "Go to the first floor through escalator", imageStep: "Image1")
-                    StepCard(iconImage: "arrow.left", stepDescription: "Going to the left side", imageStep: "Image1")
-                    StepCard(iconImage: "arrow.up", stepDescription: "Keep going straight", imageStep: "Image1")
+                    ForEach(0 ..< instructions.count, id: \.self ) { idx in
+                        StepCard(iconImage: instructions[idx].icon,
+                                 direction: instructions[idx].instruction,
+                                 store: instructions[idx].store,
+                                 imageStep: "Image1",
+                                 isLast: instructions[idx].id == instructions.last?.id
+                        )
+                    }
                 }
             }
 
@@ -40,6 +44,6 @@ struct NavigationSheetDetail: View {
     }
 }
 
-#Preview {
-    NavigationSheetDetail()
-}
+//#Preview {
+//    NavigationSheetDetail()
+//}
