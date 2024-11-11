@@ -36,6 +36,7 @@ extension SearchPageView {
         let defaults = UserDefaults.standard
         
         @Published var hasSelectedDestination: Bool = false
+        @Published var hasSelectedStart: Bool = false
         
         // To store all Stores
         @Published var stores: [Store] = []

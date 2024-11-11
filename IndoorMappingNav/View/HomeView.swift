@@ -11,7 +11,6 @@ import MallMap
 
 struct HomeView: View {
     @StateObject var vm = HomeViewModel()
-
     @StateObject var pathfinder = PathfindingService.shared
     @StateObject var pathfinder2D = PathfindingService2D.shared
     
@@ -27,20 +26,20 @@ struct HomeView: View {
     
     @State private var lastSelectedCategory: String = "Food & Beverage" // Track the last selected category
     
+    @StateObject var mapLoader = MapLoader()
     var body: some View {
         NavigationStack {
             ZStack {
                 // Main RealityView content
                 RealityView { content in
-                    if let loadedScene = try? await Entity(named: "Test2", in: mallMapBundle) {
-                        scene = loadedScene
-                        scene?.setScale([scale, scale, scale], relativeTo: nil)
-                        content.add(scene!)
-                        
-                        // PathFinding
-                        //                        pathfinder.setupPath(loadedScene: scene!)
-                        //                        pathfinder.startNavigation(start: "Huawei", end: "Lift")
-                    }
+                    scene = await mapLoader.getScene()
+                    content.add(scene ?? Entity())
+                    
+                    // Call categorizeEntityByStore function to categorize all entities in the scene
+                    
+                    
+                    // Print categoryStoreTarget contents
+                    //                        vm.printCategoryStoreTarget()
                 }
                 .realityViewCameraControls(is2DMode ? .pan : .orbit)
                 .gesture(
@@ -82,6 +81,7 @@ struct HomeView: View {
             .ignoresSafeArea()
             .environmentObject(pathfinder2D)
             .environmentObject(pathfinder)
+            .environmentObject(mapLoader)
         }
         .onAppear(){
             Task {
