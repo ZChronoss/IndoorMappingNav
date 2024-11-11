@@ -37,16 +37,16 @@ struct HomeViewComponents: View {
                         HStack {
                             Text("Summarecon Mall Serpong")
                                 .font(.system(size: 22, weight: .bold))
-                                .foregroundColor(.black)
+                                .foregroundColor(Color("TextIcon"))
                             Spacer()
                             Image(systemName: "chevron.down")
-                                .foregroundColor(.black)
+                                .foregroundColor(Color("TextIcon"))
                         }
                         .padding(.top, 20)
                         .padding(.horizontal, 20)
                         .padding(.bottom, 16)
                         
-                        SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
+                        SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: Color("SecondaryColor"))
                             .padding(.horizontal, 20)
                             .disabled(true)
                             .onTapGesture {
@@ -107,7 +107,6 @@ struct HomeViewComponents: View {
                 Spacer()  //Push the RealityView to the bottom
             }
         }
-        
     }
 }
 

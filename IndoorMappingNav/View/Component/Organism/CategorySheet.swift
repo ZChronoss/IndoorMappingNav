@@ -46,9 +46,6 @@ struct CategorySheet: View {
                 .cornerRadius(12)
             }
             .padding(.bottom, 16)
-
-//            Text(viewModel.allSubCategories.first?.rawValue ?? "nil")
-//            Text(viewModel.storesByCategory.first?.name ?? "nil")
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 32) {
