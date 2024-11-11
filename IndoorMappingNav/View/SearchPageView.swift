@@ -13,6 +13,7 @@ struct SearchPageView: View {
     @State var destStore: Store = Store()
     
     @StateObject var mapLoader = MapLoader()
+    @StateObject var pathfinder = PathfindingService()
     
     var openSheet: (Store) -> Void
     
@@ -35,8 +36,9 @@ struct SearchPageView: View {
             
             
             if vm.hasSelectedStart {
-                MapNavigateView_3D()
+                MapNavigateView_3D(start: vm.startStoreName, end: vm.destStoreName)
                     .environmentObject(mapLoader)
+                    .environmentObject(pathfinder)
             } else {
                 ScrollView {
                     LazyVStack(spacing: 8) {

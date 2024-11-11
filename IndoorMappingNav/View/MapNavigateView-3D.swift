@@ -11,6 +11,11 @@ import MallMap
 
 struct MapNavigateView_3D: View {
     @EnvironmentObject var mapLoader: MapLoader
+    @EnvironmentObject var pathfinder: PathfindingService
+    @State var isPresented: Bool = true
+    
+    var start: String
+    var end: String
     
     var body: some View {
         VStack {
@@ -19,9 +24,24 @@ struct MapNavigateView_3D: View {
             }
             .realityViewCameraControls(.orbit)
         }
+        .sheet(isPresented: $isPresented) {
+            NavigationSheetDetail(
+                instructions: pathfinder.instructions,
+                pathCounts: pathfinder.pathCounts
+            )
+            .padding(.top)
+            .presentationDragIndicator(.visible)
+            .presentationContentInteraction(.scrolls)
+            .presentationDetents([.fraction(0.2), .fraction(0.75)])
+            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.2)))
+            .interactiveDismissDisabled()
+        }
+        .onAppear() {
+            pathfinder.startNavigation(start: start, end: end)
+        }
     }
 }
 
 #Preview {
-    MapNavigateView_3D()
+//    MapNavigateView_3D()
 }
