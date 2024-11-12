@@ -267,6 +267,7 @@ class PathfindingService: ObservableObject {
     func saveDirection() {
         var lastDirection: Directions? = nil
         var removedInter: [Int] = []
+        instructions.removeAll()
         func determineDirection(from start: simd_float3, to end: simd_float3) -> Directions? {
             let storeName = findClosestEntity(from: end)?.name ?? ""
             let movementDirection = normalize(end - start)

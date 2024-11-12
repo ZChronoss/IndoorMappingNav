@@ -24,10 +24,13 @@ struct SearchBarDouble: View {
     
     let action: (_ type: SearchBarType) -> Void
     
+    let instructionSheetDown: () -> Void
+    
     var body: some View {
         HStack(alignment: .top) {
             Button {
                 dismiss()
+                instructionSheetDown()
             } label: {
                 Image(systemName: "chevron.left")
                     .bold()
@@ -47,6 +50,9 @@ struct SearchBarDouble: View {
                 .overlay {
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(focusedField == .start ? .blue500 : .clear, lineWidth: 1)
+                }
+                .onTapGesture {
+                    action(.start)
                 }
                 
                 VStack(alignment: .leading){
@@ -69,20 +75,23 @@ struct SearchBarDouble: View {
                     RoundedRectangle(cornerRadius: 16)
                         .stroke(focusedField == .destination ? .blue500 : .clear, lineWidth: 1)
                 }
+                .onTapGesture {
+                    action(.destination)
+                }
             }
         }
         .onAppear() {
             focusedField = .start
             action(.start)
         }
-        .onChange(of: focusedField ?? .start) { _, val in
-            action(val)
-        }
+//        .onChange(of: focusedField ?? .start) { _, val in
+//            action(val)
+//        }
     }
 }
 
 #Preview {
-    SearchBarDouble(searchText: .constant(""), searchText2: .constant("")) { _ in
-        
-    }
+//    SearchBarDouble(searchText: .constant(""), searchText2: .constant("")) { _ in
+//        
+//    }
 }

@@ -87,6 +87,7 @@
 				"Assets/Fonts/SFProText-Semibold.otf",
 				Helper/CloudKitController.swift,
 				Helper/Directions.swift,
+				Helper/FloorAbbreviation.swift,
 				"Helper/Font+Extension.swift",
 				Helper/MapLoader.swift,
 				Helper/PathfindingHelper3D.swift,

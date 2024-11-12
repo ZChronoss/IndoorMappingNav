@@ -35,30 +35,11 @@ struct SearchResult: View {
             
             Spacer()
             
-            Text(SearchResult.getFloorAbbreviation(floor: store?.floor ?? "Basement"))
+            Text(FloorAbbreviation.getFloorAbbreviation(floor: store?.floor ?? "Basement"))
                 .font(.system(.caption, weight: .bold))
                 .foregroundStyle(.gray)
         }
         .padding(.horizontal)
-    }
-}
-
-extension SearchResult {
-    static func getFloorAbbreviation(floor: String) -> String {
-        switch floor {
-        case "Ground Floor" : return "GF"
-        case "1st Floor"    : return "1st"
-        case "2nd Floor"    : return "2nd"
-        case "3rd Floor"    : return "3rd"
-        default:
-            var defaultVal = ""
-            
-            if floor.hasPrefix("Basement") {
-                defaultVal = "B"
-            }
-            
-            return defaultVal
-        }
     }
 }
 

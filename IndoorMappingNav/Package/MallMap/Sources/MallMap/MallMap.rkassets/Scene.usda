@@ -1212,6 +1212,10 @@ def "SMS_1_LT_UG_3D_Mapping_Persimpangan" (
                 uniform token info:id = "RealityKit.InputTarget"
             }
         }
+
+        over "Yves_rocher_france"
+        {
+        }
     }
 }
 
