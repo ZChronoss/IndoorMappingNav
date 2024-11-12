@@ -17,16 +17,9 @@ struct CategorySheet: View {
     var body: some View {
         VStack(alignment: .leading) {
             HStack {
-                Spacer()
-                
-                Rectangle()
-                    .fill(Color.gray.opacity(0.5)) // Set color and opacity
-                    .frame(width: 36, height: 5) // Width and height of the line
-                    .cornerRadius(2) // Round the edges
-                    .padding(.bottom, 16) // Add some bottom padding to separate from the content
-                
-                Spacer()
+                Text("")
             }
+            .padding(.top, 10)
 
             
             HStack(alignment: .center) {
@@ -45,6 +38,7 @@ struct CategorySheet: View {
                 .background(Color("blue200"))
                 .cornerRadius(12)
             }
+            .padding(.top, categoryDetent == .fraction(0.17) ? 30 : 0)
             .padding(.bottom, 16)
             
             ScrollView(.horizontal, showsIndicators: false) {

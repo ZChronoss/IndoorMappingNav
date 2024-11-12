@@ -9,18 +9,8 @@ import SwiftUI
 
 struct HomeViewComponents: View {
     @EnvironmentObject var vm: HomeViewModel
-    
-    // Ini yang jalan
-//    @StateObject private var vm: HomeViewModel
-//
-//    init() {
-//        _vm = StateObject(wrappedValue: HomeViewModel(scene: nil))
-//    }
-    
-    
+
     @State var isSheetOpen = false
-//    @State private var selectedCategory: String = "Food & Beverage"
-    
     @Binding var selectedCategory: String  // Add this
     
     var body: some View {
@@ -76,28 +66,24 @@ struct HomeViewComponents: View {
                     NavigationStack {
                         CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent)
                     }
+                    .presentationDetents([.fraction(0.17), .fraction(0.8)]) // Initial small size (0.17), expandable to larger size (0.5)
+                    .presentationBackgroundInteraction(.enabled)
                 }
-                
                 
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
-                        CategoryButton(categoryName: "Food & Beverage", categoryIcon: "fork.knife", categoryColor: .red, isSelected: selectedCategory == "Food & Beverage") {
-                            vm.updateCategory("Food & Beverage")
-                            selectedCategory = vm.selectedCategory
-                            vm.isCategorySheetOpen = true
-                            vm.moveEntitiesInCategory("Food & Beverage")
-                        }
-                        CategoryButton(categoryName: "Shopping", categoryIcon: "cart", categoryColor: .green, isSelected: selectedCategory == "Shopping") {
-                            vm.updateCategory("Shopping")
-                            selectedCategory = vm.selectedCategory
-                            vm.isCategorySheetOpen = true
-                            vm.moveEntitiesInCategory("Shopping")
-                        }
-                        CategoryButton(categoryName: "Entertainment", categoryIcon: "gamecontroller", categoryColor: .purple, isSelected: selectedCategory == "Entertainment") {
-                            vm.updateCategory("Entertainment")
-                            selectedCategory = vm.selectedCategory
-                            vm.isCategorySheetOpen = true
-                            vm.moveEntitiesInCategory("Entertainment")
+                        ForEach(vm.categories, id: \.name) { category in
+                            CategoryButton(
+                                categoryName: category.name.rawValue,
+                                categoryImage: Image(category.image ?? "questionmark"), // Gunakan Image() di sini
+                                categoryColor: category.color,
+                                isSelected: selectedCategory == category.name.rawValue
+                            ) {
+                                vm.updateCategory(category.name.rawValue)
+                                selectedCategory = vm.selectedCategory
+                                vm.isCategorySheetOpen = true
+                                vm.moveEntitiesInCategory(category.name.rawValue, category.color.asUIColor)
+                            }
                         }
                     }
                     .padding(.horizontal)

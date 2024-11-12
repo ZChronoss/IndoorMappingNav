@@ -86,6 +86,7 @@
 				"Assets/Fonts/SFProText-Regular.otf",
 				"Assets/Fonts/SFProText-Semibold.otf",
 				Helper/CloudKitController.swift,
+				"Helper/Color+Extension.swift",
 				Helper/Directions.swift,
 				"Helper/Font+Extension.swift",
 				Helper/MapLoader.swift,
