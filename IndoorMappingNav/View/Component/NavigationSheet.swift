@@ -11,7 +11,7 @@ struct NavigationSheet: View {
     var distance: Int
     
     var body: some View {
-        HStack {
+        HStack(alignment: .center) {
             Text(String(distance))
                 .font(.title2)
                 .foregroundColor(Color.blue)
@@ -25,6 +25,7 @@ struct NavigationSheet: View {
             
             NavigateButton()
         }
+        .frame(height: 100)
     }
 }
 

@@ -58,8 +58,8 @@ class HomeViewModel: ObservableObject {
     func updateCategory(_ newCategory: String) {
         previousCategory = selectedCategory  // Store the previous category
         selectedCategory = newCategory        // Update the current category
-        print("Previous Category: \(previousCategory)")
-        print("Selected Category: \(selectedCategory)")
+//        print("Previous Category: \(previousCategory)")
+//        print("Selected Category: \(selectedCategory)")
     }
     
     func getStores() async {
@@ -207,7 +207,7 @@ class HomeViewModel: ObservableObject {
     }
     
     func printEntitiesInScene(_ entity: Entity, indent: String = "") {
-        print("\(indent)Entity: \(entity.name.removeUnderscores())")
+//        print("\(indent)Entity: \(entity.name.removeUnderscores())")
         
         // Iterate through all children of the entity and print their names
         for child in entity.children {
@@ -217,16 +217,16 @@ class HomeViewModel: ObservableObject {
     
     func printCategoryStoreTarget() {
         for (category, entities) in categoryStoreTarget {
-            print("\(category):")
+//            print("\(category):")
             for entity in entities {
-                print("  - \(entity.name)")
+//                print("  - \(entity.name)")
             }
         }
     }
     
     func printStores() {
         for store in stores {
-            print(store.name ?? "")
+//            print(store.name ?? "")
         }
     }
     
@@ -262,7 +262,7 @@ class HomeViewModel: ObservableObject {
             return
         }
         
-        print(store.category?.name.rawValue ?? "No category")
+//        print(store.category?.name.rawValue ?? "No category")
         
         // Check the category of the store and categorize accordingly
         guard let storeCategory = store.category?.name.rawValue else {
@@ -271,7 +271,7 @@ class HomeViewModel: ObservableObject {
         }
         
         // Logic to categorize based on storeCategory
-        print("Category: \(storeCategory)")
+//        print("Category: \(storeCategory)")
         
         switch storeCategory {
             //            case "Toilet":
