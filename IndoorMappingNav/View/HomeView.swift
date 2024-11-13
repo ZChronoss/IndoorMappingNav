@@ -34,12 +34,6 @@ struct HomeView: View {
                 RealityView { content in
                     scene = await mapLoader.getScene()
                     content.add(scene ?? Entity())
-                    
-                    // Call categorizeEntityByStore function to categorize all entities in the scene
-                    
-                    
-                    // Print categoryStoreTarget contents
-                    //                        vm.printCategoryStoreTarget()
                 }
                 .realityViewCameraControls(is2DMode ? .pan : .orbit)
                 .gesture(

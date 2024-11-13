@@ -11,7 +11,7 @@ struct HomeViewComponents: View {
     @EnvironmentObject var vm: HomeViewModel
 
     @State var isSheetOpen = false
-    @Binding var selectedCategory: String  // Add this
+    @Binding var selectedCategory: String
     
     var body: some View {
         NavigationStack {
@@ -60,14 +60,19 @@ struct HomeViewComponents: View {
                         isSheetOpen = false
                     }
                     .presentationDetents([.fraction(0.5)])
-                    .presentationBackgroundInteraction(.enabled)
+//                    .presentationBackgroundInteraction(.enabled)
                 }
-                .sheet(isPresented: $vm.isCategorySheetOpen) {
+                .sheet(isPresented: $vm.isCategorySheetOpen, onDismiss: {
+                    // Clear the selected category when the sheet is dismissed
+                    vm.moveDownEntitiesInCurrentCategory(selectedCategory) // Reset entities for this category
+                    selectedCategory = ""
+                    vm.updateCategory("") // Ensure the category is updated accordingly in the view model
+
+
+                }) {
                     NavigationStack {
                         CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent)
                     }
-                    .presentationDetents([.fraction(0.17), .fraction(0.8)]) // Initial small size (0.17), expandable to larger size (0.5)
-                    .presentationBackgroundInteraction(.enabled)
                 }
                 
                 ScrollView(.horizontal, showsIndicators: false) {
@@ -79,14 +84,24 @@ struct HomeViewComponents: View {
                                 categoryColor: category.color,
                                 isSelected: selectedCategory == category.name.rawValue
                             ) {
-                                vm.updateCategory(category.name.rawValue)
-                                selectedCategory = vm.selectedCategory
-                                vm.isCategorySheetOpen = true
-                                vm.moveEntitiesInCategory(category.name.rawValue, category.color.asUIColor)
+                                if selectedCategory == category.name.rawValue {
+                                    // If clicking the same category, deselect it
+                                    vm.updateCategory("")  // Update with empty string to clear selection
+                                    selectedCategory = "" // Clear selectedCategory
+                                    vm.isCategorySheetOpen = false // Close the category sheet
+                                    vm.moveDownEntitiesInCategory(category.name.rawValue) // Reset entities for this category
+                                } else {
+                                    // Otherwise, select the new category
+                                    vm.updateCategory(category.name.rawValue)
+                                    selectedCategory = vm.selectedCategory
+                                    vm.isCategorySheetOpen = true
+                                    vm.moveEntitiesInCategory(category.name.rawValue, category.color.asUIColor)
+                                }
                             }
                         }
                     }
                     .padding(.horizontal)
+                    .padding(.vertical, 1)
                 }
                 .padding(.top, 16)
                 
@@ -96,7 +111,7 @@ struct HomeViewComponents: View {
     }
 }
 
-//#Preview {
-//    HomeViewComponents()
-//}
+#Preview {
+    HomeView()
+}
 
