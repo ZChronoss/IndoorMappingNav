@@ -20,7 +20,7 @@ struct SearchPageView: View {
     @State var isInstructionSheetPresented: Bool = true
     
     var body: some View {
-        VStack() {
+        VStack(alignment: .leading) {
             if !vm.hasSelectedDestination {
                 SearchBarWithCancel(searchText: $vm.searchText)
                     .padding(.horizontal)
@@ -46,46 +46,79 @@ struct SearchPageView: View {
                     .environmentObject(mapLoader)
                     .environmentObject(pathfinder)
             } else {
-                ScrollView {
-                    LazyVStack(spacing: 8) {
-                        ForEach(vm.searchText.isEmpty ? vm.searchHistory : vm.filteredStores) {store in
-                            SearchResult(store: store)
-                                .onTapGesture {
-                                    if !vm.hasSelectedDestination {
-                                        vm.destStoreName = ""
-                                        destStore = Store()
-                                        vm.hasSelectedDestination = false
-                                        openSheet(store)
-                                        dismiss()
-                                    }
-                                    vm.setStoreFromDefault(store.name ?? "")
-                                    vm.hasSelectedDestination = true
-                                    
-                                    if vm.trueIfStartStoreIsSelected {
-                                        vm.startStoreName = store.name ?? ""
-                                        vm.startStoreFloor = FloorAbbreviation.getFloorAbbreviation(floor: store.floor ?? "")
-                                        vm.hasSelectedStart = true
-                                        
-                                        if vm.hasSelectedDestination {
-                                            vm.trueIfStartStoreIsSelected = false
-                                            vm.trueIfDestStoreIsSelected = false
+                let searchHistoryIsEmpty = vm.searchHistory.isEmpty
+                
+                if vm.searchText.isEmpty {
+                    VStack(alignment: .leading) {
+                        Text("Recent")
+                            .font(.system(.caption, weight: .medium))
+                            .foregroundStyle(Color("SecondaryColor"))
+                    }
+                    .padding(.vertical, 5)
+                    .padding(.horizontal)
+                    
+                }
+                if searchHistoryIsEmpty {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        VStack(alignment: .center){
+                            Image("LogoWhite")
+                                .resizable()
+                                .renderingMode(.template)
+                                .scaledToFit()
+                                .frame(width: 124)
+                                .opacity(0.5)
+                                .foregroundStyle(.logoWhiteCol)
+                            
+                            Text("No recent searches")
+                                .font(.system(.headline, weight: .semibold))
+                                .foregroundStyle(Color("TertiaryColor"))
+                        }
+                        Spacer()
+                    }
+                    Spacer()
+                }else{
+                    ScrollView {
+                        LazyVStack(spacing: 8) {
+                            ForEach(vm.searchText.isEmpty ? vm.searchHistory : vm.filteredStores) {store in
+                                SearchResult(store: store)
+                                    .onTapGesture {
+                                        if !vm.hasSelectedDestination {
+                                            vm.destStoreName = ""
+                                            destStore = Store()
+                                            vm.hasSelectedDestination = false
+                                            openSheet(store)
+                                            dismiss()
                                         }
+                                        vm.setStoreFromDefault(store.name ?? "")
+                                        vm.hasSelectedDestination = true
                                         
-                                    }else{
-                                        vm.destStoreName = store.name ?? ""
-                                        vm.destStoreFloor = FloorAbbreviation.getFloorAbbreviation(floor: store.floor ?? "")
-                                        
-                                        if vm.hasSelectedStart {
-                                            vm.trueIfStartStoreIsSelected = false
-                                            vm.trueIfDestStoreIsSelected = false
+                                        if vm.trueIfStartStoreIsSelected {
+                                            vm.startStoreName = store.name ?? ""
+                                            vm.startStoreFloor = FloorAbbreviation.getFloorAbbreviation(floor: store.floor ?? "")
+                                            vm.hasSelectedStart = true
+                                            
+                                            if vm.hasSelectedDestination {
+                                                vm.trueIfStartStoreIsSelected = false
+                                                vm.trueIfDestStoreIsSelected = false
+                                            }
+                                            
+                                        }else{
+                                            vm.destStoreName = store.name ?? ""
+                                            vm.destStoreFloor = FloorAbbreviation.getFloorAbbreviation(floor: store.floor ?? "")
+                                            
+                                            if vm.hasSelectedStart {
+                                                vm.trueIfStartStoreIsSelected = false
+                                                vm.trueIfDestStoreIsSelected = false
+                                            }
                                         }
                                     }
-                                }
+                            }
                         }
                     }
-                    .padding(.top)
+                    .redacted(reason: vm.isLoading ? .placeholder : [])
                 }
-                .redacted(reason: vm.isLoading ? .placeholder : [])
             }
         }
 //        .background(.white)
