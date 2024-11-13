@@ -23,7 +23,7 @@ class HomeViewModel: ObservableObject {
     @Published var isLoading = false
     
     @Published var isCategorySheetOpen = false
-    @Published var categoryDetent: PresentationDetent = .fraction(0.17)
+    @Published var categoryDetent: PresentationDetent = .fraction(0.25)
     
     // Baru
     @Published var stores: [Store] = []

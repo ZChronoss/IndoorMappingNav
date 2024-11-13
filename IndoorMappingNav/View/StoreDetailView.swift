@@ -18,7 +18,6 @@ struct StoreDetailView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                
                 VStack(alignment: .leading, spacing: 3) {
                     // TITLE
                     Text(viewModel.store.name ?? "Error: No Store Name")
@@ -28,7 +27,7 @@ struct StoreDetailView: View {
                     HStack(spacing: 2) {
                         Image(viewModel.store.category?.image ?? "")
                             .resizable()
-                            .renderingMode(.template) 
+                            .renderingMode(.template)
                             .frame(width: 13, height: 13)
                             .foregroundStyle(viewModel.store.category?.color ?? .other)
                             .tint(viewModel.store.category?.color ?? .other)
@@ -51,8 +50,6 @@ struct StoreDetailView: View {
                         .ignoresSafeArea()
                 }
                 
-                
-                
                 VStack(alignment: .center) {
                     Button {
                         showRoute(viewModel.store)
@@ -70,10 +67,10 @@ struct StoreDetailView: View {
             .safeAreaPadding(.horizontal, 16)
             .onAppear(perform: {
                 viewModel.store = store
-//                Task {
-//                    viewModel.storeName = storeName
-//                    await viewModel.getStoreDetail()
-//                }
+                //                Task {
+                //                    viewModel.storeName = storeName
+                //                    await viewModel.getStoreDetail()
+                //                }
             })
             .redacted(
                 reason: viewModel.isLoading ? .placeholder : []
@@ -83,7 +80,7 @@ struct StoreDetailView: View {
 }
 
 #Preview {
-//        StoreDetailView()
+    //        StoreDetailView()
     HomeView()
 }
 
