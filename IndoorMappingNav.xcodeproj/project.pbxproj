@@ -144,7 +144,6 @@
 				"ViewModel/MapNavigateView_3D-ViewModel.swift",
 				"ViewModel/SearchPageView-ViewModel.swift",
 				"ViewModel/StoreDetailView-ViewModel.swift",
-				ViewModel/TemporaryFile.swift,
 			);
 			target = 11EBECF12CC54F880069EE18 /* FlooqiClip */;
 		};

@@ -19,7 +19,7 @@ struct CategorySheet: View {
             HStack {
                 Text("")
             }
-//            .padding(.top, 10)
+            .padding(.top, 10)
 
             
             HStack(alignment: .center) {
@@ -32,6 +32,7 @@ struct CategorySheet: View {
                     Button(action: {
                         isDetailViewActive = true
                         categoryDetent = .fraction(0.75)
+                        print(categoryDetent)
                     }) {
                         Text("See All")
                             .font(Font.system(.caption2))
@@ -42,7 +43,6 @@ struct CategorySheet: View {
                     .cornerRadius(12)
                 }
             }
-            .padding(.top, categoryDetent == .fraction(0.17) ? 30 : 0)
             .padding(.bottom, 16)
 
             // Show the ScrollView for subcategories only if it contains items
@@ -66,7 +66,8 @@ struct CategorySheet: View {
             NavigationLink(
                 destination: SubCategoryDetailView(
                     categoryName: viewModel.storesByCategory.first?.category?.name.rawValue ?? "nil",
-                    subCategories: viewModel.allSubCategories
+                    subCategories: viewModel.allSubCategories,
+                    categoryDetent: $categoryDetent // Pass the binding here
                 ),
                 isActive: $isDetailViewActive
             ) {
@@ -79,22 +80,10 @@ struct CategorySheet: View {
             await viewModel.getStoreByCategory(categoryName)
             await viewModel.getAllSubCategories()
         }
-        .presentationDetents([.fraction(0.17), .fraction(0.75)])
+        .presentationDetents([.fraction(0.25), .fraction(0.75)])
 //        .presentationBackgroundInteraction(.enabled)
     }
 }
-
-//#Preview {
-//    @State var detent: PresentationDetent = .fraction(0.17) // Example state for preview
-//
-//    NavigationStack {
-//        let category = StoreCategory(name: .fnb, subcategory: [.bakery, .rice, .fastFood]) // Example category
-//        CategorySheet(
-//            categoryName: "Food & Beverages",
-//            categoryDetent: $detent // Pass binding in preview
-//        )
-//    }
-//}
 
 #Preview {
     HomeView()
