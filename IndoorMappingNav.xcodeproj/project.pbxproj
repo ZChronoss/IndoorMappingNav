@@ -94,6 +94,7 @@
 				Helper/PathfindingService.swift,
 				Helper/PathfindingService2D.swift,
 				"Helper/String+Extension.swift",
+				"Helper/UINavigationController+Extension.swift",
 				Model/Category.swift,
 				Model/Mall.swift,
 				Model/Store.swift,
