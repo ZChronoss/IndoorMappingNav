@@ -38,7 +38,7 @@ struct MapNavigateView_3D: View {
             .padding(.top)
             .presentationDragIndicator(.visible)
             .presentationContentInteraction(.scrolls)
-            .presentationDetents([.fraction(0.2), .fraction(0.75)])
+            .presentationDetents([.fraction(0.25), .fraction(0.75)])
             .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.2)))
             .interactiveDismissDisabled()
         }
