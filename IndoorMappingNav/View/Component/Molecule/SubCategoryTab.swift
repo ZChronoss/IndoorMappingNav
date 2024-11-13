@@ -37,3 +37,5 @@ struct SubCategoryTab: View {
     // Provide example subcategories for the preview
     SubCategoryTab(subCategories: [.bakery, .rice, .fastFood]) // Pass in example subcategories
 }
+
+

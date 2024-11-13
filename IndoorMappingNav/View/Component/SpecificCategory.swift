@@ -32,12 +32,16 @@ struct SpecificCategory: View {
             Text(subCategoryName)
                 .font(.caption)
                 .fontWeight(isSelected ? .bold : .regular)
-                .foregroundColor(.black)
+                .foregroundColor(Color("TextIcon"))
         }
         .animation(.easeInOut, value: isSelected)
     }
 }
 
+//#Preview {
+//    SpecificCategory(subCategoryName: "Bakery", image: "Image1", isSelected: true, onSelect: {})
+//}
+
 #Preview {
-    SpecificCategory(subCategoryName: "Bakery", image: "Image1", isSelected: true, onSelect: {})
+    HomeView()
 }

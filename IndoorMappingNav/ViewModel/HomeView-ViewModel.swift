@@ -45,11 +45,19 @@ class HomeViewModel: ObservableObject {
     @Published var selectedCategory: String = ""
     @Published var previousCategory: String = ""  // Store previous category
     
+    var categories: [StoreCategory] = [
+        StoreCategory(name: .fnb),
+        StoreCategory(name: .shopping),
+        StoreCategory(name: .entertainment),
+        StoreCategory(name: .toilet),
+        StoreCategory(name: .service),
+        StoreCategory(name: .hnb),
+        StoreCategory(name: .other)
+    ]
+    
     func updateCategory(_ newCategory: String) {
         previousCategory = selectedCategory  // Store the previous category
         selectedCategory = newCategory        // Update the current category
-//        print("Previous Category: \(previousCategory)")
-//        print("Selected Category: \(selectedCategory)")
     }
     
     func getStores() async {
@@ -100,7 +108,7 @@ class HomeViewModel: ObservableObject {
         
         let curTransform = target.transform
         let curTranslation = curTransform.translation
-        let moveUpDistance: Float = 0.5 // Distance to move up
+        let moveUpDistance: Float = 0.2 // Distance to move up
         
         if entityPositions[target] == nil {
             entityPositions[target] = curTranslation
@@ -149,11 +157,38 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func moveEntitiesInCategory(_ newCategory: String) {
+    func moveDownEntitiesInCategory(_ currentCategory: String) {
+        if let previousEntities = categoryStoreTarget[previousCategory] {
+            for entity in previousEntities {
+                let moveUpDistance: Float = 0.2
+                var newTransform = entity.transform
+                newTransform.translation.y -= moveUpDistance // Move up by `moveUpDistance`
+                entity.move(to: newTransform, relativeTo: entity.parent, duration: 0.5)
+                
+                applyHighlightColor(to: entity, color: .gray)
+            }
+        }
+        selectedCategory = ""
+    }
+    
+    func moveDownEntitiesInCurrentCategory(_ currentCategory: String) {
+        if let previousEntities = categoryStoreTarget[currentCategory] {
+            for entity in previousEntities {
+                let moveUpDistance: Float = 0.2
+                var newTransform = entity.transform
+                newTransform.translation.y -= moveUpDistance // Move up by `moveUpDistance`
+                entity.move(to: newTransform, relativeTo: entity.parent, duration: 0.5)
+                
+                applyHighlightColor(to: entity, color: .gray)
+            }
+        }
+    }
+    
+    func moveEntitiesInCategory(_ newCategory: String, _ categoryColor: UIColor) {
         // Reset entities from the previous category to their original states
         if let previousEntities = categoryStoreTarget[previousCategory] {
             for entity in previousEntities {
-                let moveUpDistance: Float = 0.5
+                let moveUpDistance: Float = 0.2
                 var newTransform = entity.transform
                 newTransform.translation.y -= moveUpDistance // Move up by `moveUpDistance`
                 entity.move(to: newTransform, relativeTo: entity.parent, duration: 0.5)
@@ -166,13 +201,13 @@ class HomeViewModel: ObservableObject {
         guard let entities = categoryStoreTarget[newCategory] else { return }
         for entity in entities {
             // Move each entity up by a certain distance, e.g., 0.5 units
-            let moveUpDistance: Float = 0.5
+            let moveUpDistance: Float = 0.2
             var newTransform = entity.transform
             newTransform.translation.y += moveUpDistance // Move up by `moveUpDistance`
             entity.move(to: newTransform, relativeTo: entity.parent, duration: 0.5)
 
             // Change entity color to indicate selection
-            applyHighlightColor(to: entity, color: .blue)
+            applyHighlightColor(to: entity, color: categoryColor)
         }
 
         // Update the selected category to the new one
@@ -249,9 +284,7 @@ class HomeViewModel: ObservableObject {
         let normalizedStoreName = storeName.removeSpecialCharacters()
         let normalizedTargetName = target.name.removeSpecialCharacters()
         
-        // Debugging: print normalized values to verify
-//        print("Normalized Store Name:", normalizedStoreName)
-//        print("Normalized Target Name:", normalizedTargetName)
+   
         
         // Check if the normalized target name is contained within the normalized store name
         guard normalizedStoreName.contains(normalizedTargetName) else {

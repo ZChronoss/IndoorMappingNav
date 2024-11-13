@@ -10,9 +10,27 @@ import SwiftUI
 struct SubCategoryDetailView: View {
     var categoryName: String
     var subCategories: [SubCategory]
+    @Environment(\.dismiss) private var dismiss  // Dismiss environment for navigating back
 
     var body: some View {
         VStack(alignment: .leading) {
+            HStack {
+                Button(action: {
+                    dismiss() // Navigate back
+                }) {
+                    HStack {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 16, weight: .bold))
+                        Text("Back")
+                            .font(.system(size: 16, weight: .bold))
+                    }
+                    .foregroundColor(.blue) // Customize the color of the back button as desired
+                }
+                Spacer()
+            }
+            .padding(.horizontal)
+            .padding(.top)
+            
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100))], spacing: 16) {
                     ForEach(subCategories, id: \.self) { subCategory in
@@ -33,7 +51,8 @@ struct SubCategoryDetailView: View {
                 .padding()
             }
         }
-        .navigationTitle(categoryName)
+        .navigationBarHidden(true) // Hide default navigation bar
+//        .navigationTitle(categoryName)
     }
 }
 

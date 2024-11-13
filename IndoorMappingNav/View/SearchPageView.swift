@@ -88,7 +88,7 @@ struct SearchPageView: View {
                 .redacted(reason: vm.isLoading ? .placeholder : [])
             }
         }
-        .background(.white)
+//        .background(.white)
         .navigationBarBackButtonHidden(true)
         .onAppear() {
             vm.destStoreName = self.destStore.name ?? ""

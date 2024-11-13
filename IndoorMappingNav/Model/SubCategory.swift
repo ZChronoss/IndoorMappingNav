@@ -17,6 +17,7 @@ enum SubCategory: String {
     case western = "Western"
     case beverage = "Beverage"
     case coffee = "Coffee"
+    case dessert = "Dessert"
     
     // Shop
     case fashion = "Fashion"
@@ -43,21 +44,23 @@ extension SubCategory {
     var imageName: String {
         switch self {
         case .bakery:
-            return "Image2" // Replace with the actual image asset name
+            return "bakeryImage" // Replace with the actual image asset name
         case .rice:
-            return "Image2" // Replace with the actual image asset name
+            return "riceImage" // Replace with the actual image asset name
         case .fastFood:
-            return "Image2" // Replace with the actual image asset name
+            return "fastFoodImage" // Replace with the actual image asset name
         case .indonesian:
-            return "Image2" // Replace with the actual image asset name
+            return "indonesianImage" // Replace with the actual image asset name
         case .japanese:
-            return "Image2" // Replace with the actual image asset name
+            return "japaneseImage" // Replace with the actual image asset name
         case .western:
-            return "Image2" // Replace with the actual image asset name
+            return "westernImage" // Replace with the actual image asset name
         case .beverage:
-            return "Image2" // Replace with the actual image asset name
+            return "beverageImage" // Replace with the actual image asset name
         case .coffee:
             return "coffeeImage" // Replace with the actual image asset name
+        case .dessert:
+            return "dessertImage"
         case .fashion:
             return "fashionImage" // Add as needed
         case .bagnShoes:
