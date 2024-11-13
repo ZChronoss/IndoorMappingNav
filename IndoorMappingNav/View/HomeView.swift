@@ -11,14 +11,6 @@ import MallMap
 
 struct HomeView: View {
     @StateObject var vm = HomeViewModel()
-    
-    //    @StateObject private var vm: HomeViewModel
-    //
-    //    init() {
-    //        _vm = StateObject(wrappedValue: HomeViewModel(scene: nil))
-    //    }
-    
-    
     @StateObject var pathfinder = PathfindingService.shared
     @StateObject var pathfinder2D = PathfindingService2D.shared
     
@@ -26,14 +18,7 @@ struct HomeView: View {
     @State private var entityState: [Entity: Bool] = [:]
     
     @State var scale: Float = 0.2
-    //    @State private var isMoving: Bool = false
     @State private var originalMaterials: [Entity: [RealityKit.Material]] = [:] // Store original materials
-    
-    // ini apus aja kah?
-    //    @State private var selectedCategory: String = "Food & Beverage"
-    //    // Setelah gua tambahin ini, kenapa jadi beda
-    //    @State private var isCategorySheetOpen = false
-    //    @State var categoryDetent: PresentationDetent = .fraction(0.17)
     
     @State private var scene: Entity? = nil
     @State private var pathEntities: [Entity] = []
@@ -43,18 +28,12 @@ struct HomeView: View {
     
     @StateObject var mapLoader = MapLoader()
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack {
                 // Main RealityView content
                 RealityView { content in
                     scene = await mapLoader.getScene()
                     content.add(scene ?? Entity())
-                    
-                    // Call categorizeEntityByStore function to categorize all entities in the scene
-                    
-                    
-                    // Print categoryStoreTarget contents
-                    //                        vm.printCategoryStoreTarget()
                 }
                 .realityViewCameraControls(is2DMode ? .pan : .orbit)
                 .gesture(
@@ -79,13 +58,6 @@ struct HomeView: View {
                 }
                 VStack {
                     Spacer()
-                    
-                    // Debugging
-                    Button("Clicked") {
-                        //                        vm.categorizeEntitiesInScene(scene!)
-                        vm.printCategoryStoreTarget()
-                    }
-                    
                     
                     Button("2D Mode") {
                         // 3D to 2D path conversion (flatten Y-axis)

@@ -9,19 +9,9 @@ import SwiftUI
 
 struct HomeViewComponents: View {
     @EnvironmentObject var vm: HomeViewModel
-    
-    // Ini yang jalan
-//    @StateObject private var vm: HomeViewModel
-//
-//    init() {
-//        _vm = StateObject(wrappedValue: HomeViewModel(scene: nil))
-//    }
-    
-    
+
     @State var isSheetOpen = false
-//    @State private var selectedCategory: String = "Food & Beverage"
-    
-    @Binding var selectedCategory: String  // Add this
+    @Binding var selectedCategory: String
     
     var body: some View {
         NavigationStack {
@@ -37,16 +27,16 @@ struct HomeViewComponents: View {
                         HStack {
                             Text("Summarecon Mall Serpong")
                                 .font(.system(size: 22, weight: .bold))
-                                .foregroundColor(.black)
+                                .foregroundColor(Color("TextIcon"))
                             Spacer()
                             Image(systemName: "chevron.down")
-                                .foregroundColor(.black)
+                                .foregroundColor(Color("TextIcon"))
                         }
                         .padding(.top, 20)
                         .padding(.horizontal, 20)
                         .padding(.bottom, 16)
                         
-                        SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
+                        SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: Color("SecondaryColor"))
                             .padding(.horizontal, 20)
                             .disabled(true)
                             .onTapGesture {
@@ -70,48 +60,58 @@ struct HomeViewComponents: View {
                         isSheetOpen = false
                     }
                     .presentationDetents([.fraction(0.5)])
-                    .presentationBackgroundInteraction(.enabled)
+//                    .presentationBackgroundInteraction(.enabled)
                 }
-                .sheet(isPresented: $vm.isCategorySheetOpen) {
+                .sheet(isPresented: $vm.isCategorySheetOpen, onDismiss: {
+                    // Clear the selected category when the sheet is dismissed
+                    vm.moveDownEntitiesInCurrentCategory(selectedCategory) // Reset entities for this category
+                    selectedCategory = ""
+                    vm.updateCategory("") // Ensure the category is updated accordingly in the view model
+
+
+                }) {
                     NavigationStack {
                         CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent)
                     }
                 }
                 
-                
                 ScrollView(.horizontal, showsIndicators: false) {
                     HStack(spacing: 10) {
-                        CategoryButton(categoryName: "Food & Beverage", categoryIcon: "fork.knife", categoryColor: .red, isSelected: selectedCategory == "Food & Beverage") {
-                            vm.updateCategory("Food & Beverage")
-                            selectedCategory = vm.selectedCategory
-                            vm.isCategorySheetOpen = true
-                            vm.moveEntitiesInCategory("Food & Beverage")
-                        }
-                        CategoryButton(categoryName: "Shopping", categoryIcon: "cart", categoryColor: .green, isSelected: selectedCategory == "Shopping") {
-                            vm.updateCategory("Shopping")
-                            selectedCategory = vm.selectedCategory
-                            vm.isCategorySheetOpen = true
-                            vm.moveEntitiesInCategory("Shopping")
-                        }
-                        CategoryButton(categoryName: "Entertainment", categoryIcon: "gamecontroller", categoryColor: .purple, isSelected: selectedCategory == "Entertainment") {
-                            vm.updateCategory("Entertainment")
-                            selectedCategory = vm.selectedCategory
-                            vm.isCategorySheetOpen = true
-                            vm.moveEntitiesInCategory("Entertainment")
+                        ForEach(vm.categories, id: \.name) { category in
+                            CategoryButton(
+                                categoryName: category.name.rawValue,
+                                categoryImage: Image(category.image ?? "questionmark"), // Gunakan Image() di sini
+                                categoryColor: category.color,
+                                isSelected: selectedCategory == category.name.rawValue
+                            ) {
+                                if selectedCategory == category.name.rawValue {
+                                    // If clicking the same category, deselect it
+                                    vm.updateCategory("")  // Update with empty string to clear selection
+                                    selectedCategory = "" // Clear selectedCategory
+                                    vm.isCategorySheetOpen = false // Close the category sheet
+                                    vm.moveDownEntitiesInCategory(category.name.rawValue) // Reset entities for this category
+                                } else {
+                                    // Otherwise, select the new category
+                                    vm.updateCategory(category.name.rawValue)
+                                    selectedCategory = vm.selectedCategory
+                                    vm.isCategorySheetOpen = true
+                                    vm.moveEntitiesInCategory(category.name.rawValue, category.color.asUIColor)
+                                }
+                            }
                         }
                     }
                     .padding(.horizontal)
+                    .padding(.vertical, 1)
                 }
                 .padding(.top, 16)
                 
                 Spacer()  //Push the RealityView to the bottom
             }
         }
-        
     }
 }
 
-//#Preview {
-//    HomeViewComponents()
-//}
+#Preview {
+    HomeView()
+}
 

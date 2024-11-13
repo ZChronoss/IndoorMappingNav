@@ -31,7 +31,7 @@ struct SearchBarDouble: View {
             } label: {
                 Image(systemName: "chevron.left")
                     .bold()
-                    .foregroundStyle(.black)
+                    .foregroundStyle(Color("TextIcon"))
             }
             .padding(.top, 18)
             .padding(.trailing, 8)

@@ -25,13 +25,13 @@ struct SearchBar: View {
                 .padding(8)
                 .cornerRadius(16)
                 .truncationMode(.tail)
-            Label(label.isEmpty ? "" : label, systemImage: label.isEmpty ? "microphone.fill": "")
-                .foregroundStyle(.secondaryAlt)
+            Label(label.isEmpty ? "" : label, systemImage: label.isEmpty ? "microphone.fill" : "")
+                .foregroundColor(Color("SecondaryColor")) // Set warna mikrofon
                 .font(label.isEmpty ? .headline : .system(.caption, weight: .bold))
         }
         .padding(.horizontal, 16)
         .padding(.vertical, 8)
-        .background(Color.white)
+        .background(Color("BGnSB"))
         .cornerRadius(16)
         .shadow(radius: 4)
     }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct StoreCard: View {
     var store: Store
+    var color: Color
     
     var body: some View {
         VStack (alignment: .leading, spacing: 8) {
@@ -47,20 +48,23 @@ struct StoreCard: View {
             VStack(alignment: .leading) {
                 Text(store.name ?? "Unknown Store")
                     .font(.callout)
+                    .foregroundColor(color)
                     .fontWeight(.bold)
                     .lineLimit(1) // Limit to a single line
                     .truncationMode(.tail)
 
                 Text(store.category?.name.rawValue ?? "Unknown Category")
                     .font(.caption)
+                    .foregroundColor(Color("SecondaryColor"))
             }
 
             Text(store.floor ?? "Unknown Floor")
                 .font(.caption)
+                .foregroundColor(Color("SecondaryColor"))
             
         }
         .padding(8)
-        .background(Color.white)
+        .background(Color("CategoryCard"))
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.19), radius: 5)
     }
@@ -80,10 +84,14 @@ struct RoundedCornersShape: Shape {
     }
 }
 
+//#Preview {
+//    let store = Store()
+//    store.name = "Sample Store"
+//    store.floor = "1st Floor"
+//    store.category = StoreCategory(name: .fnb)
+//    return StoreCard(store: store, color: .gray)
+//}
+
 #Preview {
-    let store = Store()
-    store.name = "Sample Store"
-    store.floor = "1st Floor"
-    store.category = StoreCategory(name: .fnb)
-    return StoreCard(store: store)
+    HomeView()
 }

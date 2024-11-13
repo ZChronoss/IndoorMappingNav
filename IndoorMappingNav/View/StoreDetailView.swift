@@ -28,7 +28,10 @@ struct StoreDetailView: View {
                     HStack(spacing: 2) {
                         Image(viewModel.store.category?.image ?? "")
                             .resizable()
+                            .renderingMode(.template) 
                             .frame(width: 13, height: 13)
+                            .foregroundStyle(viewModel.store.category?.color ?? .other)
+                            .tint(viewModel.store.category?.color ?? .other)
                         
                         Text(viewModel.store.category?.name.rawValue ?? "Error: No Category")
                             .font(.system(.caption))
@@ -80,5 +83,7 @@ struct StoreDetailView: View {
 }
 
 #Preview {
-    //    StoreDetailView()
+//        StoreDetailView()
+    HomeView()
 }
+
