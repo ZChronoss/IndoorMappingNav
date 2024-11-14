@@ -16,6 +16,7 @@ struct IndoorMappingNavApp: App {
         WindowGroup {
             HomeView()
                 .environmentObject(locationManager)
+                .environmentObject(NavigationViewModel())
         }
     }
 }

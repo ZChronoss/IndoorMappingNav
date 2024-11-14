@@ -7,8 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		112E54912CE5DC1E00C5FD2A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 112E54902CE5DC1E00C5FD2A /* Localizable.xcstrings */; };
-		112E54922CE5E3AE00C5FD2A /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 112E54902CE5DC1E00C5FD2A /* Localizable.xcstrings */; };
 		118412A82CAFCFF90062BDB2 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 118412A72CAFCFF90062BDB2 /* MallMap */; };
 		11EBED012CC54F890069EE18 /* FlooqiClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 11EBECF22CC54F880069EE18 /* FlooqiClip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		11EBED082CC54FB20069EE18 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 11EBED072CC54FB20069EE18 /* MallMap */; };
@@ -54,7 +52,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		112E54902CE5DC1E00C5FD2A /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		11985E5E2CBD023B000869B1 /* Flooqi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flooqi.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11985E6F2CBD023D000869B1 /* FlooqiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlooqiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11985E792CBD023D000869B1 /* FlooqiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlooqiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +95,7 @@
 				Helper/PathfindingService.swift,
 				Helper/PathfindingService2D.swift,
 				"Helper/String+Extension.swift",
+				"Helper/UINavigationController+Extension.swift",
 				Model/Category.swift,
 				Model/Mall.swift,
 				Model/Store.swift,
@@ -116,7 +114,6 @@
 				View/Component/LongButton.swift,
 				View/Component/MallSelected.swift,
 				View/Component/Molecule/SubCategoryTab.swift,
-				View/Component/NavigateButton.swift,
 				View/Component/NavigationSheet.swift,
 				View/Component/Organism/CategorySheet.swift,
 				View/Component/Organism/NavigationSheetDetail.swift,
@@ -226,7 +223,6 @@
 		11E914F72CABE22D00BD1CB3 = {
 			isa = PBXGroup;
 			children = (
-				112E54902CE5DC1E00C5FD2A /* Localizable.xcstrings */,
 				C20897612CC2503E00CEE914 /* LocationManager.swift */,
 				11E915022CABE22D00BD1CB3 /* IndoorMappingNav */,
 				11E915132CABE22F00BD1CB3 /* IndoorMappingNavTests */,
@@ -380,7 +376,6 @@
 			knownRegions = (
 				en,
 				Base,
-				id,
 			);
 			mainGroup = 11E914F72CABE22D00BD1CB3;
 			minimizedProjectReferenceProxies = 1;
@@ -404,7 +399,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				112E54912CE5DC1E00C5FD2A /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -426,7 +420,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				112E54922CE5E3AE00C5FD2A /* Localizable.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -542,7 +535,6 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -599,7 +591,6 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
-				SWIFT_EMIT_LOC_STRINGS = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -610,12 +601,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = IndoorMappingNav/IndoorMappingNav.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IndoorMappingNav/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 53V73K3799;
+				DEVELOPMENT_TEAM = 53V73K3799;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IndoorMappingNav/Info.plist;
@@ -634,7 +624,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "APQ Team";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -647,12 +636,11 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = IndoorMappingNav/IndoorMappingNav.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IndoorMappingNav/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 53V73K3799;
+				DEVELOPMENT_TEAM = 53V73K3799;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IndoorMappingNav/Info.plist;
@@ -671,7 +659,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "APQ Team";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

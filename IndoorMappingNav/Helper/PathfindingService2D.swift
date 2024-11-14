@@ -17,6 +17,7 @@ class PathfindingService2D: ObservableObject {
     var cameraEntity: Entity?
     
     func setup2DNavigation(path: [simd_float3], scene: Entity, camera: Entity) {
+        print("setting up 2d")
         self.currentPath = path
         self.scene = scene
         self.currentIndex = 0
