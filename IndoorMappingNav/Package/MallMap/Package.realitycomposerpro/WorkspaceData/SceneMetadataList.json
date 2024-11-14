@@ -1,4 +1,25 @@
 {
+  "32B7637D-281C-44A2-938E-F4CBBDB2DC38" : {
+    "objectMetadataList" : [
+      [
+        "32B7637D-281C-44A2-938E-F4CBBDB2DC38",
+        "Root"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      },
+      [
+        "32B7637D-281C-44A2-938E-F4CBBDB2DC38",
+        "Root",
+        "Cube"
+      ],
+      {
+        "isExpanded" : true,
+        "isLocked" : false
+      }
+    ]
+  },
   "3D75F7C0-43E9-473B-A096-6BFEF9EC50B7" : {
     "objectMetadataList" : [
       [
@@ -222,8 +243,7 @@
       },
       [
         "AC49DB16-1513-4A4F-B0FC-AFA0177432DC",
-        "Root",
-        "Timeline"
+        "SMS_1_LT_UG_3D_Mapping_Persimpangan"
       ],
       {
         "isExpanded" : true,
@@ -260,9 +280,7 @@
       },
       [
         "CF1064AA-49F7-4917-9EB0-5A96E7D1DA98",
-        "Root",
-        "SMS_Lt_2_3D_Mapping",
-        "Plane"
+        "SMS_1_LT_UG_3D_Mapping_Persimpangan"
       ],
       {
         "isExpanded" : true,

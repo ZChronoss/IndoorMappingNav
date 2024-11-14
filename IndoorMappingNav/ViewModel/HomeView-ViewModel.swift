@@ -145,7 +145,20 @@ class HomeViewModel: ObservableObject {
                 )
                 entityState[target] = true
                 
-                changeEntityColor(target, color: .blue)
+                var matchFound = false
+
+                for store in stores {
+                    if let storeName = store.name?.removeSpecialCharacters(),
+                       storeName.contains(target.name.removeSpecialCharacters()) {
+                        changeEntityColor(target, color: store.category?.color.asUIColor ?? .gray)
+                        matchFound = true
+                        break // Exit loop once a match is found
+                    }
+                }
+                // If no match was found, apply the default gray color
+                if !matchFound {
+                    changeEntityColor(target, color: .gray)
+                }
             }
             
             target.move(to: moveToLocation, relativeTo: target.parent, duration: 0.5)
@@ -236,30 +249,6 @@ class HomeViewModel: ObservableObject {
         }
     }
     
-    func printEntitiesInScene(_ entity: Entity, indent: String = "") {
-//        print("\(indent)Entity: \(entity.name.removeUnderscores())")
-        
-        // Iterate through all children of the entity and print their names
-        for child in entity.children {
-            printEntitiesInScene(child, indent: indent + "    ") // Increase indentation for child entities
-        }
-    }
-    
-    func printCategoryStoreTarget() {
-        for (category, entities) in categoryStoreTarget {
-//            print("\(category):")
-            for entity in entities {
-//                print("  - \(entity.name)")
-            }
-        }
-    }
-    
-    func printStores() {
-        for store in stores {
-//            print(store.name ?? "")
-        }
-    }
-    
     // Function to categorize entities in the scene
     func categorizeEntitiesInScene(_ scene: Entity) {
         // Iterate over all child entities of the scene
@@ -284,24 +273,17 @@ class HomeViewModel: ObservableObject {
         let normalizedStoreName = storeName.removeSpecialCharacters()
         let normalizedTargetName = target.name.removeSpecialCharacters()
         
-   
-        
         // Check if the normalized target name is contained within the normalized store name
         guard normalizedStoreName.contains(normalizedTargetName) else {
             //                print("No match found")
             return
         }
         
-//        print(store.category?.name.rawValue ?? "No category")
-        
         // Check the category of the store and categorize accordingly
         guard let storeCategory = store.category?.name.rawValue else {
             categoryStoreTarget["Other"]?.append(target)
             return
         }
-        
-        // Logic to categorize based on storeCategory
-//        print("Category: \(storeCategory)")
         
         switch storeCategory {
             //            case "Toilet":
@@ -321,4 +303,30 @@ class HomeViewModel: ObservableObject {
         }
     }
 }
+//}
+
+
+
+//func printEntitiesInScene(_ entity: Entity, indent: String = "") {
+////        print("\(indent)Entity: \(entity.name.removeUnderscores())")
+//    
+//    // Iterate through all children of the entity and print their names
+//    for child in entity.children {
+//        printEntitiesInScene(child, indent: indent + "    ") // Increase indentation for child entities
+//    }
+//}
+//
+//func printCategoryStoreTarget() {
+//    for (category, entities) in categoryStoreTarget {
+////            print("\(category):")
+//        for entity in entities {
+////                print("  - \(entity.name)")
+//        }
+//    }
+//}
+//
+//func printStores() {
+//    for store in stores {
+////            print(store.name ?? "")
+//    }
 //}
