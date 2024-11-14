@@ -145,11 +145,13 @@ class HomeViewModel: ObservableObject {
                 for store in stores {
                     if let storeName = store.name?.removeSpecialCharacters(),
                        storeName.contains(target.name.removeSpecialCharacters()) {
+
                         changeEntityColor(target, color: store.category?.color.asUIColor ?? .gray)
                         matchFound = true
                         break // Exit loop once a match is found
                     }
                 }
+
                 // If no match was found, apply the default gray color
                 if !matchFound {
                     changeEntityColor(target, color: .gray)
