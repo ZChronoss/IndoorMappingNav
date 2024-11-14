@@ -10,7 +10,7 @@ import SwiftUI
 import RealityKit
 
 //extension HomeViewComponents {
-//    @MainActor
+//@MainActor
 class HomeViewModel: ObservableObject {
     private let cloudkitController = CloudKitController()
     /// SEARCH FUNC
@@ -61,7 +61,9 @@ class HomeViewModel: ObservableObject {
     }
     
     func getStores() async {
-        self.isLoading = true
+        DispatchQueue.main.async {
+            self.isLoading = true
+        }
         
         do {
             guard let stores = try? await cloudkitController.fetchStores() else {
@@ -72,7 +74,10 @@ class HomeViewModel: ObservableObject {
                 self.stores = stores
             }
         }
-        self.isLoading = false
+        
+        DispatchQueue.main.async {
+            self.isLoading = false
+        }
     }
     
     func getStoreDetail() async {

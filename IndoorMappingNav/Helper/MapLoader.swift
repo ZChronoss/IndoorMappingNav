@@ -15,7 +15,7 @@ class MapLoader: ObservableObject {
     static let shared = MapLoader()
     var scene: Entity? = nil
     var scale: Float = 0.2
-    private var mapName = "Test2"
+    private var mapName = "SMS_GF"
     
     init() {
                 Task{
