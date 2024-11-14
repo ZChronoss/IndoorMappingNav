@@ -13,12 +13,12 @@ struct NavigationSheet: View {
     var body: some View {
         HStack(alignment: .center) {
             Text(String(distance))
-                .font(.title2)
+                .font(.system(.title2))
                 .foregroundColor(Color.blue)
                 .fontWeight(.bold)
             
             Text("min walk")
-                .font(.title2)
+                .font(.system(.title2))
                 .foregroundColor(Color.blue)
             
             Spacer()

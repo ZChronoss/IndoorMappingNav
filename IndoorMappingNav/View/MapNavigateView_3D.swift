@@ -14,7 +14,7 @@ struct MapNavigateView_3D: View {
     @StateObject var pathfinder = PathfindingService.shared
     @StateObject var vm = ViewModel()
     
-    @State var isPresented: Bool = true
+    @Binding var isPresented: Bool
     
     @State var start: String
     @State var end: String
@@ -30,7 +30,7 @@ struct MapNavigateView_3D: View {
             }
             .realityViewCameraControls(.orbit)
         }
-        .sheet(isPresented: $vm.isPresented) {
+        .sheet(isPresented: $isPresented) {
             NavigationSheetDetail(
                 instructions: pathfinder.instructions,
                 pathCounts: pathfinder.pathCounts
@@ -39,7 +39,7 @@ struct MapNavigateView_3D: View {
             .presentationDragIndicator(.visible)
             .presentationContentInteraction(.scrolls)
             .presentationDetents([.fraction(0.25), .fraction(0.75)])
-            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.2)))
+            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.25)))
             .interactiveDismissDisabled()
         }
 //        .task {

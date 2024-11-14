@@ -11,7 +11,7 @@ struct SearchBar: View {
     @Binding var searchText: String
     var image: Image
     var iconColor: Color
-    var placeholder: String = "Search for a store name"
+    var placeholder: LocalizedStringKey = "Search for a store name"
     var label: String = ""
     
     var body: some View {

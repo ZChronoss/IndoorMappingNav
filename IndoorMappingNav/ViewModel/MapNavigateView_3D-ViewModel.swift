@@ -16,24 +16,6 @@ extension MapNavigateView_3D {
         @Published var scene: Entity?
         @Published var start: String = ""
         @Published var end: String = ""
-        var mapLoader = MapLoader()
-        var pathfinder = PathfindingService()
         
-        init(){
-//            Task {
-//                await scene = loadScene()
-//            }
-        }
-        
-        func loadScene() async -> Entity {
-            guard let retScene = scene else {
-                let tempScene = await mapLoader.getScene()
-                pathfinder.setupPath(loadedScene: tempScene)
-                
-                pathfinder.startNavigation(start: start, end: end)
-                return tempScene
-            }
-            return retScene
-        }
     }
 }
