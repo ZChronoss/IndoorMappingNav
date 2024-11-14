@@ -9,7 +9,7 @@ import SwiftUI
 
 struct InstructionCard: View {
     var icon: String
-    var direction: AttributedString
+    var direction: LocalizedStringResource
     var store: String
     
     var isFirst: Bool
@@ -63,6 +63,6 @@ struct InstructionCard: View {
 }
 
 #Preview {
-//    @State var focusedCard: Int = 1
-//    InstructionCard(icon: Directions.straight.icon, direction: Directions.left.instruction, isFirst: true, isLast: false, focusedCard: $focusedCard, maxCards: 2)
+    @State var focusedCard: Int = 1
+    InstructionCard(icon: Directions.straight.icon, direction: Directions.left.instruction, store: "Hai", isFirst: true, isLast: false, focusedCard: $focusedCard, maxCards: 2)
 }

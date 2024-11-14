@@ -9,7 +9,7 @@ import SwiftUI
 
 struct StepCard: View {
     var iconImage: String
-    var direction: AttributedString
+    var direction: LocalizedStringResource
     var store: String
     var imageStep: String
     
