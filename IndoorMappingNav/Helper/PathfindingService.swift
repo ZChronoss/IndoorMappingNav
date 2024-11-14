@@ -49,6 +49,8 @@ class PathfindingService: ObservableObject {
     }
     
     func setupPath(loadedScene: Entity) {
+        pathNodes.removeAll()
+        interNodes.removeAll()
         scene = loadedScene
         print("Scene set up with: \(scene?.name ?? "nil")")
         setupCollision()
@@ -58,17 +60,9 @@ class PathfindingService: ObservableObject {
         let groundSizeX = groundBounds.extents.x
         let groundSizeZ = groundBounds.extents.z
         
-        print(groundBounds)
-        print(groundSizeX)
-        print(groundSizeZ)
-        
         let groundPosition = loadedScene.position(relativeTo: nil)
         
-        print(groundPosition)
-        
         let gridSpacing: Float = 0.12
-        
-        
         
         for x in stride(from: -groundSizeX, through: groundSizeX / 2, by: gridSpacing) {
             for z in stride(from: -groundSizeZ / 2, through: groundSizeZ / 2, by: gridSpacing) {
@@ -78,23 +72,13 @@ class PathfindingService: ObservableObject {
                     groundPosition.z + z
                 )
                 
-                //                                                let markerPosition = SCNVector3(
-                //                                                    groundPosition.x + x,
-                //                                                    0.5,  // Slightly above the ground plane
-                //                                                    groundPosition.z + z
-                //                                                )
-                
                 if checkForPath(at: simd_float3(nodePosition), type: .path) {
                     let pathNode = pathfinder.addNode(at: nodePosition, type: .path)
-                    //                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
-                    //                                                            loadedScene.addChild(marker)
                     pathNodes.append(pathNode)
                 }
                 
                 if checkForPath(at: simd_float3(nodePosition), type: .intersection) {
                     let interNode = pathfinder.addNode(at: nodePosition, type: .intersection)
-                    //                                                            let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
-                    //                                                            loadedScene.addChild(marker)
                     interNodes.append(interNode)
                 }
             }
@@ -190,11 +174,6 @@ class PathfindingService: ObservableObject {
                 pathPositions = path.map { simd_float3($0.position) }
                 print("PATH===",pathPositions.count)
                 
-                //                for i in 0..<pathPositions.count {
-                //                    let debug = createMarkerEntity(at: pathPositions[i], color: .black)
-                //                    scene?.addChild(debug)
-                //                }
-                
                 // Insert first and last positions as control points for smoothing
                 guard let firstPosition = pathPositions.first,
                       let lastPosition = pathPositions.last else {
@@ -217,7 +196,7 @@ class PathfindingService: ObservableObject {
                 }
                 
                 var animatedIndex = 0
-                let stepDuration = 0.000001
+                let stepDuration = 0.00001
                 
                 Timer.scheduledTimer(withTimeInterval: stepDuration, repeats: true) { timer in
                     if animatedIndex >= smoothPath.count - 1 {
@@ -267,6 +246,7 @@ class PathfindingService: ObservableObject {
     func saveDirection() {
         var lastDirection: Directions? = nil
         var removedInter: [Int] = []
+        instructions.removeAll()
         func determineDirection(from start: simd_float3, to end: simd_float3) -> Directions? {
             let storeName = findClosestEntity(from: end)?.name ?? ""
             let movementDirection = normalize(end - start)
@@ -303,7 +283,7 @@ class PathfindingService: ObservableObject {
                 return StraightDirection(store: storeName)
             }
         }
-
+        
         for i in 0..<interEntities.count {
             let startPos = interEntities[i].position
             let endPos = (i == interEntities.count - 1) ? pathEntities.last!.position : interEntities[i + 1].position
