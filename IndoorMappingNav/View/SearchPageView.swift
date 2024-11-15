@@ -125,31 +125,30 @@ struct SearchPageView: View {
                             }
                             .redacted(reason: vm.isLoading ? .placeholder : [])
                         }
-                        
                     }
-                    
-                    if vmNav.is2DMode {
-                        VStack {
-                            HStack {
-                                Button(action: {
-                                    vmNav.is2DMode = false
-                                }){
-                                    Image(systemName: "chevron.left")
-                                        .padding(20)
-                                        .frame(width: 38, height: 38, alignment: .center)
-                                        .foregroundColor(.white)
-                                        .background(.black.opacity(0.4))
-                                        .cornerRadius(50)
-                                    Spacer()
-                                }
-                                .padding(20)
+                }
+                
+                if vmNav.is2DMode {
+                    VStack {
+                        HStack {
+                            Button(action: {
+                                vmNav.is2DMode = false
+                            }){
+                                Image(systemName: "chevron.left")
+                                    .padding(20)
+                                    .frame(width: 38, height: 38, alignment: .center)
+                                    .foregroundColor(.white)
+                                    .background(.black.opacity(0.4))
+                                    .cornerRadius(50)
+                                Spacer()
                             }
-                            Spacer()
+                            .padding(20)
                         }
-                        NavigateView()
-                            .environmentObject(pathfinder)
-                            .environmentObject(pathfinder2D)
+                        Spacer()
                     }
+                    NavigateView()
+                        .environmentObject(pathfinder)
+                        .environmentObject(pathfinder2D)
                 }
             }
             //        .background(.white)

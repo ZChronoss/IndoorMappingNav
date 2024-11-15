@@ -33,9 +33,16 @@ class PathfindingService2D: ObservableObject {
             objectEntity = newObjectEntity
             scene.addChild(newObjectEntity)
 
-            rotateCameraToFace(currentPath[currentIndex+1])
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.000000001) {
-                self.rotateCameraToFace(self.currentPath[self.currentIndex+1])
+            if currentPath.count > 1 {
+                rotateCameraToFace(currentPath[currentIndex+1])
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.000000001) {
+                    self.rotateCameraToFace(self.currentPath[self.currentIndex+1])
+                }
+            } else {
+                rotateCameraToFace(currentPath[currentIndex])
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.000000001) {
+                    self.rotateCameraToFace(self.currentPath[self.currentIndex])
+                }
             }
         }
     }

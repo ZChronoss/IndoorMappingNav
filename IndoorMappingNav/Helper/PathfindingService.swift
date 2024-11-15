@@ -221,8 +221,16 @@ class PathfindingService: ObservableObject {
                 
                 let startPos = interNodes[i]
                 
+                let threshold: Float = 0.12 // Define a threshold for proximity
+
                 for j in 0..<pathPositions.count {
-                    if startPos.position == pathPositions[j] {
+                    // Calculate the distance between startPos.position and pathPositions[j]
+                    let dx = startPos.position.x - pathPositions[j].x
+                    let dz = startPos.position.z - pathPositions[j].z
+                    let distance = sqrt(dx * dx + dz * dz)
+                    
+                    // Check if the distance is less than the threshold
+                    if distance < threshold {
                         print("GOT INTERPOSITION", pathPositions[j])
                         let intersectionEntity = createMarkerEntity(at: simd_float3(startPos.position.x, -0.1, startPos.position.z), color: .clear)
                         
