@@ -60,12 +60,15 @@ struct HomeViewComponents: View {
                         isSheetOpen = false
                     }
                     .presentationDetents([.fraction(0.5)])
+//                    .presentationBackgroundInteraction(.enabled)
                 }
                 .sheet(isPresented: $vm.isCategorySheetOpen, onDismiss: {
                     // Clear the selected category when the sheet is dismissed
                     vm.moveDownEntitiesInCurrentCategory(selectedCategory) // Reset entities for this category
                     selectedCategory = ""
                     vm.updateCategory("") // Ensure the category is updated accordingly in the view model
+
+
                 }) {
                     NavigationStack {
                         CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent)
