@@ -6,14 +6,17 @@
 //
 
 import SwiftUI
+import RealityKit
 
 struct NavigationSheetDetail: View {
     let instructions: [Directions]
     let pathCounts: Float
+    let currentScene: Entity?
+    
     var body: some View {
         VStack {
             let roundedDistance = max(Int(round(pathCounts / 1000)), 1)
-            NavigationSheet(distance: roundedDistance)
+            NavigationSheet(distance: roundedDistance, currentScene: currentScene)
             
             Divider()
             

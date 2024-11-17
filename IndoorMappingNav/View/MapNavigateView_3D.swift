@@ -13,6 +13,7 @@ struct MapNavigateView_3D: View {
     @EnvironmentObject var mapLoader: MapLoader
     @StateObject var pathfinder = PathfindingService.shared
     @StateObject var vm = ViewModel()
+    @EnvironmentObject var vmNav: NavigationViewModel
     
     @Binding var isPresented: Bool
     
@@ -28,12 +29,16 @@ struct MapNavigateView_3D: View {
                 pathfinder.startNavigation(start: vm.start, end: vm.end)
                 content.add(vm.scene ?? Entity())
             }
-            .realityViewCameraControls(.orbit)
+            .realityViewCameraControls(vmNav.is2DMode ? .pan : .orbit)
         }
-        .sheet(isPresented: $isPresented) {
+        .sheet(isPresented: Binding(
+            get: { !vmNav.is2DMode },
+            set: { newValue in vm.isPresented = newValue }
+        )) {
             NavigationSheetDetail(
                 instructions: pathfinder.instructions,
-                pathCounts: pathfinder.pathCounts
+                pathCounts: pathfinder.pathCounts,
+                currentScene: vm.scene
             )
             .presentationDetents([.height(100), .fraction(0.75)])
             .presentationBackgroundInteraction(.enabled(upThrough: .height(100)))
