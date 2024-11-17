@@ -44,12 +44,6 @@ struct SearchPageView: View {
                     .padding(.horizontal)
                 }
             }
-        }
-        //        .background(.white)
-        .navigationBarBackButtonHidden(true)
-        .onAppear() {
-            vm.destStoreName = self.destStore.name ?? ""
-            vm.destStoreFloor = self.destStore.floor.map(FloorAbbreviation.getFloorAbbreviation) ?? ""
             
             ZStack {
                 if vm.hasSelectedStart && (!vm.trueIfStartStoreIsSelected && !vm.trueIfDestStoreIsSelected) {
@@ -57,7 +51,7 @@ struct SearchPageView: View {
                         .environmentObject(mapLoader)
                         .environmentObject(pathfinder)
                 } else {
-                    VStack {
+                    VStack(alignment: .leading) {
                         let searchHistoryIsEmpty = vm.searchHistory.isEmpty
                         let searchTextIsEmpty = vm.searchText.isEmpty
                         
@@ -97,6 +91,10 @@ struct SearchPageView: View {
                                     ForEach(searchTextIsEmpty ? vm.searchHistory : vm.filteredStores) {store in
                                         SearchResult(store: store)
                                             .onTapGesture {
+                                                // Dismiss Keyboard
+                                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                                
+                                                
                                                 if !vm.hasSelectedDestination {
                                                     vm.destStoreName = ""
                                                     destStore = Store()
@@ -129,8 +127,8 @@ struct SearchPageView: View {
                                             }
                                     }
                                 }
+                                .padding(.top, 10)
                             }
-                            .padding(.top, 10)
                             .redacted(reason: vm.isLoading ? .placeholder : [])
                         }
                     }

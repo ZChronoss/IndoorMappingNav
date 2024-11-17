@@ -51,7 +51,7 @@ extension SearchPageView {
         init() {
             Task {
                 await getStores()
-                print(stores)
+                
                 searchHistory = getStoreFromDefault() ?? []
             }
         }
