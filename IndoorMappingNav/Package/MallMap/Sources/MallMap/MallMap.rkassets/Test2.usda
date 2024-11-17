@@ -1,0 +1,1270 @@
+#usda 1.0
+(
+    customLayerData = {
+        string creator = "Reality Composer Pro Version 2.0 (448.0.16.0.3)"
+    }
+    defaultPrim = "_3D_Mapping_Toko_Material"
+    metersPerUnit = 1
+    upAxis = "Y"
+)
+
+def "_3D_Mapping_Toko_Material" (
+    active = true
+    references = @3D Mapping Toko Material.usdz@
+)
+{
+    quatf xformOp:orient = (1, 0, 0, 0)
+    float3 xformOp:scale = (1, 1, 1)
+    float3 xformOp:translate = (0, 0, 0)
+    uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+
+    def RealityKitComponent "RCP_BehaviorsContainer"
+    {
+        rel behaviors = </_3D_Mapping_Toko_Material/OnTap>
+        uniform token info:id = "RCP.BehaviorsContainer"
+    }
+
+    def Preliminary_Behavior "OnTap"
+    {
+        rel actions = </_3D_Mapping_Toko_Material/OnTap/Action>
+        uniform bool exclusive
+        rel triggers = </_3D_Mapping_Toko_Material/OnTap/Trigger>
+
+        def Preliminary_Trigger "Trigger"
+        {
+            rel affectedObjects = </_3D_Mapping_Toko_Material>
+            token info:id = "TapGesture"
+        }
+
+        def Preliminary_Action "Action"
+        {
+            rel affectedObjects = </_3D_Mapping_Toko_Material>
+            rel animationLibraryKey = </_3D_Mapping_Toko_Material/Timeline>
+            rel animationLibraryKeyOverrideKey = </_3D_Mapping_Toko_Material/OnTap/Trigger>
+            token info:id = "PlayTimeline"
+            int loops = 0
+            int performCount = 1
+            token type = "serial"
+        }
+    }
+
+    def RealityKitTimeline "Timeline"
+    {
+        def RealityKitTrack "Track"
+        {
+            def RealityKitAction "Transform_By"
+            {
+                string actionKind = "moveBy"
+                int blendLayer = 300
+                double duration = 1
+                uniform token info:id = "FA2B0A1F-D614-4AA5-A68A-4786F46BCD13"
+                double startTime = 0
+                rel target = </_3D_Mapping_Toko_Material>
+
+                def RealityKitStruct "timingFunction"
+                {
+                }
+            }
+        }
+    }
+
+    over "Materials"
+    {
+        over "Store_Material"
+        {
+            token outputs:mtlx:surface
+            token outputs:realitykit:vertex
+        }
+
+        over "Pathway_Material"
+        {
+            token outputs:mtlx:surface
+            token outputs:realitykit:vertex
+        }
+    }
+
+    over "Geom"
+    {
+        over "pwy__063"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__062"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__061"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__060"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__059"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__053"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__032"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__041"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__031"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__001"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__002"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__039"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__042"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__043"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__044"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__049"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__050"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__054"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__055"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__056"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__057"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__036"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__037"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__038"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__040"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__047"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__048"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__046"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__045"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__035"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__034"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__033"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__058"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__052"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__051"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__064"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__075"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__065"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__074"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__003"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__029"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__006"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__030"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__005"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__004"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__009"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__010"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__007"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__008"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy_"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__012"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__013"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__011"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__021"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__019"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__020"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__018"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__014"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__015"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__023"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__022"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__024"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__025"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__026"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__027"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__028"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__073"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__066"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__067"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__068"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__069"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__016"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__071"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__072"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__070"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__076"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__017"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__077"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "pwy__078"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "Based" (
+            prepend apiSchemas = ["MaterialBindingAPI"]
+            references = None
+        )
+        {
+            rel material:binding = </_3D_Mapping_Toko_Material/MaplePlywood> (
+                bindMaterialAs = "weakerThanDescendants"
+            )
+        }
+
+        over "PSP"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_001"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_002"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_003"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_004"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_005"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_006"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_007"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_008"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_009"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_010"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_011"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_012"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_013"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_014"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_015"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_016"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_017"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_018"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_019"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_020"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_021"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_022"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_023"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_024"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_025"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_026"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_027"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_028"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_029"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_030"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_031"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_032"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_033"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_034"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_035"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_036"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_037"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_038"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_039"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_040"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_041"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_042"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_043"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_044"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_045"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_046"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_047"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "PSP_048"
+        {
+            def RealityKitComponent "HierarchicalFade"
+            {
+                uniform token info:id = "RealityKit.HierarchicalFade"
+                float opacity = 0
+            }
+        }
+
+        over "Farmers_Market"
+        {
+            quatf xformOp:orient = (1, 0, 0, 0)
+            float3 xformOp:scale = (1.7070315, 0.2, 1.7070315)
+            double3 xformOp:translate = (-0.26334959268569946, 0.06650000065565109, -0.15154993534088135)
+            uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
+        }
+
+        over "G_Shock_casio"
+        {
+        }
+    }
+
+    def "MaplePlywood" (
+        active = true
+        prepend references = @MaplePlywood.usdz@
+    )
+    {
+    }
+}
+

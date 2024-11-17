@@ -4,10 +4,65 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Flooqi.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
+		<key>FlooqiClip.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>2</integer>
+		</dict>
 		<key>IndoorMappingNav.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+		<key>IndoorMappingNavIndo.xcscheme_^#shared#^_</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>3</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>11985E5D2CBD023B000869B1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>11985E6E2CBD023D000869B1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>11985E782CBD023D000869B1</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>11E914FF2CABE22D00BD1CB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>11E9150F2CABE22F00BD1CB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>11E915192CABE22F00BD1CB3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>11EBECF12CC54F880069EE18</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

@@ -6,6 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		118412A82CAFCFF90062BDB2 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 118412A72CAFCFF90062BDB2 /* MallMap */; };
+		11EBED012CC54F890069EE18 /* FlooqiClip.app in Embed App Clips */ = {isa = PBXBuildFile; fileRef = 11EBECF22CC54F880069EE18 /* FlooqiClip.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		11EBED082CC54FB20069EE18 /* MallMap in Frameworks */ = {isa = PBXBuildFile; productRef = 11EBED072CC54FB20069EE18 /* MallMap */; };
+		C20897632CC2503E00CEE914 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = C20897612CC2503E00CEE914 /* LocationManager.swift */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		11E915112CABE22F00BD1CB3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -21,17 +28,135 @@
 			remoteGlobalIDString = 11E914FF2CABE22D00BD1CB3;
 			remoteInfo = IndoorMappingNav;
 		};
+		11EBECFF2CC54F890069EE18 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 11E914F82CABE22D00BD1CB3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 11EBECF12CC54F880069EE18;
+			remoteInfo = FlooqiClip;
+		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		11EBED062CC54F890069EE18 /* Embed App Clips */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/AppClips";
+			dstSubfolderSpec = 16;
+			files = (
+				11EBED012CC54F890069EE18 /* FlooqiClip.app in Embed App Clips */,
+			);
+			name = "Embed App Clips";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		11985E5E2CBD023B000869B1 /* Flooqi.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flooqi.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		11985E6F2CBD023D000869B1 /* FlooqiTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlooqiTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11985E792CBD023D000869B1 /* FlooqiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlooqiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E915002CABE22D00BD1CB3 /* IndoorMappingNav.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IndoorMappingNav.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E915102CABE22F00BD1CB3 /* IndoorMappingNavTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndoorMappingNavTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		11E9151A2CABE22F00BD1CB3 /* IndoorMappingNavUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IndoorMappingNavUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		11EBECF22CC54F880069EE18 /* FlooqiClip.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlooqiClip.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C20897612CC2503E00CEE914 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		118412A42CAFCFB40062BDB2 /* Exceptions for "IndoorMappingNav" folder in "IndoorMappingNav" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+				Package/MallMap,
+			);
+			target = 11E914FF2CABE22D00BD1CB3 /* IndoorMappingNav */;
+		};
+		11EBED052CC54F890069EE18 /* Exceptions for "FlooqiClip" folder in "FlooqiClip" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 11EBECF12CC54F880069EE18 /* FlooqiClip */;
+		};
+		11EBED0B2CC54FC70069EE18 /* Exceptions for "IndoorMappingNav" folder in "FlooqiClip" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Assets.xcassets,
+				"Assets/Fonts/SFProText-Bold.otf",
+				"Assets/Fonts/SFProText-Medium.otf",
+				"Assets/Fonts/SFProText-Regular.otf",
+				"Assets/Fonts/SFProText-Semibold.otf",
+				Helper/CloudKitController.swift,
+				"Helper/Color+Extension.swift",
+				Helper/Directions.swift,
+				Helper/FloorAbbreviation.swift,
+				"Helper/Font+Extension.swift",
+				Helper/MapLoader.swift,
+				Helper/PathfindingHelper3D.swift,
+				Helper/PathfindingService.swift,
+				Helper/PathfindingService2D.swift,
+				"Helper/String+Extension.swift",
+				"Helper/UINavigationController+Extension.swift",
+				Model/Category.swift,
+				Model/Mall.swift,
+				Model/Store.swift,
+				Model/SubCategory.swift,
+				"View/Component/Button Instruction/JumpToEndButton.swift",
+				"View/Component/Button Instruction/RestartButton.swift",
+				View/Component/CategoryButton.swift,
+				View/Component/CustomBadge.swift,
+				View/Component/CustomCornerShape.swift,
+				View/Component/FirstStepCard.swift,
+				"View/Component/Floor Button/FloorButton.swift",
+				"View/Component/Floor Button/FloorButtons.swift",
+				View/Component/IconWithBorder.swift,
+				View/Component/Instructions/InstructionCard.swift,
+				View/Component/Instructions/InstructionList.swift,
+				View/Component/LongButton.swift,
+				View/Component/MallSelected.swift,
+				View/Component/Molecule/SubCategoryTab.swift,
+				View/Component/NavigationSheet.swift,
+				View/Component/Organism/CategorySheet.swift,
+				View/Component/Organism/NavigationSheetDetail.swift,
+				View/Component/PopUp.swift,
+				"View/Component/Search Bars/SearchBar.swift",
+				"View/Component/Search Bars/SearchBarDouble.swift",
+				"View/Component/Search Bars/SearchBarWithCancel.swift",
+				"View/Component/Search Bars/SearchBarWithChevron.swift",
+				"View/Component/Search Bars/SearchResult.swift",
+				View/Component/SpecificCategory.swift,
+				View/Component/StepCard.swift,
+				View/Component/StoreCard.swift,
+				View/Component/SubCategoryCard.swift,
+				View/Component/SubCategoryDetailView.swift,
+				View/Component/SwipingFinger.swift,
+				View/Component/TapSearchBarButton.swift,
+				View/Component/ToiletIcon.swift,
+				View/HomeView.swift,
+				View/HomeViewComponents.swift,
+				View/ImageCarousel.swift,
+				View/MapNavigateView_3D.swift,
+				View/NavigateView.swift,
+				View/OverlayView.swift,
+				View/SearchPageView.swift,
+				View/StoreDetailView.swift,
+				"ViewModel/CategorySheet-ViewModel.swift",
+				"ViewModel/HomeView-ViewModel.swift",
+				"ViewModel/MapNavigateView_3D-ViewModel.swift",
+				"ViewModel/SearchPageView-ViewModel.swift",
+				"ViewModel/StoreDetailView-ViewModel.swift",
+			);
+			target = 11EBECF12CC54F880069EE18 /* FlooqiClip */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		11E915022CABE22D00BD1CB3 /* IndoorMappingNav */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				118412A42CAFCFB40062BDB2 /* Exceptions for "IndoorMappingNav" folder in "IndoorMappingNav" target */,
+				11EBED0B2CC54FC70069EE18 /* Exceptions for "IndoorMappingNav" folder in "FlooqiClip" target */,
+			);
 			path = IndoorMappingNav;
 			sourceTree = "<group>";
 		};
@@ -45,6 +170,14 @@
 			path = IndoorMappingNavUITests;
 			sourceTree = "<group>";
 		};
+		11EBECF32CC54F880069EE18 /* FlooqiClip */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				11EBED052CC54F890069EE18 /* Exceptions for "FlooqiClip" folder in "FlooqiClip" target */,
+			);
+			path = FlooqiClip;
+			sourceTree = "<group>";
+		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -52,6 +185,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				118412A82CAFCFF90062BDB2 /* MallMap in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,15 +203,33 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		11EBECEF2CC54F880069EE18 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				11EBED082CC54FB20069EE18 /* MallMap in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		118412A62CAFCFF90062BDB2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		11E914F72CABE22D00BD1CB3 = {
 			isa = PBXGroup;
 			children = (
+				C20897612CC2503E00CEE914 /* LocationManager.swift */,
 				11E915022CABE22D00BD1CB3 /* IndoorMappingNav */,
 				11E915132CABE22F00BD1CB3 /* IndoorMappingNavTests */,
 				11E9151D2CABE22F00BD1CB3 /* IndoorMappingNavUITests */,
+				11EBECF32CC54F880069EE18 /* FlooqiClip */,
+				118412A62CAFCFF90062BDB2 /* Frameworks */,
 				11E915012CABE22D00BD1CB3 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -88,6 +240,10 @@
 				11E915002CABE22D00BD1CB3 /* IndoorMappingNav.app */,
 				11E915102CABE22F00BD1CB3 /* IndoorMappingNavTests.xctest */,
 				11E9151A2CABE22F00BD1CB3 /* IndoorMappingNavUITests.xctest */,
+				11985E5E2CBD023B000869B1 /* Flooqi.app */,
+				11985E6F2CBD023D000869B1 /* FlooqiTests.xctest */,
+				11985E792CBD023D000869B1 /* FlooqiUITests.xctest */,
+				11EBECF22CC54F880069EE18 /* FlooqiClip.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -102,16 +258,19 @@
 				11E914FC2CABE22D00BD1CB3 /* Sources */,
 				11E914FD2CABE22D00BD1CB3 /* Frameworks */,
 				11E914FE2CABE22D00BD1CB3 /* Resources */,
+				11EBED062CC54F890069EE18 /* Embed App Clips */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				11EBED002CC54F890069EE18 /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				11E915022CABE22D00BD1CB3 /* IndoorMappingNav */,
 			);
 			name = IndoorMappingNav;
 			packageProductDependencies = (
+				118412A72CAFCFF90062BDB2 /* MallMap */,
 			);
 			productName = IndoorMappingNav;
 			productReference = 11E915002CABE22D00BD1CB3 /* IndoorMappingNav.app */;
@@ -163,6 +322,29 @@
 			productReference = 11E9151A2CABE22F00BD1CB3 /* IndoorMappingNavUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		11EBECF12CC54F880069EE18 /* FlooqiClip */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 11EBED022CC54F890069EE18 /* Build configuration list for PBXNativeTarget "FlooqiClip" */;
+			buildPhases = (
+				11EBECEE2CC54F880069EE18 /* Sources */,
+				11EBECEF2CC54F880069EE18 /* Frameworks */,
+				11EBECF02CC54F880069EE18 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				11EBECF32CC54F880069EE18 /* FlooqiClip */,
+			);
+			name = FlooqiClip;
+			packageProductDependencies = (
+				11EBED072CC54FB20069EE18 /* MallMap */,
+			);
+			productName = FlooqiClip;
+			productReference = 11EBECF22CC54F880069EE18 /* FlooqiClip.app */;
+			productType = "com.apple.product-type.application.on-demand-install-capable";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -184,6 +366,9 @@
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = 11E914FF2CABE22D00BD1CB3;
 					};
+					11EBECF12CC54F880069EE18 = {
+						CreatedOnToolsVersion = 16.0;
+					};
 				};
 			};
 			buildConfigurationList = 11E914FB2CABE22D00BD1CB3 /* Build configuration list for PBXProject "IndoorMappingNav" */;
@@ -195,6 +380,8 @@
 			);
 			mainGroup = 11E914F72CABE22D00BD1CB3;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 11E915012CABE22D00BD1CB3 /* Products */;
 			projectDirPath = "";
@@ -203,6 +390,7 @@
 				11E914FF2CABE22D00BD1CB3 /* IndoorMappingNav */,
 				11E9150F2CABE22F00BD1CB3 /* IndoorMappingNavTests */,
 				11E915192CABE22F00BD1CB3 /* IndoorMappingNavUITests */,
+				11EBECF12CC54F880069EE18 /* FlooqiClip */,
 			);
 		};
 /* End PBXProject section */
@@ -229,6 +417,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		11EBECF02CC54F880069EE18 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -236,6 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C20897632CC2503E00CEE914 /* LocationManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +443,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		11E915162CABE22F00BD1CB3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		11EBECEE2CC54F880069EE18 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -265,6 +468,11 @@
 			isa = PBXTargetDependency;
 			target = 11E914FF2CABE22D00BD1CB3 /* IndoorMappingNav */;
 			targetProxy = 11E9151B2CABE22F00BD1CB3 /* PBXContainerItemProxy */;
+		};
+		11EBED002CC54F890069EE18 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 11EBECF12CC54F880069EE18 /* FlooqiClip */;
+			targetProxy = 11EBECFF2CC54F890069EE18 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -393,17 +601,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = IndoorMappingNav/IndoorMappingNav.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IndoorMappingNav/Preview Content\"";
 				DEVELOPMENT_TEAM = 53V73K3799;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IndoorMappingNav/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Flooqi uses GPS to automatically detect your current mall.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -411,6 +624,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -422,17 +636,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = IndoorMappingNav/IndoorMappingNav.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"IndoorMappingNav/Preview Content\"";
 				DEVELOPMENT_TEAM = 53V73K3799;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IndoorMappingNav/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Flooqi uses GPS to automatically detect your current mall.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -440,6 +659,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -452,7 +672,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53V73K3799;
+				DEVELOPMENT_TEAM = 6U87HWWFMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
@@ -471,7 +691,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53V73K3799;
+				DEVELOPMENT_TEAM = 6U87HWWFMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				MARKETING_VERSION = 1.0;
@@ -489,7 +709,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53V73K3799;
+				DEVELOPMENT_TEAM = 6U87HWWFMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNavUITests;
@@ -506,7 +726,7 @@
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 53V73K3799;
+				DEVELOPMENT_TEAM = 6U87HWWFMX;
 				GENERATE_INFOPLIST_FILE = YES;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNavUITests;
@@ -515,6 +735,74 @@
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = IndoorMappingNav;
+			};
+			name = Release;
+		};
+		11EBED032CC54F890069EE18 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FlooqiClip/FlooqiClip.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FlooqiClip/Preview Content\"";
+				DEVELOPMENT_TEAM = 53V73K3799;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FlooqiClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = IndoorMappingNav;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		11EBED042CC54F890069EE18 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = FlooqiClip/FlooqiClip.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"FlooqiClip/Preview Content\"";
+				DEVELOPMENT_TEAM = 53V73K3799;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = FlooqiClip/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = IndoorMappingNav;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.apq.IndoorMappingNav.Clip;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -557,7 +845,27 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
+		11EBED022CC54F890069EE18 /* Build configuration list for PBXNativeTarget "FlooqiClip" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				11EBED032CC54F890069EE18 /* Debug */,
+				11EBED042CC54F890069EE18 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		118412A72CAFCFF90062BDB2 /* MallMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MallMap;
+		};
+		11EBED072CC54FB20069EE18 /* MallMap */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = MallMap;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 11E914F82CABE22D00BD1CB3 /* Project object */;
 }

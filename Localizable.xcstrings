@@ -1,0 +1,243 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "" : {
+
+    },
+    "%@ and you have arrived at **%@**" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ and you have arrived at **%2$@**"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ dan anda telah tiba di **%2$@**"
+          }
+        }
+      }
+    },
+    "%@ and you will see **%@**" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "%1$@ and you will see **%2$@**"
+          }
+        },
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "%1$@ dan anda akan melihat **%2$@**"
+          }
+        }
+      }
+    },
+    "%@ Categories" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Kategori %@"
+          }
+        }
+      }
+    },
+    "+" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "+"
+          }
+        }
+      }
+    },
+    "2D Mode" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mode 2D"
+          }
+        }
+      }
+    },
+    "Between Nike and Adidas" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Di antara Nike dan Adidas"
+          }
+        }
+      }
+    },
+    "Cancel" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Batal"
+          }
+        }
+      }
+    },
+    "Go to the **escalator**" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pergi ke **dev**"
+          }
+        }
+      }
+    },
+    "Go to the **left** side" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pergi ke sisi **kiri**"
+          }
+        }
+      }
+    },
+    "Go to the **right** side" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Pergi ke sisi **kanan**"
+          }
+        }
+      }
+    },
+    "Jakarta Mall" : {
+
+    },
+    "Jump to End" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lompat ke Akhir"
+          }
+        }
+      }
+    },
+    "Keep going **straight**" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "**Lurus** terus"
+          }
+        }
+      }
+    },
+    "min walk" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "menit berjalan"
+          }
+        }
+      }
+    },
+    "Navigate" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Navigasi"
+          }
+        }
+      }
+    },
+    "No recent searches" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Belum ada pencarian"
+          }
+        }
+      }
+    },
+    "Recent" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Terakhir Dicari"
+          }
+        }
+      }
+    },
+    "Restart" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Mulai Ulang"
+          }
+        }
+      }
+    },
+    "Search for a store name" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Cari nama toko"
+          }
+        }
+      }
+    },
+    "See All" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lihat Semua"
+          }
+        }
+      }
+    },
+    "Steps" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Panduan"
+          }
+        }
+      }
+    },
+    "Uniqlo" : {
+
+    },
+    "View Route" : {
+      "localizations" : {
+        "id" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Lihat Rute"
+          }
+        }
+      }
+    },
+    "Where is your location?" : {
+
+    },
+    "Where to?" : {
+
+    }
+  },
+  "version" : "1.0"
+}

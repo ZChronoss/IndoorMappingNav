@@ -6,12 +6,17 @@
 //
 
 import SwiftUI
+import CloudKit
 
 @main
 struct IndoorMappingNavApp: App {
+    @StateObject private var locationManager = LocationManager()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
+                .environmentObject(locationManager)
+                .environmentObject(NavigationViewModel())
         }
     }
 }
