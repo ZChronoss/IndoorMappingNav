@@ -11,18 +11,23 @@ import CloudKit
 class CloudKitController: ObservableObject {
     private let database = CKContainer.init(identifier: "iCloud.apq.IndoorMappingNav").publicCloudDatabase
     
+    
+    // TODO: Kita harus ubah tiap mallId di database jadi disesuain sama recordName tabel Mall
+    // Buat sekarang kita agak cheat pake cara ini, tapi kalo udah pake admin keknya harus diubah, kita coba aja dlu
     func fetchStores() async throws -> [Store] {
-        let predicate = NSPredicate(value: true) // Fetch all stores
+        let predicate = NSPredicate(format: "MallId == %@", CKRecord.ID(recordName: "1")) // Fetch all stores
         //        let sort = NSSortDescriptor(key: "Id", ascending: true)
         let query = CKQuery(recordType: "Store", predicate: predicate)
         
-        let wantedField = ["Name", "Category", "Address", "Images", "Floor", "Subcategory"]
+        let wantedField = ["Name", "Category", "Address", "Images", "Floor", "Subcategory", "MallId"]
         
         let result = try await database.records(matching: query, desiredKeys: wantedField)
+        
         let records = result.matchResults.compactMap { try? $0.1.get() }
         
         return records.compactMap(Store.init)
     }
+    
     
     func fetchStoreByName(name: String) async throws -> Store {
         let predicate = NSPredicate(format: "Name == %@", name)
@@ -81,8 +86,9 @@ extension CloudKitController {
     /// This will enable the ability to query with strings
     ///
     /// MARK: Done btw
+    /// NOTE: DONT DELETE FIXDATABASE
     func fixDatabase() async throws -> Void{
-        let predicate = NSPredicate(value: true) // Fetch all stores
+        let predicate = NSPredicate(format: "MallId != %@ AND MallId != %@", CKRecord.ID(recordName: "1"), CKRecord.ID(recordName: "-1")) // Fetch all stores
         let query = CKQuery(recordType: "Store", predicate: predicate)
         
         let result = try await database.records(matching: query)
@@ -91,7 +97,7 @@ extension CloudKitController {
         for record in records {
             let formatter = DateFormatter()
             formatter.dateFormat = "yyyy/MM/dd"
-            let someDateTime = formatter.date(from: "2024/10/28")
+            let someDateTime = formatter.date(from: "2024/11/17")
             
             let date = record.modificationDate
             
@@ -103,6 +109,24 @@ extension CloudKitController {
             }
         }
     }
+    
+    func fixDatabase2() async throws -> Void{
+            let predicate = NSPredicate(format: "MallId == %@", CKRecord.ID(recordName: "1")) // Fetch all stores
+            let query = CKQuery(recordType: "Store", predicate: predicate)
+            
+            let result = try await database.records(matching: query)
+            let records = result.matchResults.compactMap { try? $0.1.get() }
+            
+            for record in records {
+                if var name = record["Name"] as? String {
+                    if name.hasSuffix(" fix") {
+                        name.removeLast(4)
+                        record.setValue(name, forKey: "Name")
+                        try await database.save(record)
+                    }
+                }
+            }
+        }
     
     func fetchStoreByCategory(category: String) async throws -> [Store] {
         guard let categoryID = mapCategoryToID(category: category) else {
