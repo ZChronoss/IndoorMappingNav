@@ -36,7 +36,7 @@ struct SearchBarDouble: View {
                     .bold()
                     .foregroundStyle(Color("TextIcon"))
             }
-            .padding(.top, 18)
+            .padding(.top, 12)
             .padding(.trailing, 8)
             
             VStack(alignment: .leading){
@@ -44,37 +44,31 @@ struct SearchBarDouble: View {
                           image: Image(systemName: "location.fill"),
                           iconColor: .blue500,
                           placeholder: "Where is your location?",
-                          label: startStoreFloor
+                          label: startStoreFloor,
+                          backgroundColor: focusedField == .start ? .highlightSearchBar : .bGnSB
                 )
                 .focused($focusedField, equals: .start)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(focusedField == .start ? .blue500 : .clear, lineWidth: 1)
-                }
                 .onTapGesture {
                     action(.start)
                 }
                 
-                VStack(alignment: .leading){
+                VStack(alignment: .leading, spacing: 4){
                     Circle()
                     Circle()
                     Circle()
                 }
-                .frame(width: 3)
+                .frame(width: 4)
                 .foregroundStyle(.blue500)
-                .padding(.leading, 25)
+                .padding(.leading, 20)
                 
                 SearchBar(searchText: $searchText2,
                           image: Image(systemName: "mappin.and.ellipse"),
                           iconColor: .blue500,
                           placeholder: "Where to?",
-                          label: destStoreFloor
+                          label: destStoreFloor,
+                          backgroundColor: focusedField == .destination ? .highlightSearchBar : .bGnSB
                 )
                 .focused($focusedField, equals: .destination)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 16)
-                        .stroke(focusedField == .destination ? .blue500 : .clear, lineWidth: 1)
-                }
                 .onTapGesture {
                     action(.destination)
                 }
@@ -91,7 +85,9 @@ struct SearchBarDouble: View {
 }
 
 #Preview {
-//    SearchBarDouble(searchText: .constant(""), searchText2: .constant("")) { _ in
-//        
-//    }
+    SearchBarDouble(searchText: .constant(""), searchText2: .constant("")) { _ in
+        
+    } instructionSheetDown: {
+        
+    }
 }

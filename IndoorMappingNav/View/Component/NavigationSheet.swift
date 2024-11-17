@@ -11,21 +11,23 @@ struct NavigationSheet: View {
     var distance: Int
     
     var body: some View {
-        HStack(alignment: .center) {
-            Text(String(distance))
-                .font(.system(.title2))
-                .foregroundColor(Color.blue)
-                .fontWeight(.bold)
-            
-            Text("min walk")
-                .font(.system(.title2))
-                .foregroundColor(Color.blue)
-            
-            Spacer()
-            
-            NavigateButton()
+        VStack {
+            HStack(alignment: .center) {
+                Text(String(distance))
+                    .font(.system(.title2))
+                    .foregroundColor(Color.blue)
+                    .fontWeight(.bold)
+                
+                Text("min walk")
+                    .font(.system(.title2))
+                    .foregroundColor(Color.blue)
+                
+                Spacer()
+                
+                NavigateButton()
+            }
         }
-        .frame(height: 100)
+        .frame(minHeight: 100)
     }
 }
 

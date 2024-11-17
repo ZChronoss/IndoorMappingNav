@@ -13,27 +13,39 @@ struct SearchBar: View {
     var iconColor: Color
     var placeholder: LocalizedStringKey = "Search for a store name"
     var label: String = ""
+    var backgroundColor: Color = Color("BGnSB")
     
     var body: some View {
-        HStack() {
+        HStack(alignment: .center) {
             image
                 .foregroundStyle(iconColor)
                 .bold()
+                .scaledToFit()
             TextField(placeholder, text: $searchText)
                 .textFieldStyle(PlainTextFieldStyle())
                 .autocorrectionDisabled()
-                .padding(8)
-                .cornerRadius(16)
                 .truncationMode(.tail)
-            Label(label.isEmpty ? "" : label, systemImage: label.isEmpty ? "microphone.fill" : "")
-                .foregroundColor(Color("SecondaryColor")) // Set warna mikrofon
-                .font(label.isEmpty ? .headline : .system(.caption, weight: .bold))
+                .font(.inputFieldText)
+            if label.isEmpty {
+                Image(systemName: "microphone.fill")
+                    .frame(height: 20)
+                    .scaledToFit()
+                    .foregroundStyle(Color("SecondaryColor"))
+            }else{
+                Text(label)
+                    .font(.system(.caption, weight: .bold))
+                    .foregroundStyle(Color("SecondaryColor"))
+            }
+//            Label(label.isEmpty ? "" : label, systemImage: label.isEmpty ? "microphone.fill" : "")
+//                .foregroundColor(Color("SecondaryColor")) // Set warna mikrofon
+////                .frame(width: 17, height: 20)
+//                .font(.system(.caption, weight: .bold))
         }
-        .padding(.horizontal, 16)
-        .padding(.vertical, 8)
-        .background(Color("BGnSB"))
-        .cornerRadius(16)
-        .shadow(radius: 4)
+        .padding(.horizontal, 12)
+        .padding(.vertical, 10)
+        .background(backgroundColor)
+        .cornerRadius(9)
+        .shadow(radius: 2)
     }
 }
 

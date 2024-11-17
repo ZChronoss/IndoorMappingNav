@@ -12,7 +12,7 @@ import RealityKit
 //extension HomeViewComponents {
 //@MainActor
 class HomeViewModel: ObservableObject {
-    private let cloudkitController = CloudKitController()
+    let cloudkitController = CloudKitController()
     /// SEARCH FUNC
     @Published var isSearching: Bool = false
     @Published var selectedDestination: Store?

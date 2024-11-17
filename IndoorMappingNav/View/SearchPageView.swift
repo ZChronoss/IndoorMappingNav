@@ -47,18 +47,19 @@ struct SearchPageView: View {
                     .environmentObject(pathfinder)
             } else {
                 let searchHistoryIsEmpty = vm.searchHistory.isEmpty
+                let searchTextIsEmpty = vm.searchText.isEmpty
                 
-                if vm.searchText.isEmpty {
+                if searchTextIsEmpty {
                     VStack(alignment: .leading) {
                         Text("Recent")
                             .font(.system(.caption, weight: .medium))
                             .foregroundStyle(Color("SecondaryColor"))
                     }
-                    .padding(.vertical, 5)
+                    .padding(.top, 10)
                     .padding(.horizontal)
                     
                 }
-                if searchHistoryIsEmpty {
+                if searchHistoryIsEmpty && searchTextIsEmpty {
                     Spacer()
                     HStack {
                         Spacer()
@@ -80,10 +81,13 @@ struct SearchPageView: View {
                     Spacer()
                 }else{
                     ScrollView {
-                        LazyVStack(spacing: 8) {
-                            ForEach(vm.searchText.isEmpty ? vm.searchHistory : vm.filteredStores) {store in
+                        LazyVStack(spacing: 10) {
+                            ForEach(searchTextIsEmpty ? vm.searchHistory : vm.filteredStores) {store in
                                 SearchResult(store: store)
                                     .onTapGesture {
+                                        // Dismiss Keyboard
+                                        UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+
                                         if !vm.hasSelectedDestination {
                                             vm.destStoreName = ""
                                             destStore = Store()
@@ -116,12 +120,13 @@ struct SearchPageView: View {
                                     }
                             }
                         }
+                        .padding(.top, 10)
                     }
                     .redacted(reason: vm.isLoading ? .placeholder : [])
                 }
             }
         }
-//        .background(.white)
+        //        .background(.white)
         .navigationBarBackButtonHidden(true)
         .onAppear() {
             vm.destStoreName = self.destStore.name ?? ""

@@ -20,7 +20,7 @@ struct ImageCarousel: View {
                         .resizable()
                         .scaledToFill()
                         .frame(height: 200)
-                        .clipShape(RoundedRectangle(cornerRadius: 25))
+                        .clipShape(RoundedRectangle(cornerRadius: 15))
                         .tag(imageIdx)
                         .padding(.horizontal, 16)
                 }

@@ -35,12 +35,11 @@ struct MapNavigateView_3D: View {
                 instructions: pathfinder.instructions,
                 pathCounts: pathfinder.pathCounts
             )
-            .padding(.top)
+            .presentationDetents([.height(100), .fraction(0.75)])
+            .presentationBackgroundInteraction(.enabled(upThrough: .height(100)))
+            .interactiveDismissDisabled()
             .presentationDragIndicator(.visible)
             .presentationContentInteraction(.scrolls)
-            .presentationDetents([.fraction(0.25), .fraction(0.75)])
-            .presentationBackgroundInteraction(.enabled(upThrough: .fraction(0.25)))
-            .interactiveDismissDisabled()
         }
 //        .task {
 //            await scene = mapLoader.getScene()

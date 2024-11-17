@@ -18,7 +18,7 @@ struct StoreDetailView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                VStack(alignment: .leading, spacing: 3) {
+                VStack(alignment: .leading, spacing: 4) {
                     // TITLE
                     Text(viewModel.store.name ?? "Error: No Store Name")
                         .font(.system(.title3))
@@ -43,6 +43,7 @@ struct StoreDetailView: View {
                         .font(.system(.caption))
                         .foregroundStyle(.secondary)
                 }
+                .padding(.bottom, 4)
                 
                 // IMAGE CAROUSEL
                 if let images = viewModel.store.images {
@@ -56,15 +57,18 @@ struct StoreDetailView: View {
                         dismiss()
                     } label: {
                         Text("View Route")
-                            .bold()
+                            .font(.buttonText)
                             .foregroundStyle(Color.white)
                             .frame(maxWidth: .infinity)
+                            .padding(.vertical, 8)
                     }
                     .buttonStyle(.borderedProminent)
+                    .clipShape(Capsule())
                 }
                 .padding(.top, 20)
             }
             .safeAreaPadding(.horizontal, 16)
+            .padding(.top, 10)
             .onAppear(perform: {
                 viewModel.store = store
                 //                Task {

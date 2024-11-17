@@ -40,86 +40,110 @@ extension Font {
         "\(fontFamily)-Semibold"
     }
     
-    /// Sizes
-    private static var preferredSizeTitle: CGFloat {
-        UIFont.preferredFont(forTextStyle: .title1).pointSize
+    static private var mediumFontName: String {
+        "\(fontFamily)-Medium"
     }
+    
+    /// Sizes
+//    private static var preferredSizeTitle: CGFloat {
+//        UIFont.preferredFont(forTextStyle: .title1).pointSize
+//    }
     
     private static var preferredLargeTitle: CGFloat {
-        UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
+//        UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
+        25.5
     }
     
-    private static var preferredExtraLargeTitle: CGFloat {
-        if #available(iOS 17.0, *) {
-            UIFont.preferredFont(forTextStyle: .extraLargeTitle).pointSize
-        } else {
-            UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
-        }
-    }
+//    private static var preferredExtraLargeTitle: CGFloat {
+//        if #available(iOS 17.0, *) {
+//            UIFont.preferredFont(forTextStyle: .extraLargeTitle).pointSize
+//        } else {
+//            UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
+//        }
+//    }
     
-    private static var preferredExtraLargeTitle2: CGFloat {
-        if #available(iOS 17.0, *) {
-            UIFont.preferredFont(forTextStyle: .extraLargeTitle2).pointSize
-        } else {
-            UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
-        }
-    }
+//    private static var preferredExtraLargeTitle2: CGFloat {
+//        if #available(iOS 17.0, *) {
+//            UIFont.preferredFont(forTextStyle: .extraLargeTitle2).pointSize
+//        } else {
+//            UIFont.preferredFont(forTextStyle: .largeTitle).pointSize
+//        }
+//    }
     
     private static var preferredTitle1: CGFloat {
         UIFont.preferredFont(forTextStyle: .title1).pointSize
+//        21
     }
     
     private static var preferredTitle2: CGFloat {
         UIFont.preferredFont(forTextStyle: .title2).pointSize
+//        16.5
     }
     
     private static var preferredTitle3: CGFloat {
         UIFont.preferredFont(forTextStyle: .title3).pointSize
+//        15
     }
     
     private static var preferredHeadline: CGFloat {
         UIFont.preferredFont(forTextStyle: .headline).pointSize
+//        12.75
     }
     
     private static var preferredSubheadline: CGFloat {
         UIFont.preferredFont(forTextStyle: .subheadline).pointSize
+//        11.25
     }
     
     private static var preferredBody: CGFloat {
         UIFont.preferredFont(forTextStyle: .body).pointSize
+//        12.75
     }
     
     private static var preferredCallout: CGFloat {
         UIFont.preferredFont(forTextStyle: .callout).pointSize
+//        12
     }
     
     private static var preferredFootnote: CGFloat {
         UIFont.preferredFont(forTextStyle: .footnote).pointSize
+//        9.75
     }
     
     private static var preferredCaption: CGFloat {
         UIFont.preferredFont(forTextStyle: .caption1).pointSize
+//        9
     }
     
     private static var preferredCaption2: CGFloat {
         UIFont.preferredFont(forTextStyle: .caption2).pointSize
+//        9.25
+    }
+    
+    /// CUSTOM MADE
+    private static var buttonTextSize: CGFloat {
+        17
+    }
+    
+    private static var inputFieldTextSize: CGFloat {
+        17
     }
     
     /// Styles
     public static var title: Font {
-        return Font.custom(regularFontName, size: preferredTitle1)
+        return Font.custom(boldFontName, size: preferredTitle1)
     }
     
     public static var title2: Font {
-        return Font.custom(regularFontName, size: preferredTitle2)
+        return Font.custom(boldFontName, size: preferredTitle2)
     }
     
     public static var title3: Font {
-        return Font.custom(regularFontName, size: preferredTitle3)
+        return Font.custom(semiBoldFontName, size: preferredTitle3)
     }
     
     public static var largeTitle: Font {
-        return Font.custom(regularFontName, size: preferredLargeTitle)
+        return Font.custom(boldFontName, size: preferredLargeTitle)
     }
     
     public static var body: Font {
@@ -127,7 +151,7 @@ extension Font {
     }
     
     public static var headline: Font {
-        return Font.custom(regularFontName, size: preferredHeadline)
+        return Font.custom(semiBoldFontName, size: preferredHeadline)
     }
     
     public static var subheadline: Font {
@@ -139,7 +163,7 @@ extension Font {
     }
     
     public static var footnote: Font {
-        return Font.custom(regularFontName, size: preferredFootnote)
+        return Font.custom(mediumFontName, size: preferredFootnote)
     }
     
     public static var caption: Font {
@@ -147,7 +171,16 @@ extension Font {
     }
     
     public static var caption2: Font {
-        return Font.custom(regularFontName, size: preferredCaption2)
+        return Font.custom(mediumFontName, size: preferredCaption2)
+    }
+    
+    /// CUSTOM MADE
+    public static var buttonText: Font {
+        return Font.custom(semiBoldFontName, size: buttonTextSize)
+    }
+    
+    public static var inputFieldText: Font {
+        return Font.custom(regularFontName, size: inputFieldTextSize)
     }
     
     public static func system(_ style: Font.TextStyle, design: Font.Design? = nil, weight: Font.Weight? = nil) -> Font {
@@ -177,10 +210,12 @@ extension Font {
             size = preferredCaption
         case .caption2:
             size = preferredCaption2
-        case .extraLargeTitle:
-            size = preferredExtraLargeTitle
-        case .extraLargeTitle2:
-            size = preferredExtraLargeTitle2
+        case .caption3:
+            size = preferredCaption
+//        case .extraLargeTitle:
+//            size = preferredExtraLargeTitle
+//        case .extraLargeTitle2:
+//            size = preferredExtraLargeTitle2
         default:
             size = preferredBody
         }
@@ -190,6 +225,8 @@ extension Font {
             font = boldFontName
         case .regular:
             font = regularFontName
+        case .medium:
+            font = mediumFontName
         case .semibold:
             font = semiBoldFontName
         default:
@@ -227,20 +264,20 @@ extension Font {
             font = regularFontName
         case .callout:
             size = preferredCallout
-            font = boldFontName
+            font = regularFontName
         case .footnote:
             size = preferredFootnote
-            font = regularFontName
+            font = mediumFontName
         case .caption:
             size = preferredCaption
             font = regularFontName
         case .caption2:
             size = preferredCaption2
-            font = boldFontName
-        case .extraLargeTitle:
-            size = preferredExtraLargeTitle
-        case .extraLargeTitle2:
-            size = preferredExtraLargeTitle2
+            font = mediumFontName
+//        case .extraLargeTitle:
+//            size = preferredExtraLargeTitle
+//        case .extraLargeTitle2:
+//            size = preferredExtraLargeTitle2
         default:
             size = preferredBody
             font = regularFontName
@@ -257,6 +294,8 @@ extension Font {
             font = boldFontName
         case .regular:
             font = regularFontName
+        case .medium:
+            font = mediumFontName
         case .semibold:
             font = semiBoldFontName
         default:

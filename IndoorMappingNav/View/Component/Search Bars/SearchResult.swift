@@ -24,7 +24,7 @@ struct SearchResult: View {
             }
             .background(Color("CategoryCard"))
             .clipShape(Circle())
-            .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.1), radius: 8, x: 0, y: 0)
+            .shadow(color: Color(red: 0, green: 0, blue: 0, opacity: 0.1), radius: 4, x: 0, y: 0)
             
             VStack(alignment: .leading) {
                 Text(store?.name ?? "Error: No Store Name")

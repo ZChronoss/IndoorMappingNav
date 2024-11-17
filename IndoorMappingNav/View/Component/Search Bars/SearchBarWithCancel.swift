@@ -18,17 +18,13 @@ struct SearchBarWithCancel: View {
     
     var body: some View {
         VStack {
-            HStack(spacing: 20) {
+            HStack(spacing: 8) {
                 SearchBar(searchText: $searchText, image: Image(systemName: "magnifyingglass"), iconColor: .secondary)
                     .focused($isActive)
                     .animation(.easeOut, value: isActive)
                     .transition(.slide)
                 
                 Button("Cancel", action: {
-                    //                        withAnimation {
-                    //                            isActive = false
-                    //                        }
-                    //                        searchText = ""
                     dismiss()
                 })
             }

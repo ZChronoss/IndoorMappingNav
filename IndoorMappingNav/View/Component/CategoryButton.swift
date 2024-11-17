@@ -20,12 +20,13 @@ struct CategoryButton: View {
                 categoryImage
                     .resizable()  // Membuat gambar dapat diubah ukurannya
                     .renderingMode(.template) 
-                    .frame(width: 20, height: 20)
+                    .frame(width: 13, height: 14)
                     .foregroundColor(isSelected ? .white : categoryColor)
                     .tint(isSelected ? .white : categoryColor)
                     
                 Text(categoryName)
                     .foregroundColor(isSelected ? .white : categoryColor)
+                    .font(.system(.caption))
             }
             .padding(.horizontal, 10)
             .padding(.vertical, 8)

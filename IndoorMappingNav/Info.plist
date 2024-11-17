@@ -6,6 +6,7 @@
 	<array>
 		<string>SFProText-Bold.otf</string>
 		<string>SFProText-Regular.otf</string>
+		<string>SFProText-Medium.otf</string>
 		<string>SFProText-Semibold.otf</string>
 	</array>
 	<key>UIBackgroundModes</key>

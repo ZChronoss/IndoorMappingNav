@@ -51,6 +51,7 @@ extension SearchPageView {
         init() {
             Task {
                 await getStores()
+                print(stores)
                 searchHistory = getStoreFromDefault() ?? []
             }
         }
@@ -71,12 +72,12 @@ extension SearchPageView {
             self.isLoading = true
             
             do {
-                guard let stores = try? await cloudkitController.fetchStores() else {
+                guard let gotStores = try? await cloudkitController.fetchStores() else {
                     self.stores = []
                     return
                 }
                 await MainActor.run {
-                    self.stores = stores
+                    self.stores = gotStores
                 }
             }
             

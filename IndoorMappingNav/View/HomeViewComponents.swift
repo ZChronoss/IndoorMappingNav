@@ -25,7 +25,7 @@ struct HomeViewComponents: View {
                     
                     VStack(spacing: 0) {
                         HStack {
-                            Text("Summarecon Mall Serpong")
+                            Text("Jakarta Mall")
                                 .font(.system(size: 22, weight: .bold))
                                 .foregroundColor(Color("TextIcon"))
                             Spacer()
@@ -100,7 +100,8 @@ struct HomeViewComponents: View {
                     .padding(.horizontal)
                     .padding(.vertical, 1)
                 }
-                .padding(.top, 16)
+                .padding(.top, 8)
+                .padding(.horizontal, 4)
                 
                 Spacer()  //Push the RealityView to the bottom
             }

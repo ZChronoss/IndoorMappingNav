@@ -25,7 +25,7 @@ struct NavigationSheetDetail: View {
             .padding(.top, 5)
 
             ScrollView {
-                VStack(alignment: .leading) {
+                LazyVStack(alignment: .leading) {
                     ForEach(0 ..< instructions.count, id: \.self ) { idx in
                         StepCard(iconImage: instructions[idx].icon,
                                  direction: instructions[idx].instruction,
@@ -39,8 +39,6 @@ struct NavigationSheetDetail: View {
 
         }
         .padding(.horizontal, 24)
-        
-        
     }
 }
 
