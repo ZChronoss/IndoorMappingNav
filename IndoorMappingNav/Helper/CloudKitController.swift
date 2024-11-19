@@ -35,7 +35,9 @@ class CloudKitController: ObservableObject {
             cursor = nextResult.queryCursor
         }
         
-        return records.compactMap(Store.init)
+        let stores = records.compactMap(Store.init)
+        
+        return stores
     }
     
     

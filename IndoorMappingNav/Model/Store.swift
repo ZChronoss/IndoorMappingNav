@@ -16,6 +16,7 @@ class Store: Identifiable, CloudKitRecordInitializable {
     var images: [Data?]?
     var floor: String?
     var mallId: CKRecord.Reference?
+    var subcategory: [String]?
     
     init(){
         self.id = CKRecord.ID(recordName: UUID().uuidString)
@@ -36,6 +37,10 @@ class Store: Identifiable, CloudKitRecordInitializable {
 //        self.images = record["Images"] as? [CKAsset?]
         self.floor = record["Floor"] as? String
         self.mallId = record["MallId"] as? CKRecord.Reference
+        
+        if let subcategoryData = record["Subcategory"] as? String {
+            self.subcategory = subcategoryData.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+        }
     }
     
     private func processImage(imageRecords: [CKAsset?]?) -> [Data?] {
@@ -74,7 +79,5 @@ class Store: Identifiable, CloudKitRecordInitializable {
         }
         return category
     }
-    
-    
 }
 
