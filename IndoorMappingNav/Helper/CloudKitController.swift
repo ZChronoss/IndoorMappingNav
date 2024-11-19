@@ -25,7 +25,9 @@ class CloudKitController: ObservableObject {
         
         let records = result.matchResults.compactMap { try? $0.1.get() }
         
-        return records.compactMap(Store.init)
+        let stores = records.compactMap(Store.init)
+        
+        return stores
     }
     
     
