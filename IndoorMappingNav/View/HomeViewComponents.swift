@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeViewComponents: View {
     @EnvironmentObject var vm: HomeViewModel
+    @StateObject var mapLoader = MapLoader.shared
 
     @State var isSheetOpen = false
     @Binding var selectedCategory: String
@@ -71,7 +72,7 @@ struct HomeViewComponents: View {
 
                 }) {
                     NavigationStack {
-                        CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent)
+                        CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent, categoryColor: vm.categories.first(where: { $0.name.rawValue == selectedCategory })?.color ?? .gray)
                     }
                 }
                 
@@ -92,6 +93,7 @@ struct HomeViewComponents: View {
                                     vm.moveDownEntitiesInCategory(category.name.rawValue) // Reset entities for this category
                                 } else {
                                     // Otherwise, select the new category
+                                    
                                     vm.updateCategory(category.name.rawValue)
                                     selectedCategory = vm.selectedCategory
                                     vm.isCategorySheetOpen = true

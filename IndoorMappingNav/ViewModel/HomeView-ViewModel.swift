@@ -45,6 +45,8 @@ class HomeViewModel: ObservableObject {
     @Published var selectedCategory: String = ""
     @Published var previousCategory: String = ""  // Store previous category
     
+    @Published var isEntitiesCategorized: Bool = false // Tambahkan properti ini
+    
     var categories: [StoreCategory] = [
         StoreCategory(name: .fnb),
         StoreCategory(name: .shopping),
@@ -254,7 +256,6 @@ class HomeViewModel: ObservableObject {
     // Function to categorize entities in the scene
     func categorizeEntitiesInScene(_ scene: Entity) {
         // Iterate over all child entities of the scene
-        
         for entity in scene.children {
             
             // Loop through all the stores in stores[]
@@ -263,6 +264,15 @@ class HomeViewModel: ObservableObject {
             }
             // Recursively categorize child entities
             categorizeEntitiesInScene(entity)
+        }
+    }
+    
+    func printCategoryStoreTarget() {
+        for (category, entities) in categoryStoreTarget {
+                print("\(category):")
+            for entity in entities {
+                    print("  - \(entity.name)")
+            }
         }
     }
     

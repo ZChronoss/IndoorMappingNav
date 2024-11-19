@@ -14,7 +14,7 @@ struct StoreDetailView: View {
     var store: Store
     
     var showRoute: (_ store: Store) -> Void
-    
+
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {

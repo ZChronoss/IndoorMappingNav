@@ -26,6 +26,7 @@ struct HomeView: View {
     @State private var lastSelectedCategory: String = "Food & Beverage" // Track the last selected category
     
     @StateObject var mapLoader = MapLoader()
+    
     var body: some View {
         NavigationStack {
             ZStack {
@@ -61,7 +62,9 @@ struct HomeView: View {
         .onAppear(){
             Task {
                 await vm.getStores()
+                await vm.categorizeEntitiesInScene(mapLoader.getScene())
             }
+            
         }
     }
 }
