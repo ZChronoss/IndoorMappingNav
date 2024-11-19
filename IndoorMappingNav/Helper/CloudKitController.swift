@@ -20,10 +20,20 @@ class CloudKitController: ObservableObject {
         let query = CKQuery(recordType: "Store", predicate: predicate)
         
         let wantedField = ["Name", "Category", "Address", "Images", "Floor", "Subcategory", "MallId"]
+        let maxResult = CKQueryOperation.maximumResults
         
-        let result = try await database.records(matching: query, desiredKeys: wantedField)
+        let result = try await database.records(matching: query, desiredKeys: wantedField, resultsLimit: maxResult)
         
-        let records = result.matchResults.compactMap { try? $0.1.get() }
+        var records = result.matchResults.compactMap { try? $0.1.get() }
+        
+        var cursor = result.queryCursor
+        
+        while cursor != nil {
+            let nextResult = try await database.records(continuingMatchFrom: cursor!)
+            let nextRecords = nextResult.matchResults.compactMap{ try? $0.1.get() }
+            records.append(contentsOf: nextRecords)
+            cursor = nextResult.queryCursor
+        }
         
         let stores = records.compactMap(Store.init)
         
