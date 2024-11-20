@@ -52,7 +52,7 @@ extension SearchPageView {
             Task {
                 await getStores(mallId: "-1")
                 
-//                searchHistory = getStoreFromDefault() ?? []
+                searchHistory = getStoreFromDefault() ?? []
             }
         }
         
