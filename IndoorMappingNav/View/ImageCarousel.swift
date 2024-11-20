@@ -18,7 +18,7 @@ struct ImageCarousel: View {
                 if let data = images[imageIdx], let image = UIImage(data: data) {
                     Image(uiImage: image)
                         .resizable()
-                        .scaledToFill()
+                        .scaledToFit()
                         .frame(height: 200)
                         .clipShape(RoundedRectangle(cornerRadius: 15))
                         .tag(imageIdx)
@@ -30,7 +30,7 @@ struct ImageCarousel: View {
         .indexViewStyle(PageIndexViewStyle(backgroundDisplayMode: .never))
         .frame(height: 200)
         .onChange(of: selectedImageIdx) { oldValue, newValue in
-            print("hai")
+            
         }
     }
     

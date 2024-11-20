@@ -51,7 +51,6 @@ extension SearchPageView {
         init() {
             Task {
                 await getStores(mallId: "-1")
-                print(stores)
                 
                 searchHistory = getStoreFromDefault() ?? []
             }
