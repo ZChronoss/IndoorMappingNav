@@ -68,7 +68,7 @@ class HomeViewModel: ObservableObject {
         }
         
         do {
-            guard let stores = try? await cloudkitController.fetchStores() else {
+            guard let stores = try? await cloudkitController.fetchStores(mallId: 1) else {
                 self.stores = []
                 return
             }

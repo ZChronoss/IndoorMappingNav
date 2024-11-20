@@ -33,7 +33,7 @@ extension CategorySheet {
         func getStores() async {
             isLoading = true
             do {
-                self.stores = try await cloudKitController.fetchStores()
+                self.stores = try await cloudKitController.fetchStores(mallId: 1)
             } catch {
                 print("Error: Data fetching failed (\(error.localizedDescription))")
             }

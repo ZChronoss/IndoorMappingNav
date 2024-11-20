@@ -73,7 +73,7 @@ extension SearchPageView {
             self.isLoading = true
             
             do {
-                guard let gotStores = try? await cloudkitController.fetchStores() else {
+                guard let gotStores = try? await cloudkitController.fetchStores(mallId: 1) else {
                     self.stores = []
                     return
                 }
