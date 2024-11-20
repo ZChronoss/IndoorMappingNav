@@ -105,6 +105,7 @@
 				View/Component/CategoryButton.swift,
 				View/Component/CustomBadge.swift,
 				View/Component/CustomCornerShape.swift,
+				View/Component/DropdownView.swift,
 				View/Component/FirstStepCard.swift,
 				"View/Component/Floor Button/FloorButton.swift",
 				"View/Component/Floor Button/FloorButtons.swift",

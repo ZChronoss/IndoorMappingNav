@@ -30,10 +30,10 @@ extension CategorySheet {
             return storesByCategory
         }
         
-        func getStores() async {
+        func getStores(mallId: String) async {
             isLoading = true
             do {
-                self.stores = try await cloudKitController.fetchStores(mallId: 1)
+                self.stores = try await cloudKitController.fetchStores(mallId: mallId)
             } catch {
                 print("Error: Data fetching failed (\(error.localizedDescription))")
             }
