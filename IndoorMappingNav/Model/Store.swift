@@ -13,7 +13,12 @@ class Store: Identifiable, CloudKitRecordInitializable {
     var name: String?
     var category: StoreCategory?
     var address: String?
+    var description: String? = nil
+    
+    // Asset Property
     var images: [Data?]?
+    var logo: Data? = nil
+    
     var floor: String?
     var mallId: CKRecord.Reference?
     var subcategory: [String]?
@@ -27,14 +32,23 @@ class Store: Identifiable, CloudKitRecordInitializable {
         self.name = record["Name"] as? String
         
         let categoryId = record["Category"] as? Int64
-        
         self.category = getCategory(num: categoryId ?? 7)
+        
+        self.description = record["Description"] as? String
         self.address = record["Address"] as? String
         
         let imagesRecord = record["Images"] as? [CKAsset?]
+        let logoRecord = record["Logo"] as? CKAsset
         
         self.images = processImage(imageRecords: imagesRecord)
-//        self.images = record["Images"] as? [CKAsset?]
+        self.logo = {
+            var data = Data()
+            if let url = logoRecord?.fileURL {
+                data = try! Data(contentsOf: url)
+            }
+            return data
+        }()
+        
         self.floor = record["Floor"] as? String
         self.mallId = record["MallId"] as? CKRecord.Reference
         
