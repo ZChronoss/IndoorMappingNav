@@ -18,32 +18,44 @@ struct StoreDetailView: View {
     var body: some View {
         NavigationStack {
             VStack(alignment: .leading) {
-                VStack(alignment: .leading, spacing: 4) {
-                    // TITLE
-                    Text(viewModel.store.name ?? "Error: No Store Name")
-                        .font(.system(.title3))
+                HStack(spacing: 18){
                     
-                    // CATEGORY
-                    HStack(spacing: 2) {
-                        Image(viewModel.store.category?.image ?? "")
-                            .resizable()
-                            .renderingMode(.template)
-                            .frame(width: 13, height: 13)
-                            .foregroundStyle(viewModel.store.category?.color ?? .other)
-                            .tint(viewModel.store.category?.color ?? .other)
+                    if let data = viewModel.store.logo, let image = UIImage(data: data) {
                         
-                        Text(viewModel.store.category?.name.rawValue ?? "Error: No Category")
-                            .font(.system(.caption))
-                            .bold()
-                            .foregroundStyle(viewModel.store.category?.color ?? .black)
+                        Image(uiImage: image)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80)
+                            .clipShape(RoundedRectangle(cornerRadius: 18))
                     }
                     
-                    // ADDRESS
-                    Text((viewModel.store.address ?? "") + ", " + (viewModel.store.floor ?? "Error: No Address"))
-                        .font(.system(.caption))
-                        .foregroundStyle(.secondary)
+                    VStack(alignment: .leading, spacing: 4) {
+                        // TITLE
+                        Text(viewModel.store.name ?? "Error: No Store Name")
+                            .font(.system(.title3))
+                        
+                        // CATEGORY
+                        HStack(spacing: 2) {
+                            Image(viewModel.store.category?.image ?? "")
+                                .resizable()
+                                .renderingMode(.template)
+                                .frame(width: 13, height: 13)
+                                .foregroundStyle(viewModel.store.category?.color ?? .other)
+                                .tint(viewModel.store.category?.color ?? .other)
+                            
+                            Text(viewModel.store.category?.name.rawValue ?? "Error: No Category")
+                                .font(.system(.caption))
+                                .bold()
+                                .foregroundStyle(viewModel.store.category?.color ?? .black)
+                        }
+                        
+                        // ADDRESS
+                        Text((viewModel.store.address ?? "") + ", " + (viewModel.store.floor ?? "Error: No Address"))
+                            .font(.system(.caption))
+                            .foregroundStyle(.secondary)
+                    }
+                    .padding(.bottom, 4)
                 }
-                .padding(.bottom, 4)
                 
                 // IMAGE CAROUSEL
                 if let images = viewModel.store.images {
@@ -84,7 +96,9 @@ struct StoreDetailView: View {
 }
 
 #Preview {
-    //        StoreDetailView()
-    HomeView()
+    StoreDetailView(store: Store(), showRoute: { store in
+        
+    })
+//    HomeView()
 }
 

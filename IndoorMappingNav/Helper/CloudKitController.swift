@@ -19,7 +19,7 @@ class CloudKitController: ObservableObject {
         //        let sort = NSSortDescriptor(key: "Id", ascending: true)
         let query = CKQuery(recordType: "Store", predicate: predicate)
         
-        let wantedField = ["Name", "Category", "Address", "Images", "Floor", "Subcategory", "MallId"]
+        let wantedField = ["Name", "Category", "Address", "Images", "Logo", "Floor", "Subcategory", "Description"]
         let maxResult = CKQueryOperation.maximumResults
         
         let result = try await database.records(matching: query, desiredKeys: wantedField, resultsLimit: maxResult)
