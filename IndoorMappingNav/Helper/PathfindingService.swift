@@ -72,13 +72,23 @@ class PathfindingService: ObservableObject {
                     groundPosition.z + z
                 )
                 
+                                                                let markerPosition = SCNVector3(
+                                                                    groundPosition.x + x,
+                                                                    0.5,  // Slightly above the ground plane
+                                                                    groundPosition.z + z
+                                                                )
+                
                 if checkForPath(at: simd_float3(nodePosition), type: .path) {
                     let pathNode = pathfinder.addNode(at: nodePosition, type: .path)
+                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
+                                                                                loadedScene.addChild(marker)
                     pathNodes.append(pathNode)
                 }
                 
                 if checkForPath(at: simd_float3(nodePosition), type: .intersection) {
                     let interNode = pathfinder.addNode(at: nodePosition, type: .intersection)
+                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
+                                                                                loadedScene.addChild(marker)
                     interNodes.append(interNode)
                 }
             }
