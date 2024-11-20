@@ -54,7 +54,7 @@ struct HomeViewComponents: View {
                         vm.isSearching = true
                         isSheetOpen = false
                     }
-                    .presentationDetents([.fraction(0.5)])
+                    .presentationDetents([.fraction(0.55)])
                     //                    .presentationBackgroundInteraction(.enabled)
                 }
                 .sheet(isPresented: $vm.isCategorySheetOpen, onDismiss: {

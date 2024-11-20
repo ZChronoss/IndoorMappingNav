@@ -21,12 +21,12 @@ struct StoreDetailView: View {
                 HStack(spacing: 18){
                     
                     if let data = viewModel.store.logo, let image = UIImage(data: data) {
-                        
                         Image(uiImage: image)
                             .resizable()
                             .scaledToFit()
-                            .frame(width: 80)
+                            .frame(width: 80, height: 80)
                             .clipShape(RoundedRectangle(cornerRadius: 18))
+                            .padding(.bottom, 10)
                     }
                     
                     VStack(alignment: .leading, spacing: 4) {
