@@ -47,6 +47,8 @@ class HomeViewModel: ObservableObject {
     
     @Published var isEntitiesCategorized: Bool = false // Tambahkan properti ini
     
+    @Published var mallId: String = "1"
+    
     var categories: [StoreCategory] = [
         StoreCategory(name: .fnb),
         StoreCategory(name: .shopping),
@@ -62,13 +64,13 @@ class HomeViewModel: ObservableObject {
         selectedCategory = newCategory        // Update the current category
     }
     
-    func getStores() async {
+    func getStores(mallId: String) async {
         DispatchQueue.main.async {
             self.isLoading = true
         }
         
         do {
-            guard let stores = try? await cloudkitController.fetchStores() else {
+            guard let stores = try? await cloudkitController.fetchStores(mallId: mallId) else {
                 self.stores = []
                 return
             }
