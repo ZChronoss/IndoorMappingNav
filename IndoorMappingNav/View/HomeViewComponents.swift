@@ -10,6 +10,7 @@ import SwiftUI
 struct HomeViewComponents: View {
     @EnvironmentObject var vm: HomeViewModel
     @StateObject var mapLoader = MapLoader.shared
+    @StateObject var csVM = CategorySheet.ViewModel()
 
     @State var isSheetOpen = false
     @Binding var selectedCategory: String
