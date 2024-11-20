@@ -28,6 +28,7 @@ struct StoreCard: View {
                             topTrailingRadius: 8
                         )
                     )
+                    .contentShape(Path(CGRect(x: 0, y: 0, width: 159, height: 102)))
             } else {
                 // Placeholder view if the image is not available
                 Rectangle()

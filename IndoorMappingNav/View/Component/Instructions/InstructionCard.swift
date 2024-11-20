@@ -64,5 +64,5 @@ struct InstructionCard: View {
 
 #Preview {
     @State var focusedCard: Int = 1
-    InstructionCard(icon: Directions.straight.icon, direction: Directions.left.instruction, store: "Hai", isFirst: true, isLast: false, focusedCard: $focusedCard, maxCards: 2)
+    InstructionCard(icon: Directions.straight.icon, direction: Directions.left.instruction, store: "Hai", isFirst: false, isLast: true, focusedCard: $focusedCard, maxCards: 2)
 }

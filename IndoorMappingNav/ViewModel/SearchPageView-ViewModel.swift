@@ -66,6 +66,7 @@ extension SearchPageView {
             return stores.filter { (store) -> Bool in
                 return (store.name?.lowercased().starts(with: lowercasedText) ?? false)
             }
+            
         }
         
         func getStores(mallId: String) async {
@@ -92,11 +93,11 @@ extension SearchPageView {
             
             // Loop through the names and search for the store by name
             for name in names {
-                let store = stores.first { store in
+                if let store = stores.first(where: { store in
                     store.name == name
+                }){
+                    defaultStores.append(store)
                 }
-                
-                defaultStores.append(store!)
             }
             
             return defaultStores.reversed()
