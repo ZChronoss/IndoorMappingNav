@@ -3,19 +3,18 @@
     customLayerData = {
         string creator = "Reality Composer Pro Version 2.0 (448.0.16.0.3)"
     }
-    defaultPrim = "Denah_KantorGOP"
+    defaultPrim = "ADA"
     metersPerUnit = 1
     upAxis = "Y"
 )
 
-def "Denah_KantorGOP" (
+def "ADA" (
     active = true
-    references = @Denah KantorGOP.usdz@
+    references = @ADA.usdz@
 )
 {
-    quatf xformOp:orient = (1, 0, 0, 0)
-    float3 xformOp:scale = (1, 1, 1)
-    float3 xformOp:translate = (0, 0, 0)
+    float3 xformOp:scale = (3, 3, 3)
+    float3 xformOp:translate = (-0.26036367, 0, 0.5556294)
     uniform token[] xformOpOrder = ["xformOp:translate", "xformOp:orient", "xformOp:scale"]
 
     over "Geom"
@@ -354,15 +353,6 @@ def "Denah_KantorGOP" (
         }
 
         over "pwy__040"
-        {
-            def RealityKitComponent "HierarchicalFade"
-            {
-                uniform token info:id = "RealityKit.HierarchicalFade"
-                float opacity = 0
-            }
-        }
-
-        over "pwy__042"
         {
             def RealityKitComponent "HierarchicalFade"
             {
@@ -1173,15 +1163,6 @@ def "Denah_KantorGOP" (
         }
 
         over "PSP_020"
-        {
-            def RealityKitComponent "HierarchicalFade"
-            {
-                uniform token info:id = "RealityKit.HierarchicalFade"
-                float opacity = 0
-            }
-        }
-
-        over "PSP_021"
         {
             def RealityKitComponent "HierarchicalFade"
             {

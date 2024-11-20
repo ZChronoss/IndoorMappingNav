@@ -14,8 +14,8 @@ class CloudKitController: ObservableObject {
     
     // TODO: Kita harus ubah tiap mallId di database jadi disesuain sama recordName tabel Mall
     // Buat sekarang kita agak cheat pake cara ini, tapi kalo udah pake admin keknya harus diubah, kita coba aja dlu
-    func fetchStores() async throws -> [Store] {
-        let predicate = NSPredicate(format: "MallId == %@", CKRecord.ID(recordName: "1")) // Fetch all stores
+    func fetchStores(mallId: String) async throws -> [Store] {
+        let predicate = NSPredicate(format: "MallId == %@", CKRecord.ID(recordName: mallId)) // Fetch all stores
         //        let sort = NSSortDescriptor(key: "Id", ascending: true)
         let query = CKQuery(recordType: "Store", predicate: predicate)
         
