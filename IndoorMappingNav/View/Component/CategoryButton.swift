@@ -31,12 +31,12 @@ struct CategoryButton: View {
             .padding(.horizontal, 10)
             .padding(.vertical, 8)
             .background(
-                RoundedRectangle(cornerRadius: 16)
+                RoundedRectangle(cornerRadius: 12)
                     .fill(isSelected ? categoryColor : Color("BGnSB"))
                     .shadow(color: isSelected ? .clear : Color.black.opacity(0.25), radius: 2, x: 0, y: 0)
             )
-            
         }
+        .padding(.vertical, 2)
     }
 }
 

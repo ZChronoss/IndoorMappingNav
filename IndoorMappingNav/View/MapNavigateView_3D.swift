@@ -40,18 +40,12 @@ struct MapNavigateView_3D: View {
                 pathCounts: pathfinder.pathCounts,
                 currentScene: vm.scene
             )
-            .presentationDetents([.height(100), .fraction(0.75)])
-            .presentationBackgroundInteraction(.enabled(upThrough: .height(100)))
+            .presentationDetents([.height(200), .fraction(0.75)])
+            .presentationBackgroundInteraction(.enabled(upThrough: .height(200)))
             .interactiveDismissDisabled()
             .presentationDragIndicator(.visible)
             .presentationContentInteraction(.scrolls)
         }
-//        .task {
-//            await scene = mapLoader.getScene()
-//            pathfinder.setupPath(loadedScene: scene ?? Entity())
-//            
-//            pathfinder.startNavigation(start: start, end: end)
-//        }
         .onAppear() {
             let newStart = start.replacingOccurrences(of: " ", with: "_")
             vm.start = newStart
