@@ -21,12 +21,6 @@ struct CategorySheet: View {
 
     var body: some View {
         VStack(alignment: .leading) {
-            HStack {
-                Text("")
-            }
-            .padding(.top, 10)
-
-            
             HStack(alignment: .center) {
                 Text(categoryName)
                     .font(Font.system(.title3))
@@ -48,6 +42,7 @@ struct CategorySheet: View {
                     .cornerRadius(12)
                 }
             }
+            .padding(.top, 10)
             .padding(.bottom, 16)
 
             // Show the ScrollView for subcategories only if it contains items
@@ -61,14 +56,21 @@ struct CategorySheet: View {
             }
 
             ScrollView {
-                LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], spacing: 10) {
+                LazyVGrid(columns: [GridItem(.adaptive(minimum: 500))], spacing: 10) {
                     ForEach(viewModel.filteredStores) { store in
-                        StoreCard(store: store, color: store.category?.color ?? .gray)
+                        StoreADACard(store: store, color: store.category?.color ?? .gray)
                             .onTapGesture {
                                 print("Store Name \(store.name)")
                                 selectedStore = store
                                 isStoreSheetOpen = true
                             }
+                        
+//                        StoreCard(store: store, color: store.category?.color ?? .gray)
+//                            .onTapGesture {
+//                                print("Store Name \(store.name)")
+//                                selectedStore = store
+//                                isStoreSheetOpen = true
+//                            }
                     }
                 }
             }

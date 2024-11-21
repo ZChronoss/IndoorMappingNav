@@ -100,6 +100,7 @@
 				Model/Mall.swift,
 				Model/Store.swift,
 				Model/SubCategory.swift,
+				View/Component/ADA/StoreADACard.swift,
 				"View/Component/Button Instruction/JumpToEndButton.swift",
 				"View/Component/Button Instruction/RestartButton.swift",
 				View/Component/CategoryButton.swift,

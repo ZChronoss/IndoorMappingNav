@@ -15,6 +15,14 @@ enum CategoryType: String{
     case hnb = "Health & Beauty" // 5
     case entertainment = "Entertainment" // 6
     case other = "Other" // 7
+    
+    // ADA
+    case com = "Community Improvement" // 10
+    case tech = "Technology Innovation" // 11
+    case inter = "Interactive Experience" // 12
+    case social = "Social Impact" // 13
+    case game = "Game & Entertainment" // 14
+    case everyday = "Everyday Life" // 15
 }
 
 class StoreCategory {
@@ -56,6 +64,26 @@ class StoreCategory {
             self.color = .other
             self.image = "other"
             break
+            
+        // ADA
+        case .com:
+            self.color = .com
+            self.image = "communityImprovement"
+        case .tech:
+            self.color = .tech
+            self.image = "technologyInnovation"
+        case .inter:
+            self.color = .inter
+            self.image = "interactiveExperience"
+        case .social:
+            self.color = .social
+            self.image = "socialImpact"
+        case .game:
+            self.color = .game
+            self.image = "gameAndEntertainment"
+        case .everyday:
+            self.color = .everyday
+            self.image = "everydayLife"
         }
     }
     
