@@ -10,9 +10,11 @@ import SwiftUI
 struct HomeViewComponents: View {
     @EnvironmentObject var vm: HomeViewModel
     @StateObject var mapLoader = MapLoader.shared
+    @StateObject var csVM = CategorySheet.ViewModel()
 
     @State var isSheetOpen = false
     @Binding var selectedCategory: String
+    @State private var selectedOption: String = "Apple Developer Academy"
     
     var body: some View {
         NavigationStack {
@@ -25,17 +27,9 @@ struct HomeViewComponents: View {
                         .frame(height: 95) // Adjust this value to control how far down the rectangle extends
                     
                     VStack(spacing: 0) {
-                        HStack {
-                            Text("Jakarta Mall")
-                                .font(.system(size: 22, weight: .bold))
-                                .foregroundColor(Color("TextIcon"))
-                            Spacer()
-                            Image(systemName: "chevron.down")
-                                .foregroundColor(Color("TextIcon"))
-                        }
-                        .padding(.top, 20)
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 16)
+                        DropdownView(selectedOption: $selectedOption)
+                            .background(Color.white)
+                            .environmentObject(vm)
                         
                         SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: Color("SecondaryColor"))
                             .padding(.horizontal, 20)
@@ -61,15 +55,15 @@ struct HomeViewComponents: View {
                         isSheetOpen = false
                     }
                     .presentationDetents([.fraction(0.5)])
-//                    .presentationBackgroundInteraction(.enabled)
+                    //                    .presentationBackgroundInteraction(.enabled)
                 }
                 .sheet(isPresented: $vm.isCategorySheetOpen, onDismiss: {
                     // Clear the selected category when the sheet is dismissed
                     vm.moveDownEntitiesInCurrentCategory(selectedCategory) // Reset entities for this category
                     selectedCategory = ""
                     vm.updateCategory("") // Ensure the category is updated accordingly in the view model
-
-
+                    
+                    
                 }) {
                     NavigationStack {
                         CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent, categoryColor: vm.categories.first(where: { $0.name.rawValue == selectedCategory })?.color ?? .gray)

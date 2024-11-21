@@ -1,13 +1,13 @@
 //
-//  CategoryStoreCard.swift
+//  StoreADACard.swift
 //  IndoorMappingNav
 //
-//  Created by Michael Varian Kostaman on 17/10/24.
+//  Created by Michael Varian Kostaman on 20/11/24.
 //
 
 import SwiftUI
 
-struct StoreCard: View {
+struct StoreADACard: View {
     var store: Store
     var color: Color
     
@@ -54,9 +54,9 @@ struct StoreCard: View {
                     .lineLimit(1) // Limit to a single line
                     .truncationMode(.tail)
 
-                Text(store.category?.name.rawValue ?? "Unknown Category")
-                    .font(.caption)
-                    .foregroundColor(Color("SecondaryColor"))
+//                Text(store.category?.name.rawValue ?? "Unknown Category")
+//                    .font(.caption)
+//                    .foregroundColor(Color("SecondaryColor"))
             }
 
             Text(store.floor ?? "Unknown Floor")
@@ -68,20 +68,6 @@ struct StoreCard: View {
         .background(Color("CategoryCard"))
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.19), radius: 5)
-    }
-}
-
-struct RoundedCornersShape: Shape {
-    var radius: CGFloat
-    var corners: UIRectCorner
-
-    func path(in rect: CGRect) -> Path {
-        let path = UIBezierPath(
-            roundedRect: rect,
-            byRoundingCorners: corners,
-            cornerRadii: CGSize(width: radius, height: radius)
-        )
-        return Path(path.cgPath)
     }
 }
 

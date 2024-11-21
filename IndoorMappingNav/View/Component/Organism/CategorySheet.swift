@@ -63,11 +63,19 @@ struct CategorySheet: View {
             ScrollView {
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 160))], spacing: 10) {
                     ForEach(viewModel.filteredStores) { store in
-                        StoreCard(store: store, color: store.category?.color ?? .gray)
+                        StoreADACard(store: store, color: store.category?.color ?? .gray)
                             .onTapGesture {
+                                print("Store Name \(store.name)")
                                 selectedStore = store
                                 isStoreSheetOpen = true
                             }
+                        
+//                        StoreCard(store: store, color: store.category?.color ?? .gray)
+//                            .onTapGesture {
+//                                print("Store Name \(store.name)")
+//                                selectedStore = store
+//                                isStoreSheetOpen = true
+//                            }
                     }
                 }
             }

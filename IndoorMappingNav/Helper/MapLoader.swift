@@ -15,7 +15,7 @@ class MapLoader: ObservableObject {
     static let shared = MapLoader()
     var scene: Entity? = nil
     var scale: Float = 0.2
-    private var mapName = "Test2"
+    @Published var mapName: String = "AppleDev" //MARK: Buat start navigation masih belum ke ubah
     
     init() {
                 Task{
@@ -34,10 +34,11 @@ class MapLoader: ObservableObject {
     
     
     func getScene() async -> Entity {
-        if scene == nil {
-            await loadScene()
-        }
-        
+        await loadScene()
+//        if scene == nil {
+//            await loadScene()
+//        }
+//        
         guard let scene = scene else {
             print("Scene is still not loaded.")
             return await Entity()

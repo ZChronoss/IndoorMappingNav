@@ -74,6 +74,21 @@ class Store: Identifiable, CloudKitRecordInitializable {
             category = StoreCategory(name: .entertainment)
         case 7:
             category = StoreCategory(name: .other)
+            
+        // ADA
+        case 10:
+            category = StoreCategory(name: .com)
+        case 11:
+            category = StoreCategory(name: .tech)
+        case 12:
+            category = StoreCategory(name: .inter)
+        case 13:
+            category = StoreCategory(name: .social)
+        case 14:
+            category = StoreCategory(name: .game)
+        case 15:
+            category = StoreCategory(name: .everyday)
+            
         default:
             category = StoreCategory(name: .other)
         }
