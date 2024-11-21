@@ -62,33 +62,23 @@ class PathfindingService: ObservableObject {
             
         let groundPosition = loadedScene.position(relativeTo: nil)
         
-        let gridSpacing: Float = 0.12
+        let gridSpacing: Float = 0.1
         
         for x in stride(from: -groundSizeX, through: groundSizeX / 2, by: gridSpacing) {
             for z in stride(from: -groundSizeZ / 2, through: groundSizeZ / 2, by: gridSpacing) {
                 let nodePosition = SCNVector3(
                     groundPosition.x + x,
-                    groundPosition.y + 1, //MARK: for apple maps only, supposed to be 0
+                    groundPosition.y + 0.5, //MARK: for apple maps only, supposed to be 0
                     groundPosition.z + z
                 )
                 
-                                                                let markerPosition = SCNVector3(
-                                                                    groundPosition.x + x,
-                                                                    2.5,  // Slightly above the ground plane
-                                                                    groundPosition.z + z
-                                                                )
-                
                 if checkForPath(at: simd_float3(nodePosition), type: .path) {
                     let pathNode = pathfinder.addNode(at: nodePosition, type: .path)
-//                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
-//                                                                                loadedScene.addChild(marker)
                     pathNodes.append(pathNode)
                 }
                 
                 if checkForPath(at: simd_float3(nodePosition), type: .intersection) {
                     let interNode = pathfinder.addNode(at: nodePosition, type: .intersection)
-                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .blue)
-                                                                                loadedScene.addChild(marker)
                     interNodes.append(interNode)
                 }
             }
@@ -261,10 +251,10 @@ class PathfindingService: ObservableObject {
                 }
             }
             interEntities.sort { (entity1, entity2) -> Bool in
-                let pos1 = entity1.position
-                let pos2 = entity2.position
-                let dist1 = distance(simd_float3(nearestStartNode.position), simd_float3(pos1))
-                let dist2 = distance(simd_float3(nearestStartNode.position), simd_float3(pos2))
+                let pos1 = entity1.transform.translation
+                let pos2 = entity2.transform.translation
+                let dist1 = simd_distance(simd_float3(nearestStartNode.position), pos1)
+                let dist2 = simd_distance(simd_float3(nearestStartNode.position), pos2)
                 return dist1 < dist2
             }
         }
@@ -285,16 +275,20 @@ class PathfindingService: ObservableObject {
             
             // Determine the reference direction based on the facing angle
             let referenceDirection: simd_float3
+            
+            //MARK: Apple maps (different rotation in the 3D Map)
             switch facingAngle {
             case (-.pi / 4)...(.pi / 4):
                 // Facing close to negative z-axis (forward)
                 referenceDirection = simd_float3(0, 0, -1)
             case (.pi / 4)...(3 * .pi / 4):
                 // Facing close to negative x-axis (left)
-                referenceDirection = simd_float3(1, 0, 0)
+//                referenceDirection = simd_float3(1, 0, 0)
+                referenceDirection = simd_float3(-1, 0, 0)
             case (-3 * .pi / 4)...(-.pi / 4):
                 // Facing close to positive x-axis (right)
-                referenceDirection = simd_float3(-1, 0, 0)
+//                referenceDirection = simd_float3(-1, 0, 0)
+                referenceDirection = simd_float3(1, 0, 0)
             default:
                 // Facing close to positive z-axis (backward)
                 referenceDirection = simd_float3(0, 0, 1)
@@ -304,17 +298,9 @@ class PathfindingService: ObservableObject {
             let crossProduct = simd_cross(referenceDirection, movementDirection)
             
             // Determine direction based on the cross product's y-component
-//            if crossProduct.y > 0 {
-//                return RightDirection(store: storeName)
-//            } else if crossProduct.y < 0 {
-//                return LeftDirection(store: storeName)
-//            } else {
-//                return StraightDirection(store: storeName)
-//            }
-            //MARK: Apple maps (different rotation)
-            if crossProduct.y < 0 {
+            if crossProduct.y > 0 {
                 return RightDirection(store: storeName)
-            } else if crossProduct.y > 0 {
+            } else if crossProduct.y < 0 {
                 return LeftDirection(store: storeName)
             } else {
                 return StraightDirection(store: storeName)
@@ -374,7 +360,6 @@ class PathfindingService: ObservableObject {
         
         for path in entities {
             if isPointInsideBoundingBox(position, boundingBox: path.visualBounds(relativeTo: scene)) {
-                print("Collision detected at position \(position) within \(path.name).")
                 return true
             }
         }
@@ -509,7 +494,8 @@ extension Entity {
                             "Apple_TV",
                             "Kosong",
                             "Penutup",
-                            "PVC"
+                            "PVC",
+                            "Denah"
                          ]
     ) -> [Entity] {
         var allEntities: [Entity] = []
