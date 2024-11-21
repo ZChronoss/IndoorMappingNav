@@ -32,7 +32,7 @@ struct NavigationSheet: View {
             Button(action: {
                 guard let scene = currentScene else { return }
                 scene.setScale([2,2,2], relativeTo: nil)
-                let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
+                let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.6, $0.position.z) } //MARK: y coords for apple fest
                 guard let camera = pathfinder.cameraEntity else { return }
                 pathfinder2D.setup2DNavigation(path: path, scene: scene, camera: camera)
                 vmNav.is2DMode = true

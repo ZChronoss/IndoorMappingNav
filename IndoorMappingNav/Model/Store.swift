@@ -13,9 +13,15 @@ class Store: Identifiable, CloudKitRecordInitializable {
     var name: String?
     var category: StoreCategory?
     var address: String?
+    var description: String? = nil
+    
+    // Asset Property
     var images: [Data?]?
+    var logo: Data? = nil
+    
     var floor: String?
     var mallId: CKRecord.Reference?
+    var subcategory: [String]?
     
     init(){
         self.id = CKRecord.ID(recordName: UUID().uuidString)
@@ -26,16 +32,29 @@ class Store: Identifiable, CloudKitRecordInitializable {
         self.name = record["Name"] as? String
         
         let categoryId = record["Category"] as? Int64
-        
         self.category = getCategory(num: categoryId ?? 7)
+        
+        self.description = record["Description"] as? String
         self.address = record["Address"] as? String
         
         let imagesRecord = record["Images"] as? [CKAsset?]
+        let logoRecord = record["Logo"] as? CKAsset
         
         self.images = processImage(imageRecords: imagesRecord)
-//        self.images = record["Images"] as? [CKAsset?]
+        self.logo = {
+            var data = Data()
+            if let url = logoRecord?.fileURL {
+                data = try! Data(contentsOf: url)
+            }
+            return data
+        }()
+        
         self.floor = record["Floor"] as? String
         self.mallId = record["MallId"] as? CKRecord.Reference
+        
+        if let subcategoryData = record["Subcategory"] as? String {
+            self.subcategory = subcategoryData.split(separator: ",").map { $0.trimmingCharacters(in: .whitespaces) }
+        }
     }
     
     private func processImage(imageRecords: [CKAsset?]?) -> [Data?] {
@@ -69,12 +88,25 @@ class Store: Identifiable, CloudKitRecordInitializable {
             category = StoreCategory(name: .entertainment)
         case 7:
             category = StoreCategory(name: .other)
+            
+        // ADA
+        case 10:
+            category = StoreCategory(name: .com)
+        case 11:
+            category = StoreCategory(name: .tech)
+        case 12:
+            category = StoreCategory(name: .inter)
+        case 13:
+            category = StoreCategory(name: .social)
+        case 14:
+            category = StoreCategory(name: .game)
+        case 15:
+            category = StoreCategory(name: .everyday)
+            
         default:
             category = StoreCategory(name: .other)
         }
         return category
     }
-    
-    
 }
 

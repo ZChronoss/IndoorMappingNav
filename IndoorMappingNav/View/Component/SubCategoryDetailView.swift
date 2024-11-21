@@ -12,7 +12,7 @@ struct SubCategoryDetailView: View {
     var categoryName: String
     var subCategories: [SubCategory]
     @Binding var categoryDetent: PresentationDetent // Add a binding for categoryDetent
-    
+    @Binding var selectedSubCategory: SubCategory?
     @Environment(\.dismiss) private var dismiss  // Dismiss environment for navigating back
 
     var body: some View {
@@ -62,6 +62,10 @@ struct SubCategoryDetailView: View {
                                 .font(.caption)
                                 .fontWeight(.semibold)
                         }
+                        .onTapGesture {
+                            selectedSubCategory = subCategory
+                            dismiss()
+                        }
                     }
                 }
                 .padding()
@@ -73,12 +77,12 @@ struct SubCategoryDetailView: View {
     }
 }
 
-#Preview {
-    @State var categoryDetent: PresentationDetent = .fraction(0.75)
-    
-    SubCategoryDetailView(
-        categoryName: "Food & Beverages",
-        subCategories: [.bakery, .rice, .fastFood, .indonesian, .japanese], // Use enum cases directly
-        categoryDetent: $categoryDetent // Pass the binding here
-    )
-}
+//#Preview {
+//    @State var categoryDetent: PresentationDetent = .fraction(0.75)
+//    
+//    SubCategoryDetailView(
+//        categoryName: "Food & Beverages",
+//        subCategories: [.bakery, .rice, .fastFood, .indonesian, .japanese], // Use enum cases directly
+//        categoryDetent: $categoryDetent // Pass the binding here
+//    )
+//}

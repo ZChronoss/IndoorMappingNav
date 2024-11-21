@@ -9,8 +9,8 @@ import SwiftUI
 
 struct SubCategoryTab: View {
     var subCategories: [SubCategory] // Changed to accept an array of SubCategory
-    
-    @State private var selectedCategory: SubCategory?
+    var categoryColor: Color
+    @Binding var selectedSubCategory: SubCategory?
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
@@ -19,10 +19,10 @@ struct SubCategoryTab: View {
                     SpecificCategory(
                         subCategoryName: item.rawValue, // Use the raw value of the enum
                         image: item.imageName, // Assume image name is a computed property of the enum
-                        isSelected: selectedCategory == item,
+                        isSelected: selectedSubCategory == item,
                         onSelect: {
-                            selectedCategory = item
-                        }
+                            selectedSubCategory = (selectedSubCategory == item) ? nil : item
+                        }, categoryColor: categoryColor
                     )
                 }
             }
@@ -34,8 +34,9 @@ struct SubCategoryTab: View {
 }
 
 #Preview {
+    @State var selectedSubCategory: SubCategory? = nil
     // Provide example subcategories for the preview
-    SubCategoryTab(subCategories: [.bakery, .rice, .fastFood]) // Pass in example subcategories
+    SubCategoryTab(subCategories: [.bakery, .rice, .fastFood], categoryColor: .orange, selectedSubCategory: $selectedSubCategory) // Pass in example subcategories
 }
 
 

@@ -50,8 +50,8 @@ extension SearchPageView {
         
         init() {
             Task {
-                await getStores()
-                print(stores)
+                await getStores(mallId: "-1")
+                
                 searchHistory = getStoreFromDefault() ?? []
             }
         }
@@ -66,13 +66,14 @@ extension SearchPageView {
             return stores.filter { (store) -> Bool in
                 return (store.name?.lowercased().starts(with: lowercasedText) ?? false)
             }
+            
         }
         
-        func getStores() async {
+        func getStores(mallId: String) async {
             self.isLoading = true
             
             do {
-                guard let gotStores = try? await cloudkitController.fetchStores() else {
+                guard let gotStores = try? await cloudkitController.fetchStores(mallId: mallId) else {
                     self.stores = []
                     return
                 }
@@ -92,11 +93,11 @@ extension SearchPageView {
             
             // Loop through the names and search for the store by name
             for name in names {
-                let store = stores.first { store in
+                if let store = stores.first(where: { store in
                     store.name == name
+                }){
+                    defaultStores.append(store)
                 }
-                
-                defaultStores.append(store!)
             }
             
             return defaultStores.reversed()

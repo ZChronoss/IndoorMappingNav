@@ -75,8 +75,10 @@ struct SearchBarDouble: View {
             }
         }
         .onAppear() {
-            focusedField = .start
-            action(.start)
+            if searchText.isEmpty {
+                focusedField = .start
+                action(.start)
+            }
         }
 //        .onChange(of: focusedField ?? .start) { _, val in
 //            action(val)

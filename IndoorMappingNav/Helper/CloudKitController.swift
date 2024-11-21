@@ -14,18 +14,30 @@ class CloudKitController: ObservableObject {
     
     // TODO: Kita harus ubah tiap mallId di database jadi disesuain sama recordName tabel Mall
     // Buat sekarang kita agak cheat pake cara ini, tapi kalo udah pake admin keknya harus diubah, kita coba aja dlu
-    func fetchStores() async throws -> [Store] {
-        let predicate = NSPredicate(format: "MallId == %@", CKRecord.ID(recordName: "1")) // Fetch all stores
+    func fetchStores(mallId: String) async throws -> [Store] {
+        let predicate = NSPredicate(format: "MallId == %@", CKRecord.ID(recordName: mallId)) // Fetch all stores
         //        let sort = NSSortDescriptor(key: "Id", ascending: true)
         let query = CKQuery(recordType: "Store", predicate: predicate)
         
-        let wantedField = ["Name", "Category", "Address", "Images", "Floor", "Subcategory", "MallId"]
+        let wantedField = ["Name", "Category", "Address", "Images", "Logo", "Floor", "Subcategory", "Description"]
+        let maxResult = CKQueryOperation.maximumResults
         
-        let result = try await database.records(matching: query, desiredKeys: wantedField)
+        let result = try await database.records(matching: query, desiredKeys: wantedField, resultsLimit: maxResult)
         
-        let records = result.matchResults.compactMap { try? $0.1.get() }
+        var records = result.matchResults.compactMap { try? $0.1.get() }
         
-        return records.compactMap(Store.init)
+        var cursor = result.queryCursor
+        
+        while cursor != nil {
+            let nextResult = try await database.records(continuingMatchFrom: cursor!)
+            let nextRecords = nextResult.matchResults.compactMap{ try? $0.1.get() }
+            records.append(contentsOf: nextRecords)
+            cursor = nextResult.queryCursor
+        }
+        
+        let stores = records.compactMap(Store.init)
+        
+        return stores
     }
     
     
@@ -111,22 +123,22 @@ extension CloudKitController {
     }
     
     func fixDatabase2() async throws -> Void{
-            let predicate = NSPredicate(format: "MallId == %@", CKRecord.ID(recordName: "1")) // Fetch all stores
-            let query = CKQuery(recordType: "Store", predicate: predicate)
-            
-            let result = try await database.records(matching: query)
-            let records = result.matchResults.compactMap { try? $0.1.get() }
-            
-            for record in records {
-                if var name = record["Name"] as? String {
-                    if name.hasSuffix(" fix") {
-                        name.removeLast(4)
-                        record.setValue(name, forKey: "Name")
-                        try await database.save(record)
-                    }
+        let predicate = NSPredicate(format: "MallId == %@", CKRecord.ID(recordName: "1")) // Fetch all stores
+        let query = CKQuery(recordType: "Store", predicate: predicate)
+        
+        let result = try await database.records(matching: query)
+        let records = result.matchResults.compactMap { try? $0.1.get() }
+        
+        for record in records {
+            if var name = record["Name"] as? String {
+                if name.hasSuffix(" fix") {
+                    name.removeLast(4)
+                    record.setValue(name, forKey: "Name")
+                    try await database.save(record)
                 }
             }
         }
+    }
     
     func fetchStoreByCategory(category: String) async throws -> [Store] {
         guard let categoryID = mapCategoryToID(category: category) else {
@@ -140,16 +152,32 @@ extension CloudKitController {
         let result = try await database.records(matching: query, resultsLimit: 10)
         let records = result.matchResults.compactMap { try? $0.1.get() }
         
+        for record in records {
+            print("Record: \(record)")
+        }
+        
         return records.compactMap(Store.init) // Convert CKRecords to Store models
     }
     
+//    private func mapCategoryToID(category: String) -> Int? {
+//        let categoryMap = [
+//            "Toilet": 1,
+//            "Food & Beverage": 2,
+//            "Shopping": 3,
+//            "Service": 4,
+//            "Health & Beauty": 5
+//        ]
+//        return categoryMap[category]
+//    }
+    
     private func mapCategoryToID(category: String) -> Int? {
         let categoryMap = [
-            "Toilet": 1,
-            "Food & Beverage": 2,
-            "Shopping": 3,
-            "Service": 4,
-            "Health & Beauty": 5
+            "Community Improvement": 10,
+            "Technology Innovation": 11,
+            "Interactive Experience": 12,
+            "Social Impact": 13,
+            "Game & Entertainment": 14,
+            "Everyday Life": 15,
         ]
         return categoryMap[category]
     }

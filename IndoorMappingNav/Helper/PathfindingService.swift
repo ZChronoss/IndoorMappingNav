@@ -59,16 +59,16 @@ class PathfindingService: ObservableObject {
         let groundBounds = loadedScene.visualBounds
         let groundSizeX = groundBounds.extents.x
         let groundSizeZ = groundBounds.extents.z
-        
+            
         let groundPosition = loadedScene.position(relativeTo: nil)
         
-        let gridSpacing: Float = 0.12
+        let gridSpacing: Float = 0.1
         
         for x in stride(from: -groundSizeX, through: groundSizeX / 2, by: gridSpacing) {
             for z in stride(from: -groundSizeZ / 2, through: groundSizeZ / 2, by: gridSpacing) {
                 let nodePosition = SCNVector3(
                     groundPosition.x + x,
-                    groundPosition.y,
+                    groundPosition.y + 0.5, //MARK: for apple maps only, supposed to be 0
                     groundPosition.z + z
                 )
                 
@@ -87,10 +87,10 @@ class PathfindingService: ObservableObject {
         pathfinder.connectNodes(pathNodes)
         pathfinder.connectNodes(interNodes)
         print("Base graph setup with \(pathNodes.count) path nodes & \(interNodes.count) inter nodes.")
-        setupCamera()
+        setupCamera(scene: scene ?? Entity())
     }
     
-    func setupCamera() {
+    func setupCamera(scene: Entity) {
         if let existingCamera = cameraEntity {
             existingCamera.removeFromParent()
         }
@@ -106,7 +106,7 @@ class PathfindingService: ObservableObject {
         newCameraEntity.components[PerspectiveCameraComponent.self] = perspectiveCameraComponent
         newCameraEntity.look(at: cameraLookAt, from: cameraPosition, relativeTo: nil)
         
-        scene?.addChild(cameraAnchor)
+        scene.addChild(cameraAnchor)
         cameraAnchor.addChild(newCameraEntity)
         
         cameraEntity = newCameraEntity
@@ -218,10 +218,9 @@ class PathfindingService: ObservableObject {
         
         if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .intersection) {
             for i in 0..<interNodes.count - 1 {
-                
                 let startPos = interNodes[i]
                 
-                let threshold: Float = 0.12 // Define a threshold for proximity
+                let threshold: Float = 0.15 // Define a threshold for proximity
 
                 for j in 0..<pathPositions.count {
                     // Calculate the distance between startPos.position and pathPositions[j]
@@ -232,18 +231,30 @@ class PathfindingService: ObservableObject {
                     // Check if the distance is less than the threshold
                     if distance < threshold {
                         print("GOT INTERPOSITION", pathPositions[j])
-                        let intersectionEntity = createMarkerEntity(at: simd_float3(startPos.position.x, -0.1, startPos.position.z), color: .clear)
                         
-                        interEntities.append(intersectionEntity)
-                        scene?.addChild(intersectionEntity)
+                        // Check if a similar position already exists in interEntities
+                        let isTooClose = interEntities.contains { entity in
+                            let entityX = entity.transform.translation.x
+                            let entityZ = entity.transform.translation.z
+                            
+                            // Check proximity in both x and z coordinates
+                            return abs(entityX - startPos.position.x) < 0.5 && abs(entityZ - startPos.position.z) < 0.5
+                        }
+                        
+                        // If no close position exists, append the new entity
+                        if !isTooClose {
+                            let intersectionEntity = createMarkerEntity(at: simd_float3(startPos.position.x, -0.1, startPos.position.z), color: .clear)
+                            interEntities.append(intersectionEntity)
+                            scene?.addChild(intersectionEntity)
+                        }
                     }
                 }
             }
             interEntities.sort { (entity1, entity2) -> Bool in
-                let pos1 = entity1.position
-                let pos2 = entity2.position
-                let dist1 = distance(simd_float3(nearestStartNode.position), simd_float3(pos1))
-                let dist2 = distance(simd_float3(nearestStartNode.position), simd_float3(pos2))
+                let pos1 = entity1.transform.translation
+                let pos2 = entity2.transform.translation
+                let dist1 = simd_distance(simd_float3(nearestStartNode.position), pos1)
+                let dist2 = simd_distance(simd_float3(nearestStartNode.position), pos2)
                 return dist1 < dist2
             }
         }
@@ -264,16 +275,20 @@ class PathfindingService: ObservableObject {
             
             // Determine the reference direction based on the facing angle
             let referenceDirection: simd_float3
+            
+            //MARK: Apple maps (different rotation in the 3D Map)
             switch facingAngle {
             case (-.pi / 4)...(.pi / 4):
                 // Facing close to negative z-axis (forward)
                 referenceDirection = simd_float3(0, 0, -1)
             case (.pi / 4)...(3 * .pi / 4):
                 // Facing close to negative x-axis (left)
-                referenceDirection = simd_float3(1, 0, 0)
+//                referenceDirection = simd_float3(1, 0, 0)
+                referenceDirection = simd_float3(-1, 0, 0)
             case (-3 * .pi / 4)...(-.pi / 4):
                 // Facing close to positive x-axis (right)
-                referenceDirection = simd_float3(-1, 0, 0)
+//                referenceDirection = simd_float3(-1, 0, 0)
+                referenceDirection = simd_float3(1, 0, 0)
             default:
                 // Facing close to positive z-axis (backward)
                 referenceDirection = simd_float3(0, 0, 1)
@@ -315,8 +330,6 @@ class PathfindingService: ObservableObject {
         }
     }
     
-    
-    // MARK: - RealityKit Entity Creation for Path Segments
     func createLineEntity(from start: simd_float3, to end: simd_float3, opacity: Float) -> Entity {
         let lineLength = simd_distance(start, end)
         let line = MeshResource.generateBox(size: [0.05, 0.05, lineLength])
@@ -330,7 +343,6 @@ class PathfindingService: ObservableObject {
         return lineEntity
     }
     
-    // MARK: - Collision Check Function
     func checkForPath(at position: simd_float3, type: NodeType) -> Bool {
         guard let scene = scene else { return false }
         
@@ -348,7 +360,6 @@ class PathfindingService: ObservableObject {
         
         for path in entities {
             if isPointInsideBoundingBox(position, boundingBox: path.visualBounds(relativeTo: scene)) {
-                print("Collision detected at position \(position) within \(path.name).")
                 return true
             }
         }
@@ -409,12 +420,11 @@ class PathfindingService: ObservableObject {
                     closestEntity = entity
                 }
             }
-            
         }
         
         return closestEntity
     }
-    
+
 }
 
 // Helper to convert SCNVector3 to simd_float3
@@ -472,7 +482,22 @@ extension Entity {
         return inter
     }
     
-    func findAllEntities(excluding nameFragments: [String] = ["pwy_", "PSP", "Based"]) -> [Entity] {
+    //MARK: some exclusion are for apple fest
+    func findAllEntities(excluding nameFragments: [String] =
+                         [
+                            "pwy_",
+                            "PSP",
+                            "Based",
+                            "Plane",
+                            "Cube",
+                            "Cylinder",
+                            "Apple_TV",
+                            "Kosong",
+                            "Penutup",
+                            "PVC",
+                            "Denah"
+                         ]
+    ) -> [Entity] {
         var allEntities: [Entity] = []
         
         let containsName = nameFragments.contains { self.name.contains($0) }

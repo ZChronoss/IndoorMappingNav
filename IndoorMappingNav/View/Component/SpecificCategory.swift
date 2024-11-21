@@ -12,6 +12,7 @@ struct SpecificCategory: View {
     var image: String
     var isSelected: Bool
     var onSelect: () -> Void
+    var categoryColor: Color
     
     var body: some View {
         VStack {
@@ -22,7 +23,7 @@ struct SpecificCategory: View {
                 .clipShape(Circle())
                 .overlay(
                     Circle()
-                        .stroke(isSelected ? Color.black : Color.clear, lineWidth: 3)
+                        .stroke(isSelected ? categoryColor : Color.clear, lineWidth: 3)
                 )
                 .padding(.bottom, 5)
                 .onTapGesture {

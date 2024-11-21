@@ -17,10 +17,23 @@ extension CategorySheet {
         @Published var stores: [Store] = []
         @Published private(set) var isLoading = false
         
-        func getStores() async {
+        @Published var selectedSubCategory: SubCategory?
+        var filteredStores: [Store] {
+            if let subCategory = selectedSubCategory {
+                let filtered = storesByCategory.filter { store in
+                    // Filter by the selected subcategory
+                    let storeSubCategories = store.subcategory ?? []
+                    return storeSubCategories.contains(subCategory.rawValue)
+                }
+                return filtered
+            }
+            return storesByCategory
+        }
+        
+        func getStores(mallId: String) async {
             isLoading = true
             do {
-                self.stores = try await cloudKitController.fetchStores()
+                self.stores = try await cloudKitController.fetchStores(mallId: mallId)
             } catch {
                 print("Error: Data fetching failed (\(error.localizedDescription))")
             }
@@ -32,6 +45,7 @@ extension CategorySheet {
                 let stores = try await cloudKitController.fetchStoreByCategory(category: category)
                 DispatchQueue.main.async {
                     self.storesByCategory = stores
+                    self.selectedSubCategory = nil
                     print("Fetched \(stores.count) stores for category: \(category)")
                 }
             } catch {
@@ -42,8 +56,9 @@ extension CategorySheet {
         func getAllSubCategories() {
             if let category = storesByCategory.first?.category {
                 allSubCategories = category.getSubCategories()
+            } else {
+                allSubCategories = []
             }
         }
     }
-    
 }

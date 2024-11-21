@@ -17,40 +17,60 @@ struct HomeView: View {
     @State private var entityPositions: [Entity: simd_float3] = [:] // Store only the original position
     @State private var entityState: [Entity: Bool] = [:]
     
-    @State var scale: Float = 0.2
-    @State private var originalMaterials: [Entity: [RealityKit.Material]] = [:] // Store original materials
-    
     @State private var scene: Entity? = nil
-    @State private var pathEntities: [Entity] = []
-    
-    @State private var lastSelectedCategory: String = "Food & Beverage" // Track the last selected category
+    @State private var refreshRealityView: Bool = false
     
     @StateObject var mapLoader = MapLoader()
+    
     var body: some View {
         NavigationStack {
             ZStack {
-                // Main RealityView content
-                RealityView { content in
-                    scene = await mapLoader.getScene()
-                    content.add(scene ?? Entity())
-                    vm.categorizeEntitiesInScene(scene!)
+                if refreshRealityView {
+                    RealityView { content in
+                        print("loading scene", mapLoader.mapName)
+                        scene = await mapLoader.getScene()
+                        pathfinder.setupCamera(scene: scene ?? Entity())
+                        content.add(scene ?? Entity())
+                        vm.categorizeEntitiesInScene(scene!)
+                    }
+                    .realityViewCameraControls(.orbit)
+                    .gesture(
+                        SpatialTapGesture()
+                            .targetedToAnyEntity()
+                            .onEnded({ target in
+                                vm.handleEntitySelectionAndMovement(
+                                    target: target.entity,
+                                    entityPositions: &entityPositions,
+                                    entityState: &entityState
+                                )
+                            })
+                    )
+                } else {
+                    // Main RealityView content
+                    RealityView { content in
+                        print("loading scene", mapLoader.mapName)
+                        scene = await mapLoader.getScene()
+                        pathfinder.setupCamera(scene: scene ?? Entity())
+                        content.add(scene ?? Entity())
+                        vm.categorizeEntitiesInScene(scene!)
+                    }
+                    .realityViewCameraControls(.orbit)
+                    .gesture(
+                        SpatialTapGesture()
+                            .targetedToAnyEntity()
+                            .onEnded({ target in
+                                vm.handleEntitySelectionAndMovement(
+                                    target: target.entity,
+                                    entityPositions: &entityPositions,
+                                    entityState: &entityState
+                                )
+                            })
+                    )
                 }
-                .realityViewCameraControls(.orbit)
-                .gesture(
-                    SpatialTapGesture()
-                        .targetedToAnyEntity()
-                        .onEnded({ target in
-                            vm.handleEntitySelectionAndMovement(
-                                target: target.entity,
-                                entityPositions: &entityPositions,
-                                entityState: &entityState
-                            )
-                        })
-                )
                 
                 // Overlay: Location title, search bar, and category buttons
-                    HomeViewComponents(selectedCategory: $vm.selectedCategory)
-                        .environmentObject(vm)
+                HomeViewComponents(selectedCategory: $vm.selectedCategory)
+                    .environmentObject(vm)
             }
             .padding(.top, 56)
             .ignoresSafeArea()
@@ -60,8 +80,15 @@ struct HomeView: View {
         }
         .onAppear(){
             Task {
-                await vm.getStores()
+                await vm.getStores(mallId: vm.mallId)
+                await vm.categorizeEntitiesInScene(mapLoader.getScene())
             }
+            
+        }
+        .onChange(of: vm.mallId) { _, _ in
+            mapLoader.mapName = vm.mallId == "-1" ? "AppleDev" : "Test2"
+            refreshRealityView.toggle()
+            print(mapLoader.mapName)
         }
     }
 }

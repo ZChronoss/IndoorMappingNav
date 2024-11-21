@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealityKit
 
 struct SearchPageView: View {
     @StateObject private var vm = ViewModel()
@@ -44,12 +45,6 @@ struct SearchPageView: View {
                     .padding(.horizontal)
                 }
             }
-        }
-        //        .background(.white)
-        .navigationBarBackButtonHidden(true)
-        .onAppear() {
-            vm.destStoreName = self.destStore.name ?? ""
-            vm.destStoreFloor = self.destStore.floor.map(FloorAbbreviation.getFloorAbbreviation) ?? ""
             
             ZStack {
                 if vm.hasSelectedStart && (!vm.trueIfStartStoreIsSelected && !vm.trueIfDestStoreIsSelected) {
@@ -57,7 +52,7 @@ struct SearchPageView: View {
                         .environmentObject(mapLoader)
                         .environmentObject(pathfinder)
                 } else {
-                    VStack {
+                    VStack(alignment: .leading) {
                         let searchHistoryIsEmpty = vm.searchHistory.isEmpty
                         let searchTextIsEmpty = vm.searchText.isEmpty
                         
@@ -97,6 +92,10 @@ struct SearchPageView: View {
                                     ForEach(searchTextIsEmpty ? vm.searchHistory : vm.filteredStores) {store in
                                         SearchResult(store: store)
                                             .onTapGesture {
+                                                // Dismiss Keyboard
+                                                UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                                                
+                                                
                                                 if !vm.hasSelectedDestination {
                                                     vm.destStoreName = ""
                                                     destStore = Store()
@@ -104,7 +103,7 @@ struct SearchPageView: View {
                                                     openSheet(store)
                                                     dismiss()
                                                 }
-                                                vm.setStoreFromDefault(store.name ?? "")
+//                                                vm.setStoreFromDefault(store.name ?? "")
                                                 vm.hasSelectedDestination = true
                                                 
                                                 if vm.trueIfStartStoreIsSelected {
@@ -129,8 +128,8 @@ struct SearchPageView: View {
                                             }
                                     }
                                 }
+                                .padding(.top, 10)
                             }
-                            .padding(.top, 10)
                             .redacted(reason: vm.isLoading ? .placeholder : [])
                         }
                     }
@@ -141,6 +140,7 @@ struct SearchPageView: View {
                         HStack {
                             Button(action: {
                                 vmNav.is2DMode = false
+                                vmNav.started = false
                             }){
                                 Image(systemName: "chevron.left")
                                     .padding(20)
@@ -154,9 +154,43 @@ struct SearchPageView: View {
                         }
                         Spacer()
                     }
-                    NavigateView()
+                    if vmNav.started == false {
+                        Button(action: {
+                            vmNav.started = true
+                            let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
+                            if path.count > 1 {
+                                pathfinder2D.rotateCameraToFace(path[1])
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.000000001) {
+                                    pathfinder2D.rotateCameraToFace(path[1])
+                                }
+                            } else {
+                                pathfinder2D.rotateCameraToFace(path[0])
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.000000001) {
+                                    pathfinder2D.rotateCameraToFace(path[0])
+                                }
+                            }
+                            
+                        }) {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(Color.black)
+                                    .opacity(0.3)
+                                RoundedRectangle(cornerRadius: 50)
+                                    .fill(Color.blue600)
+                                    .frame(width: 200, height: 50)
+                                Text("Start Navigate")
+                                    .foregroundColor(Color.white)
+                                    .font(.headline)
+                            }
+                            
+                        }
                         .environmentObject(pathfinder)
                         .environmentObject(pathfinder2D)
+                    } else {
+                        NavigateView()
+                            .environmentObject(pathfinder)
+                            .environmentObject(pathfinder2D)
+                    }
                 }
             }
             //        .background(.white)
@@ -174,6 +208,7 @@ struct SearchPageView: View {
 }
 class NavigationViewModel: ObservableObject {
     @Published var is2DMode: Bool = false
+    @Published var started: Bool = false
 }
 
 //#Preview {
