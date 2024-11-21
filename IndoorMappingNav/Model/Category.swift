@@ -18,10 +18,10 @@ enum CategoryType: String{
     
     // ADA
     case com = "Community Improvement" // 10
-    case tech = "Technology Innovation" // 11
-    case inter = "Interactive Experience" // 12
-    case social = "Social Impact" // 13
-    case game = "Game & Entertainment" // 14
+    case social = "Social Impact" // 11
+    case tech = "Technology Innovation" // 12
+    case game = "Game & Entertainment" // 13
+    case inter = "Interactive Experience" // 14
     case everyday = "Everyday Life" // 15
 }
 
@@ -62,28 +62,28 @@ class StoreCategory {
             break
         case .other:
             self.color = .other
-            self.image = "other"
+            self.image = "ellipsis"
             break
             
         // ADA
         case .com:
             self.color = .com
-            self.image = "communityImprovement"
+            self.image = "tree.fill"
         case .tech:
             self.color = .tech
-            self.image = "technologyInnovation"
+            self.image = "lightbulb.fill"
         case .inter:
             self.color = .inter
-            self.image = "interactiveExperience"
+            self.image = "hand.tap.fill"
         case .social:
             self.color = .social
-            self.image = "socialImpact"
+            self.image = "heart.fill"
         case .game:
             self.color = .game
-            self.image = "gameAndEntertainment"
+            self.image = "gamecontroller.fill"
         case .everyday:
             self.color = .everyday
-            self.image = "everydayLife"
+            self.image = "house.fill"
         }
     }
     
