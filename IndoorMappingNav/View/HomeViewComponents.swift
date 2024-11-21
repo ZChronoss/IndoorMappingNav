@@ -77,7 +77,7 @@ struct HomeViewComponents: View {
                         ForEach(vm.categories, id: \.name) { category in
                             CategoryButton(
                                 categoryName: category.name.rawValue,
-                                categoryImage: Image(category.image ?? "questionmark"), // Gunakan Image() di sini
+                                categoryImage: Image(systemName: category.image ?? "ellipsis"), // Gunakan Image() di sini
                                 categoryColor: category.color,
                                 isSelected: selectedCategory == category.name.rawValue
                             ) {

@@ -60,7 +60,6 @@ struct CategorySheet: View {
                     ForEach(viewModel.filteredStores) { store in
                         StoreADACard(store: store, color: store.category?.color ?? .gray)
                             .onTapGesture {
-                                print("Store Name \(store.name)")
                                 selectedStore = store
                                 isStoreSheetOpen = true
                             }
@@ -74,6 +73,8 @@ struct CategorySheet: View {
                     }
                 }
             }
+            .safeAreaPadding(.horizontal, 21)
+            .safeAreaPadding(.vertical, 12)
             
             NavigationLink(
                 destination: SubCategoryDetailView(

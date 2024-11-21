@@ -93,13 +93,13 @@ class Store: Identifiable, CloudKitRecordInitializable {
         case 10:
             category = StoreCategory(name: .com)
         case 11:
-            category = StoreCategory(name: .tech)
-        case 12:
-            category = StoreCategory(name: .inter)
-        case 13:
             category = StoreCategory(name: .social)
-        case 14:
+        case 12:
+            category = StoreCategory(name: .tech)
+        case 13:
             category = StoreCategory(name: .game)
+        case 14:
+            category = StoreCategory(name: .inter)
         case 15:
             category = StoreCategory(name: .everyday)
             

@@ -36,9 +36,10 @@ struct StoreDetailView: View {
                         
                         // CATEGORY
                         HStack(spacing: 2) {
-                            Image(viewModel.store.category?.image ?? "")
+                            Image(systemName: viewModel.store.category?.image ?? "ellipsis")
                                 .resizable()
                                 .renderingMode(.template)
+                                .scaledToFit()
                                 .frame(width: 13, height: 13)
                                 .foregroundStyle(viewModel.store.category?.color ?? .other)
                                 .tint(viewModel.store.category?.color ?? .other)

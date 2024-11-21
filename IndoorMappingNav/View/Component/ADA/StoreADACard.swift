@@ -21,6 +21,8 @@ struct StoreADACard: View {
                     .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 18))
                     .padding(.trailing, 10)
+                    .padding(.leading, 21)
+                    .padding(.vertical, 12)
             }  else {
                 // Placeholder view if the image is not available
                 Rectangle()
@@ -28,6 +30,8 @@ struct StoreADACard: View {
                     .frame(width: 80, height: 80)
                     .clipShape(RoundedRectangle(cornerRadius: 18))
                     .padding(.trailing, 15)
+                    .padding(.leading, 21)
+                    .padding(.vertical, 12)
                     .clipShape(
                         UnevenRoundedRectangle(
                             topLeadingRadius: 8,
@@ -60,8 +64,6 @@ struct StoreADACard: View {
             
             Spacer()
         }
-        .padding(.horizontal, 21)
-        .padding(.vertical, 12)
         .frame(maxWidth: .infinity)
         .background(Color("CategoryCard"))
         .cornerRadius(10)
@@ -78,5 +80,5 @@ struct StoreADACard: View {
 //}
 
 #Preview {
-    HomeView()
+    StoreADACard(store: Store(), color: .black)
 }

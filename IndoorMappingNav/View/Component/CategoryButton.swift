@@ -19,8 +19,9 @@ struct CategoryButton: View {
             HStack(spacing: 8) {
                 categoryImage
                     .resizable()  // Membuat gambar dapat diubah ukurannya
-                    .renderingMode(.template) 
-                    .frame(width: 13, height: 14)
+                    .renderingMode(.template)
+                    .scaledToFit()
+                    .frame(width: 14, height: 14)
                     .foregroundColor(isSelected ? .white : categoryColor)
                     .tint(isSelected ? .white : categoryColor)
                     
