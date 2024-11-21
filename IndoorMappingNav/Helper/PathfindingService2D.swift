@@ -26,7 +26,7 @@ class PathfindingService2D: ObservableObject {
         print(currentPath.count)
         if let firstPosition = path.first {
             print(firstPosition)
-            guard let newObjectEntity = createObjectEntity(at: firstPosition) else {
+            guard let newObjectEntity = createObjectEntity(at: simd_float3(firstPosition.x, 1, firstPosition.z)) else {
                 return
             }
             

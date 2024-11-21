@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import RealityKit
 
 struct SearchPageView: View {
     @StateObject private var vm = ViewModel()
@@ -139,6 +140,7 @@ struct SearchPageView: View {
                         HStack {
                             Button(action: {
                                 vmNav.is2DMode = false
+                                vmNav.started = false
                             }){
                                 Image(systemName: "chevron.left")
                                     .padding(20)
@@ -152,9 +154,43 @@ struct SearchPageView: View {
                         }
                         Spacer()
                     }
-                    NavigateView()
+                    if vmNav.started == false {
+                        Button(action: {
+                            vmNav.started = true
+                            let path = pathfinder.interEntities.map { simd_float3($0.position.x, $0.position.y + 0.1, $0.position.z) }
+                            if path.count > 1 {
+                                pathfinder2D.rotateCameraToFace(path[1])
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.000000001) {
+                                    pathfinder2D.rotateCameraToFace(path[1])
+                                }
+                            } else {
+                                pathfinder2D.rotateCameraToFace(path[0])
+                                DispatchQueue.main.asyncAfter(deadline: .now() + 0.000000001) {
+                                    pathfinder2D.rotateCameraToFace(path[0])
+                                }
+                            }
+                            
+                        }) {
+                            ZStack {
+                                Rectangle()
+                                    .foregroundColor(Color.black)
+                                    .opacity(0.3)
+                                RoundedRectangle(cornerRadius: 50)
+                                    .fill(Color.blue600)
+                                    .frame(width: 200, height: 50)
+                                Text("Start Navigate")
+                                    .foregroundColor(Color.white)
+                                    .font(.headline)
+                            }
+                            
+                        }
                         .environmentObject(pathfinder)
                         .environmentObject(pathfinder2D)
+                    } else {
+                        NavigateView()
+                            .environmentObject(pathfinder)
+                            .environmentObject(pathfinder2D)
+                    }
                 }
             }
             //        .background(.white)
@@ -172,6 +208,7 @@ struct SearchPageView: View {
 }
 class NavigationViewModel: ObservableObject {
     @Published var is2DMode: Bool = false
+    @Published var started: Bool = false
 }
 
 //#Preview {

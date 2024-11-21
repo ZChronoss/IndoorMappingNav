@@ -59,7 +59,7 @@ class PathfindingService: ObservableObject {
         let groundBounds = loadedScene.visualBounds
         let groundSizeX = groundBounds.extents.x
         let groundSizeZ = groundBounds.extents.z
-        
+            
         let groundPosition = loadedScene.position(relativeTo: nil)
         
         let gridSpacing: Float = 0.12
@@ -68,20 +68,20 @@ class PathfindingService: ObservableObject {
             for z in stride(from: -groundSizeZ / 2, through: groundSizeZ / 2, by: gridSpacing) {
                 let nodePosition = SCNVector3(
                     groundPosition.x + x,
-                    groundPosition.y,
+                    groundPosition.y + 1, //MARK: for apple maps only, supposed to be 0
                     groundPosition.z + z
                 )
                 
                                                                 let markerPosition = SCNVector3(
                                                                     groundPosition.x + x,
-                                                                    0.5,  // Slightly above the ground plane
+                                                                    2.5,  // Slightly above the ground plane
                                                                     groundPosition.z + z
                                                                 )
                 
                 if checkForPath(at: simd_float3(nodePosition), type: .path) {
                     let pathNode = pathfinder.addNode(at: nodePosition, type: .path)
-                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
-                                                                                loadedScene.addChild(marker)
+//                    let marker = createMarkerEntity(at: simd_float3(markerPosition), color: .yellow)
+//                                                                                loadedScene.addChild(marker)
                     pathNodes.append(pathNode)
                 }
                 
@@ -97,10 +97,10 @@ class PathfindingService: ObservableObject {
         pathfinder.connectNodes(pathNodes)
         pathfinder.connectNodes(interNodes)
         print("Base graph setup with \(pathNodes.count) path nodes & \(interNodes.count) inter nodes.")
-        setupCamera()
+        setupCamera(scene: scene ?? Entity())
     }
     
-    func setupCamera() {
+    func setupCamera(scene: Entity) {
         if let existingCamera = cameraEntity {
             existingCamera.removeFromParent()
         }
@@ -116,7 +116,7 @@ class PathfindingService: ObservableObject {
         newCameraEntity.components[PerspectiveCameraComponent.self] = perspectiveCameraComponent
         newCameraEntity.look(at: cameraLookAt, from: cameraPosition, relativeTo: nil)
         
-        scene?.addChild(cameraAnchor)
+        scene.addChild(cameraAnchor)
         cameraAnchor.addChild(newCameraEntity)
         
         cameraEntity = newCameraEntity
@@ -228,10 +228,9 @@ class PathfindingService: ObservableObject {
         
         if let nearestStartNode = pathfinder.findNearestNode(to: SCNVector3(start.x, start.y, start.z), type: .intersection) {
             for i in 0..<interNodes.count - 1 {
-                
                 let startPos = interNodes[i]
                 
-                let threshold: Float = 0.12 // Define a threshold for proximity
+                let threshold: Float = 0.15 // Define a threshold for proximity
 
                 for j in 0..<pathPositions.count {
                     // Calculate the distance between startPos.position and pathPositions[j]
@@ -242,10 +241,22 @@ class PathfindingService: ObservableObject {
                     // Check if the distance is less than the threshold
                     if distance < threshold {
                         print("GOT INTERPOSITION", pathPositions[j])
-                        let intersectionEntity = createMarkerEntity(at: simd_float3(startPos.position.x, -0.1, startPos.position.z), color: .clear)
                         
-                        interEntities.append(intersectionEntity)
-                        scene?.addChild(intersectionEntity)
+                        // Check if a similar position already exists in interEntities
+                        let isTooClose = interEntities.contains { entity in
+                            let entityX = entity.transform.translation.x
+                            let entityZ = entity.transform.translation.z
+                            
+                            // Check proximity in both x and z coordinates
+                            return abs(entityX - startPos.position.x) < 0.5 && abs(entityZ - startPos.position.z) < 0.5
+                        }
+                        
+                        // If no close position exists, append the new entity
+                        if !isTooClose {
+                            let intersectionEntity = createMarkerEntity(at: simd_float3(startPos.position.x, -0.1, startPos.position.z), color: .clear)
+                            interEntities.append(intersectionEntity)
+                            scene?.addChild(intersectionEntity)
+                        }
                     }
                 }
             }
@@ -293,9 +304,17 @@ class PathfindingService: ObservableObject {
             let crossProduct = simd_cross(referenceDirection, movementDirection)
             
             // Determine direction based on the cross product's y-component
-            if crossProduct.y > 0 {
+//            if crossProduct.y > 0 {
+//                return RightDirection(store: storeName)
+//            } else if crossProduct.y < 0 {
+//                return LeftDirection(store: storeName)
+//            } else {
+//                return StraightDirection(store: storeName)
+//            }
+            //MARK: Apple maps (different rotation)
+            if crossProduct.y < 0 {
                 return RightDirection(store: storeName)
-            } else if crossProduct.y < 0 {
+            } else if crossProduct.y > 0 {
                 return LeftDirection(store: storeName)
             } else {
                 return StraightDirection(store: storeName)
@@ -325,8 +344,6 @@ class PathfindingService: ObservableObject {
         }
     }
     
-    
-    // MARK: - RealityKit Entity Creation for Path Segments
     func createLineEntity(from start: simd_float3, to end: simd_float3, opacity: Float) -> Entity {
         let lineLength = simd_distance(start, end)
         let line = MeshResource.generateBox(size: [0.05, 0.05, lineLength])
@@ -340,7 +357,6 @@ class PathfindingService: ObservableObject {
         return lineEntity
     }
     
-    // MARK: - Collision Check Function
     func checkForPath(at position: simd_float3, type: NodeType) -> Bool {
         guard let scene = scene else { return false }
         
@@ -419,12 +435,11 @@ class PathfindingService: ObservableObject {
                     closestEntity = entity
                 }
             }
-            
         }
         
         return closestEntity
     }
-    
+
 }
 
 // Helper to convert SCNVector3 to simd_float3
@@ -482,7 +497,21 @@ extension Entity {
         return inter
     }
     
-    func findAllEntities(excluding nameFragments: [String] = ["pwy_", "PSP", "Based"]) -> [Entity] {
+    //MARK: some exclusion are for apple fest
+    func findAllEntities(excluding nameFragments: [String] =
+                         [
+                            "pwy_",
+                            "PSP",
+                            "Based",
+                            "Plane",
+                            "Cube",
+                            "Cylinder",
+                            "Apple_TV",
+                            "Kosong",
+                            "Penutup",
+                            "PVC"
+                         ]
+    ) -> [Entity] {
         var allEntities: [Entity] = []
         
         let containsName = nameFragments.contains { self.name.contains($0) }
