@@ -27,14 +27,23 @@ class HomeViewModel: ObservableObject {
     
     // Baru
     @Published var stores: [Store] = []
+    //    @Published var categoryStoreTarget: [String: [Entity]] = [
+    //        "Toilet": [],
+    //        "Food & Beverage": [],
+    //        "Shopping": [],
+    //        "Service": [],
+    //        "Health & Beauty": [],
+    //        "Entertainment": [],
+    //        "Other": []
+    //    ]
+    
     @Published var categoryStoreTarget: [String: [Entity]] = [
-        "Toilet": [],
-        "Food & Beverage": [],
-        "Shopping": [],
-        "Service": [],
-        "Health & Beauty": [],
-        "Entertainment": [],
-        "Other": []
+        "Community Improvement": [],
+        "Technology Innovation": [],
+        "Interactive Experience": [],
+        "Social Impact": [],
+        "Game & Entertainment": [],
+        "Everyday Life": [],
     ]
     var entityPositions: [Entity: simd_float3] = [:]
     var entityState: [Entity: Bool] = [:]
@@ -49,14 +58,23 @@ class HomeViewModel: ObservableObject {
     
     @Published var mallId: String = "1"
     
+    //    var categories: [StoreCategory] = [
+    //        StoreCategory(name: .fnb),
+    //        StoreCategory(name: .shopping),
+    //        StoreCategory(name: .entertainment),
+    //        StoreCategory(name: .toilet),
+    //        StoreCategory(name: .service),
+    //        StoreCategory(name: .hnb),
+    //        StoreCategory(name: .other)
+    //    ]
+    
     var categories: [StoreCategory] = [
-        StoreCategory(name: .fnb),
-        StoreCategory(name: .shopping),
-        StoreCategory(name: .entertainment),
-        StoreCategory(name: .toilet),
-        StoreCategory(name: .service),
-        StoreCategory(name: .hnb),
-        StoreCategory(name: .other)
+        StoreCategory(name: .com),
+        StoreCategory(name: .tech),
+        StoreCategory(name: .inter),
+        StoreCategory(name: .social),
+        StoreCategory(name: .game),
+        StoreCategory(name: .everyday),
     ]
     
     func updateCategory(_ newCategory: String) {
@@ -150,17 +168,17 @@ class HomeViewModel: ObservableObject {
                 entityState[target] = true
                 
                 var matchFound = false
-
+                
                 for store in stores {
                     if let storeName = store.name?.removeSpecialCharacters(),
                        storeName.contains(target.name.removeSpecialCharacters()) {
-
+                        
                         changeEntityColor(target, color: store.category?.color.asUIColor ?? .gray)
                         matchFound = true
                         break // Exit loop once a match is found
                     }
                 }
-
+                
                 // If no match was found, apply the default gray color
                 if !matchFound {
                     changeEntityColor(target, color: .gray)
@@ -215,7 +233,7 @@ class HomeViewModel: ObservableObject {
                 applyHighlightColor(to: entity, color: .gray)
             }
         }
-
+        
         // Move and update materials for entities in the new category
         guard let entities = categoryStoreTarget[newCategory] else { return }
         for entity in entities {
@@ -224,21 +242,21 @@ class HomeViewModel: ObservableObject {
             var newTransform = entity.transform
             newTransform.translation.y += moveUpDistance // Move up by `moveUpDistance`
             entity.move(to: newTransform, relativeTo: entity.parent, duration: 0.5)
-
+            
             // Change entity color to indicate selection
             applyHighlightColor(to: entity, color: categoryColor)
         }
-
+        
         // Update the selected category to the new one
         selectedCategory = newCategory
     }
-
+    
     func applyHighlightColor(to entity: Entity, color: UIColor) {
         var material = PhysicallyBasedMaterial()
         material.baseColor = PhysicallyBasedMaterial.BaseColor(tint: color)
         material.metallic = 0.5
         material.roughness = 0.5
-
+        
         if let modelEntity = entity as? ModelEntity {
             modelEntity.model?.materials = [material]
         }
@@ -271,9 +289,9 @@ class HomeViewModel: ObservableObject {
     
     func printCategoryStoreTarget() {
         for (category, entities) in categoryStoreTarget {
-                print("\(category):")
+            print("\(category):")
             for entity in entities {
-                    print("  - \(entity.name)")
+                print("  - \(entity.name)")
             }
         }
     }
@@ -299,19 +317,36 @@ class HomeViewModel: ObservableObject {
             return
         }
         
+//        switch storeCategory {
+//        case "Toilet":
+//            categoryStoreTarget["Toilet"]?.append(target)
+//        case "Food & Beverage":
+//            categoryStoreTarget["Food & Beverage"]?.append(target)
+//        case "Shopping":
+//            categoryStoreTarget["Shopping"]?.append(target)
+//        case "Service":
+//            categoryStoreTarget["Service"]?.append(target)
+//        case "Health & Beauty":
+//            categoryStoreTarget["Health & Beauty"]?.append(target)
+//        case "Entertainment":
+//            categoryStoreTarget["Entertainment"]?.append(target)
+//        default:
+//            categoryStoreTarget["Other"]?.append(target)
+//        }
+        
         switch storeCategory {
-            //            case "Toilet":
-            //                categoryStoreTarget["Toilet"]?.append(target)
-        case "Food & Beverage":
-            categoryStoreTarget["Food & Beverage"]?.append(target)
-            //            case .shopping:
-            //                categoryStoreTarget["Shopping"]?.append(target)
-            //            case .service:
-            //                categoryStoreTarget["Service"]?.append(target)
-        case "Health & Beauty":
-            categoryStoreTarget["Health & Beauty"]?.append(target)
-            //            case .entertainment:
-            //                categoryStoreTarget["Entertainment"]?.append(target)
+        case "Community Improvement":
+            categoryStoreTarget["Community Improvement"]?.append(target)
+        case "Technology Innovation":
+            categoryStoreTarget["Technology Innovation"]?.append(target)
+        case "Interactive Experience":
+            categoryStoreTarget["Interactive Experience"]?.append(target)
+        case "Social Impact":
+            categoryStoreTarget["Social Impact"]?.append(target)
+        case "Game & Entertainment":
+            categoryStoreTarget["Game & Entertainment"]?.append(target)
+        case "Everyday Life":
+            categoryStoreTarget["Everyday Life"]?.append(target)
         default:
             categoryStoreTarget["Other"]?.append(target)
         }
@@ -323,7 +358,7 @@ class HomeViewModel: ObservableObject {
 
 //func printEntitiesInScene(_ entity: Entity, indent: String = "") {
 ////        print("\(indent)Entity: \(entity.name.removeUnderscores())")
-//    
+//
 //    // Iterate through all children of the entity and print their names
 //    for child in entity.children {
 //        printEntitiesInScene(child, indent: indent + "    ") // Increase indentation for child entities

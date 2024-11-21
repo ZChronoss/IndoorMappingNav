@@ -12,28 +12,22 @@ struct StoreADACard: View {
     var color: Color
     
     var body: some View {
-        VStack (alignment: .leading, spacing: 8) {
-            if let imageData = store.images?.first,
-               let validData = imageData,
-               let uiImage = UIImage(data: validData) {
-                Image(uiImage: uiImage)
-                    .frame(width: 159, height: 102)
-//                    .resizable()
-//                    .scaledToFit()
-                    .clipShape(
-                        UnevenRoundedRectangle(
-                            topLeadingRadius: 8,
-                            bottomLeadingRadius: 0,
-                            bottomTrailingRadius: 0,
-                            topTrailingRadius: 8
-                        )
-                    )
-                    .contentShape(Path(CGRect(x: 0, y: 0, width: 159, height: 102)))
-            } else {
+        HStack {
+            // Icon
+            if let data = store.logo, let image = UIImage(data: data) {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 80, height: 80)
+                    .clipShape(RoundedRectangle(cornerRadius: 18))
+                    .padding(.trailing, 10)
+            }  else {
                 // Placeholder view if the image is not available
                 Rectangle()
                     .fill(Color.gray)
-                    .frame(height: 100)
+                    .frame(width: 80, height: 80)
+                    .clipShape(RoundedRectangle(cornerRadius: 18))
+                    .padding(.trailing, 15)
                     .clipShape(
                         UnevenRoundedRectangle(
                             topLeadingRadius: 8,
@@ -43,28 +37,32 @@ struct StoreADACard: View {
                         )
                     )
             }
-//            Image(images)
-
             
-            VStack(alignment: .leading) {
+            // Information
+            VStack (alignment: .leading, spacing: 4) {
+                Spacer(minLength: 0)
+                
                 Text(store.name ?? "Unknown Store")
                     .font(.callout)
                     .foregroundColor(color)
                     .fontWeight(.bold)
                     .lineLimit(1) // Limit to a single line
                     .truncationMode(.tail)
+                    .padding(.bottom, 2)
+                
+                Text(store.description ?? "No Description")
+                    .font(.caption)
+                    .foregroundColor(Color("SecondaryColor"))
 
-//                Text(store.category?.name.rawValue ?? "Unknown Category")
-//                    .font(.caption)
-//                    .foregroundColor(Color("SecondaryColor"))
+                
+                Spacer()
             }
-
-            Text(store.floor ?? "Unknown Floor")
-                .font(.caption)
-                .foregroundColor(Color("SecondaryColor"))
             
+            Spacer()
         }
-        .padding(8)
+        .padding(.horizontal, 21)
+        .padding(.vertical, 12)
+        .frame(maxWidth: .infinity)
         .background(Color("CategoryCard"))
         .cornerRadius(10)
         .shadow(color: Color.black.opacity(0.19), radius: 5)
