@@ -73,7 +73,7 @@ struct CategorySheet: View {
                     }
                 }
             }
-            .safeAreaPadding(.horizontal, 21)
+//            .safeAreaPadding(.horizontal, 21)
             .safeAreaPadding(.vertical, 12)
             
             NavigationLink(
@@ -88,7 +88,7 @@ struct CategorySheet: View {
                 EmptyView()
             }
         }
-        .padding(.horizontal, 16)
+        .safeAreaPadding(.horizontal, 16)
         .padding(.top, 12)
         .sheet(isPresented: $isStoreSheetOpen) {
             if let store = selectedStore {
