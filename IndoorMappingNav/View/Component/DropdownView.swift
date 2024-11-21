@@ -24,11 +24,10 @@ struct DropdownView: View {
                 HStack {
                     Text(selectedOption)
                         .font(.system(size: 22, weight: .bold))
-                        .foregroundColor(Color("TextIcon"))
                     Spacer()
                     Image(systemName: isDropdownExpanded ? "chevron.up" : "chevron.down")
-                        .foregroundColor(Color("TextIcon"))
                 }
+                .foregroundColor(Color("StatusBar"))
                 .padding(.top, 20)
                 .padding(.horizontal, 20)
                 .padding(.bottom, 16)
@@ -59,8 +58,6 @@ struct DropdownView: View {
                         }
                     }
                 }
-                .cornerRadius(10)
-                .shadow(radius: 5)
             }
         }
         .padding(.horizontal)

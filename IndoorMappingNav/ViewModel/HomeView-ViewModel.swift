@@ -56,7 +56,7 @@ class HomeViewModel: ObservableObject {
     
     @Published var isEntitiesCategorized: Bool = false // Tambahkan properti ini
     
-    @Published var mallId: String = "1"
+    @Published var mallId: String = "-1" // First mall
     
     //    var categories: [StoreCategory] = [
     //        StoreCategory(name: .fnb),

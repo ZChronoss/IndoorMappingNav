@@ -29,6 +29,7 @@ struct HomeView: View {
                     RealityView { content in
                         print("loading scene", mapLoader.mapName)
                         scene = await mapLoader.getScene()
+                        pathfinder.setupCamera(scene: scene ?? Entity())
                         content.add(scene ?? Entity())
                         vm.categorizeEntitiesInScene(scene!)
                     }
@@ -49,6 +50,7 @@ struct HomeView: View {
                     RealityView { content in
                         print("loading scene", mapLoader.mapName)
                         scene = await mapLoader.getScene()
+                        pathfinder.setupCamera(scene: scene ?? Entity())
                         content.add(scene ?? Entity())
                         vm.categorizeEntitiesInScene(scene!)
                     }
