@@ -173,10 +173,10 @@ extension CloudKitController {
     private func mapCategoryToID(category: String) -> Int? {
         let categoryMap = [
             "Community Improvement": 10,
-            "Technology Innovation": 11,
-            "Interactive Experience": 12,
-            "Social Impact": 13,
-            "Game & Entertainment": 14,
+            "Social Impact": 11,
+            "Technology Innovation": 12,
+            "Game & Entertainment": 13,
+            "Interactive Experience": 14,
             "Everyday Life": 15,
         ]
         return categoryMap[category]
