@@ -37,14 +37,14 @@ struct SearchResult: View {
                 
 //                Text("Between Nike and Adidas")
 //                    .font(.system(.caption, weight: .regular))
-//                    .foregroundStyle(Color("SecondaryColor"))
+//                    .foregroundStyle(Color("sColor"))
             }
             
             Spacer()
             
             Text(FloorAbbreviation.getFloorAbbreviation(floor: store?.floor ?? "Basement"))
                 .font(.system(.caption, weight: .bold))
-                .foregroundStyle(Color("SecondaryColor"))
+                .foregroundStyle(Color("sColor"))
         }
         .padding(.horizontal)
     }

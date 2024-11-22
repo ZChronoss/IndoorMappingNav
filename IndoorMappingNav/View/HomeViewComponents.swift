@@ -33,7 +33,7 @@ struct HomeViewComponents: View {
                             .cornerRadius(10)
                             .environmentObject(vm)
                         
-                        SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: Color("SecondaryColor"))
+                        SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: Color("sColor"))
                             .padding(.horizontal, 20)
                             .disabled(true)
                             .onTapGesture {
@@ -68,7 +68,8 @@ struct HomeViewComponents: View {
                     
                 }) {
                     NavigationStack {
-                        CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent, categoryColor: vm.categories.first(where: { $0.name.rawValue == selectedCategory })?.color ?? .gray) {store in
+                        CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent, categoryColor: vm.categories.first(where: { $0.name.rawValue == selectedCategory })?.color ?? .gray) {
+                            store in
                             
                             vm.selectedDestination = store
                             vm.isSearching = true

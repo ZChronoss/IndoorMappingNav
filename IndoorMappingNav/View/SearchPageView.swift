@@ -61,7 +61,7 @@ struct SearchPageView: View {
                             VStack(alignment: .leading) {
                                 Text("Recent")
                                     .font(.system(.caption, weight: .medium))
-                                    .foregroundStyle(Color("SecondaryColor"))
+                                    .foregroundStyle(Color("sColor"))
                             }
                             .padding(.top, 10)
                             .padding(.horizontal)
