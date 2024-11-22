@@ -27,7 +27,6 @@ class PathfindingService: ObservableObject {
     var cameraEntity: Entity?
     
     func startNavigation(start: String, end: String) {
-        print("Scene when starting navigation: \(scene?.name ?? "nil")")
         do {
             guard let scene = scene else {
                 print("Scene is not available.")

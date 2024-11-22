@@ -25,7 +25,6 @@ struct MapNavigateView_3D: View {
         VStack {
             RealityView { content in
                 vm.scene = await mapLoader.getScene()
-                print(vm.scene)
                 pathfinder.setupPath(loadedScene: vm.scene ?? Entity())
                 pathfinder.startNavigation(start: vm.start, end: vm.end)
                 content.add(vm.scene ?? Entity())

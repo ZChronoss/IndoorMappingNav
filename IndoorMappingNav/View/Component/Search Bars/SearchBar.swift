@@ -30,14 +30,14 @@ struct SearchBar: View {
                 Image(systemName: "microphone.fill")
                     .frame(height: 20)
                     .scaledToFit()
-                    .foregroundStyle(Color("SecondaryColor"))
+                    .foregroundStyle(Color("sColor"))
             }else{
                 Text(label)
                     .font(.system(.caption, weight: .bold))
-                    .foregroundStyle(Color("SecondaryColor"))
+                    .foregroundStyle(Color("sColor"))
             }
 //            Label(label.isEmpty ? "" : label, systemImage: label.isEmpty ? "microphone.fill" : "")
-//                .foregroundColor(Color("SecondaryColor")) // Set warna mikrofon
+//                .foregroundColor(Color("sColor")) // Set warna mikrofon
 ////                .frame(width: 17, height: 20)
 //                .font(.system(.caption, weight: .bold))
         }

@@ -42,7 +42,7 @@ struct OverlayView: View {
 
     // Smooth swipe animation
     private func animateSwipe() async {
-        await withAnimation(
+        withAnimation(
             Animation.easeInOut(duration: 3) // Smooth 3-second animation
         ) {
             animationAmount = 1.0

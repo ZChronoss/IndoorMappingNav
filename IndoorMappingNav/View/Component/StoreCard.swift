@@ -56,12 +56,12 @@ struct StoreCard: View {
 
                 Text(store.category?.name.rawValue ?? "Unknown Category")
                     .font(.caption)
-                    .foregroundColor(Color("SecondaryColor"))
+                    .foregroundColor(Color("sColor"))
             }
 
             Text(store.floor ?? "Unknown Floor")
                 .font(.caption)
-                .foregroundColor(Color("SecondaryColor"))
+                .foregroundColor(Color("sColor"))
             
         }
         .padding(8)

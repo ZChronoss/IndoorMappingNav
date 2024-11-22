@@ -11,7 +11,7 @@ struct HomeViewComponents: View {
     @EnvironmentObject var vm: HomeViewModel
     @StateObject var mapLoader = MapLoader.shared
     @StateObject var csVM = CategorySheet.ViewModel()
-
+    
     @State var isSheetOpen = false
     @Binding var selectedCategory: String
     @State private var selectedOption: String = "Apple Developer Academy"
@@ -22,18 +22,18 @@ struct HomeViewComponents: View {
                 ZStack(alignment: .top) {
                     // White background rectangle
                     CustomCornerShape(radius: 20, corners: [.bottomLeft, .bottomRight])
-                        .fill(Color("WhiteBG"))
+                        .fill(Color("DropDownBG"))
                         .shadow(color: Color("StatusBar").opacity(0.1), radius: 5, x: 0, y: 10)
                         .frame(height: 95) // Adjust this value to control how far down the rectangle extends
                         .zIndex(0)
                     
                     VStack(spacing: 0) {
                         DropdownView(selectedOption: $selectedOption)
-                            .background(Color("WhiteBG"))
+                            .background(Color("DropDownBG"))
                             .cornerRadius(10)
                             .environmentObject(vm)
                         
-                        SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: Color("SecondaryColor"))
+                        SearchBar(searchText: .constant(""), image: Image(systemName: "magnifyingglass"), iconColor: Color("sColor"))
                             .padding(.horizontal, 20)
                             .disabled(true)
                             .onTapGesture {
@@ -68,7 +68,14 @@ struct HomeViewComponents: View {
                     
                 }) {
                     NavigationStack {
-                        CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent, categoryColor: vm.categories.first(where: { $0.name.rawValue == selectedCategory })?.color ?? .gray)
+                        CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent, categoryColor: vm.categories.first(where: { $0.name.rawValue == selectedCategory })?.color ?? .gray) {
+                            store in
+                            
+                            vm.selectedDestination = store
+                            vm.isSearching = true
+                            vm.isCategorySheetOpen = false
+                            
+                        }
                     }
                 }
                 

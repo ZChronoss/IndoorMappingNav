@@ -56,7 +56,7 @@ struct StoreADACard: View {
                 
                 Text(store.description ?? "No Description")
                     .font(.caption)
-                    .foregroundColor(Color("SecondaryColor"))
+                    .foregroundColor(Color("sColor"))
 
                 
                 Spacer()
