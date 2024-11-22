@@ -96,6 +96,12 @@ struct CategorySheet: View {
                     store: store,
                     showRoute: { selectedStore in
                         // Implementasikan logika untuk menampilkan rute
+                        SearchPageView(destStore: selectedStore, openSheet: {_ in} )
+//                        SearchPageView(destStore: selectedStore) { store in
+////                            vm.selectedStore = store
+////                            vm.storeName = store.name ?? ""
+////                            isSheetOpen = true
+//                        }
                         print("Route to \(selectedStore.name ?? "Unknown Store")")
                     }
                 )

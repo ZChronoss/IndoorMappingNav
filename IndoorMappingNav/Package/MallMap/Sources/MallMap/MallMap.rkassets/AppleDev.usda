@@ -1743,6 +1743,60 @@ def "Denah_KantorGOP_NEW__2_" (
                 float opacity = 0
             }
         }
+
+        over "Flooqi"
+        {
+        }
+    }
+
+    def RealityKitTimeline "Timeline"
+    {
+        def RealityKitTrack "Track"
+        {
+            def RealityKitAction "Transform_By"
+            {
+                string actionKind = "moveBy"
+                int blendLayer = 300
+                double duration = 1
+                uniform token info:id = "D7C85EAE-C8F4-485D-A8FB-A299DA726888"
+                double startTime = 0
+                rel target = </Denah_KantorGOP_NEW__2_>
+
+                def RealityKitStruct "timingFunction"
+                {
+                }
+            }
+        }
+    }
+
+    def RealityKitComponent "RCP_BehaviorsContainer"
+    {
+        rel behaviors = </Denah_KantorGOP_NEW__2_/OnTap>
+        uniform token info:id = "RCP.BehaviorsContainer"
+    }
+
+    def Preliminary_Behavior "OnTap"
+    {
+        rel actions = </Denah_KantorGOP_NEW__2_/OnTap/Action>
+        uniform bool exclusive
+        rel triggers = </Denah_KantorGOP_NEW__2_/OnTap/Trigger>
+
+        def Preliminary_Trigger "Trigger"
+        {
+            rel affectedObjects = </Denah_KantorGOP_NEW__2_>
+            token info:id = "TapGesture"
+        }
+
+        def Preliminary_Action "Action"
+        {
+            rel affectedObjects = </Denah_KantorGOP_NEW__2_>
+            rel animationLibraryKey = </Denah_KantorGOP_NEW__2_/Timeline>
+            rel animationLibraryKeyOverrideKey = </Denah_KantorGOP_NEW__2_/OnTap/Trigger>
+            token info:id = "PlayTimeline"
+            int loops = 0
+            int performCount = 1
+            token type = "serial"
+        }
     }
 }
 
