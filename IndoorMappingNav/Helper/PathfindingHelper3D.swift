@@ -53,7 +53,6 @@ class PathfindingHelper3D {
 
     // Finds the path between the start and end nodes
     func findPath(from startNode: GKGraphNode3D, to endNode: GKGraphNode3D, type: NodeType) -> [GKGraphNode3D]? {
-        print("Finding path from \(startNode.position) to \(endNode.position)")
         
         var path: [GKGraphNode3D]?
         

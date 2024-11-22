@@ -34,9 +34,9 @@ struct SubCategoryTab: View {
 }
 
 #Preview {
-    @State var selectedSubCategory: SubCategory? = nil
+//    @State var selectedSubCategory: SubCategory? = nil
     // Provide example subcategories for the preview
-    SubCategoryTab(subCategories: [.bakery, .rice, .fastFood], categoryColor: .orange, selectedSubCategory: $selectedSubCategory) // Pass in example subcategories
+//    SubCategoryTab(subCategories: [.bakery, .rice, .fastFood], categoryColor: .orange, selectedSubCategory: $selectedSubCategory) // Pass in example subcategories
 }
 
 

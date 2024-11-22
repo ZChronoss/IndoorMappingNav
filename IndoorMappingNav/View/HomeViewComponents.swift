@@ -11,7 +11,7 @@ struct HomeViewComponents: View {
     @EnvironmentObject var vm: HomeViewModel
     @StateObject var mapLoader = MapLoader.shared
     @StateObject var csVM = CategorySheet.ViewModel()
-
+    
     @State var isSheetOpen = false
     @Binding var selectedCategory: String
     @State private var selectedOption: String = "Apple Developer Academy"
@@ -68,7 +68,13 @@ struct HomeViewComponents: View {
                     
                 }) {
                     NavigationStack {
-                        CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent, categoryColor: vm.categories.first(where: { $0.name.rawValue == selectedCategory })?.color ?? .gray)
+                        CategorySheet(categoryName: selectedCategory, categoryDetent: $vm.categoryDetent, categoryColor: vm.categories.first(where: { $0.name.rawValue == selectedCategory })?.color ?? .gray) {store in
+                            
+                            vm.selectedDestination = store
+                            vm.isSearching = true
+                            vm.isCategorySheetOpen = false
+                            
+                        }
                     }
                 }
                 
