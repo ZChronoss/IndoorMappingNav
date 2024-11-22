@@ -104,7 +104,7 @@ struct SearchPageView: View {
                                                     openSheet(store)
                                                     dismiss()
                                                 }
-//                                                vm.setStoreFromDefault(store.name ?? "")
+                                                vm.setStoreFromDefault(store.name ?? "")
                                                 vm.hasSelectedDestination = true
                                                 
                                                 if vm.trueIfStartStoreIsSelected {

@@ -210,8 +210,8 @@ extension Font {
             size = preferredCaption
         case .caption2:
             size = preferredCaption2
-        case .caption3:
-            size = preferredCaption
+//        case .caption3:
+//            size = preferredCaption
 //        case .extraLargeTitle:
 //            size = preferredExtraLargeTitle
 //        case .extraLargeTitle2:
