@@ -612,7 +612,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IndoorMappingNav/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Flooqi Debug";
+				INFOPLIST_KEY_CFBundleDisplayName = Flooqi;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Flooqi uses GPS to automatically detect your current mall.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -656,7 +656,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IndoorMappingNav/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = "Flooqi Debug";
+				INFOPLIST_KEY_CFBundleDisplayName = Flooqi;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.navigation";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Flooqi uses GPS to automatically detect your current mall.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
