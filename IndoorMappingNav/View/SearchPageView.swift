@@ -17,7 +17,7 @@ struct SearchPageView: View {
     @StateObject var pathfinder = PathfindingService.shared
     @StateObject var pathfinder2D = PathfindingService2D.shared
     
-    @EnvironmentObject var vmNav: NavigationViewModel
+    @StateObject var vmNav = NavigationViewModel()
     
     var openSheet: (Store) -> Void
     
@@ -51,6 +51,7 @@ struct SearchPageView: View {
                     MapNavigateView_3D(isPresented: $isInstructionSheetPresented, start: vm.startStoreName, end: vm.destStoreName)
                         .environmentObject(mapLoader)
                         .environmentObject(pathfinder)
+                        .environmentObject(vmNav)
                 } else {
                     VStack(alignment: .leading) {
                         let searchHistoryIsEmpty = vm.searchHistory.isEmpty

@@ -82,9 +82,6 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Assets.xcassets,
-				"Assets/Fonts/SFProText-Bold.otf",
-				"Assets/Fonts/SFProText-Regular.otf",
-				"Assets/Fonts/SFProText-Semibold.otf",
 				Helper/CloudKitController.swift,
 				"Helper/Color+Extension.swift",
 				Helper/Directions.swift,
