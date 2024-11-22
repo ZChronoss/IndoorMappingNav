@@ -12,7 +12,7 @@ struct DropdownView: View {
     @State private var isDropdownExpanded: Bool = false
     @EnvironmentObject var vm: HomeViewModel
     
-    let options = ["Jakarta Mall", "Apple Developer Academy"]
+    let options = ["Apple Developer Academy"]
     
     var body: some View {
         VStack {
