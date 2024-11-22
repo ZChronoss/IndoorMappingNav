@@ -18,6 +18,10 @@ extension CategorySheet {
         @Published private(set) var isLoading = false
         
         @Published var selectedSubCategory: SubCategory?
+        
+        @Published var isSearching: Bool = false
+        @Published var selectedDestination = Store()
+        
         var filteredStores: [Store] {
             if let subCategory = selectedSubCategory {
                 let filtered = storesByCategory.filter { store in
