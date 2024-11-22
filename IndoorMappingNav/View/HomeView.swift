@@ -34,17 +34,17 @@ struct HomeView: View {
                         vm.categorizeEntitiesInScene(scene!)
                     }
                     .realityViewCameraControls(.orbit)
-                    .gesture(
-                        SpatialTapGesture()
-                            .targetedToAnyEntity()
-                            .onEnded({ target in
-                                vm.handleEntitySelectionAndMovement(
-                                    target: target.entity,
-                                    entityPositions: &entityPositions,
-                                    entityState: &entityState
-                                )
-                            })
-                    )
+//                    .gesture(
+//                        SpatialTapGesture()
+//                            .targetedToAnyEntity()
+//                            .onEnded({ target in
+//                                vm.handleEntitySelectionAndMovement(
+//                                    target: target.entity,
+//                                    entityPositions: &entityPositions,
+//                                    entityState: &entityState
+//                                )
+//                            })
+//                    )
                 } else {
                     // Main RealityView content
                     RealityView { content in
@@ -55,17 +55,17 @@ struct HomeView: View {
                         vm.categorizeEntitiesInScene(scene!)
                     }
                     .realityViewCameraControls(.orbit)
-                    .gesture(
-                        SpatialTapGesture()
-                            .targetedToAnyEntity()
-                            .onEnded({ target in
-                                vm.handleEntitySelectionAndMovement(
-                                    target: target.entity,
-                                    entityPositions: &entityPositions,
-                                    entityState: &entityState
-                                )
-                            })
-                    )
+//                    .gesture(
+//                        SpatialTapGesture()
+//                            .targetedToAnyEntity()
+//                            .onEnded({ target in
+//                                vm.handleEntitySelectionAndMovement(
+//                                    target: target.entity,
+//                                    entityPositions: &entityPositions,
+//                                    entityState: &entityState
+//                                )
+//                            })
+//                    )
                 }
                 
                 // Overlay: Location title, search bar, and category buttons
